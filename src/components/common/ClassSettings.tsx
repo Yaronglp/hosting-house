@@ -1,0 +1,141 @@
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
+import { useKV } from '@/hooks/useKV'
+import { ClassSettings as ClassSettingsType, KV_KEYS, DEFAULT_SETTINGS } from '@/lib/types'
+import { useToast } from '@/hooks/useToast'
+import { ConfirmDialog } from '@/components/ui/Dialog'
+
+interface ClassSettingsProps {
+  classId: string
+  className: string
+  onClose: () => void
+}
+
+export function ClassSettings({ classId, className, onClose }: ClassSettingsProps) {
+  const [settings, setSettings] = useKV<ClassSettingsType>(
+    KV_KEYS.settings(classId), 
+    DEFAULT_SETTINGS
+  )
+  const { error, success } = useToast()
+  const [formData, setFormData] = useState({
+    groupSize: DEFAULT_SETTINGS.groupSize,
+  })
+  const [isLoading, setIsLoading] = useState(false)
+  const [showResetDialog, setShowResetDialog] = useState(false)
+
+  // Load current settings into form
+  useEffect(() => {
+    setFormData({
+      groupSize: settings.groupSize,
+    })
+  }, [settings])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (formData.groupSize < 3 || formData.groupSize > 15) {
+      error('גודל קבוצה חייב להיות בין 3 ל-15')
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      const newSettings: ClassSettingsType = {
+        groupSize: formData.groupSize,
+      }
+      await setSettings(newSettings)
+      success('הגדרות נשמרו בהצלחה')
+    } catch (err) {
+      console.error('Failed to save settings:', err)
+      error('שגיאה בשמירת ההגדרות')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleReset = async () => {
+    try {
+      await setSettings(DEFAULT_SETTINGS)
+      setFormData({
+        groupSize: DEFAULT_SETTINGS.groupSize,
+      })
+      success('הגדרות אופסו לברירת המחדל')
+    } catch (err) {
+      console.error('Failed to reset settings:', err)
+      error('שגיאה באיפוס ההגדרות')
+    }
+  }
+
+  return (
+    <>
+      <Card>
+        <CardHeader>
+          <div className="flex justify-between items-start">
+            <div>
+              <CardTitle>הגדרות כיתה: {className}</CardTitle>
+            <CardDescription>
+              קבע את ההגדרות הבסיסיות עבור הכיתה
+            </CardDescription>
+          </div>
+          <Button variant="outline" onClick={onClose}>
+            סגור
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="groupSize" className="block text-sm font-medium mb-2">
+              גודל קבוצה ברירת מחדל
+            </label>
+            <input
+              id="groupSize"
+              type="number"
+              min="3"
+              max="15"
+              value={formData.groupSize}
+              onChange={(e) => setFormData(prev => ({ 
+                ...prev, 
+                groupSize: parseInt(e.target.value) || DEFAULT_SETTINGS.groupSize 
+              }))}
+              className="w-24 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring text-center"
+            />
+            <p className="text-xs text-muted-foreground mt-2">
+              מספר התלמידים הרצוי בכל קבוצה (לא כולל המארח). יועבר אוטומטית לקיבולת המארח.
+            </p>
+          </div>
+
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h4 className="font-medium mb-2">השפעה על הגדרות אחרות:</h4>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>• קיבולת מארח ברירת מחדל: {formData.groupSize + 2}</li>
+              <li>• מספר הקבוצות יחושב אוטומטית לפי מספר התלמידים</li>
+            </ul>
+          </div>
+
+          <div className="flex gap-3 justify-end">
+            <Button type="button" variant="outline" onClick={() => setShowResetDialog(true)}>
+              אפס לברירת מחדל
+            </Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? 'שומר...' : 'שמור הגדרות'}
+            </Button>
+          </div>
+        </form>
+        </CardContent>
+      </Card>
+      
+      <ConfirmDialog
+        isOpen={showResetDialog}
+        onClose={() => setShowResetDialog(false)}
+        onConfirm={handleReset}
+        title="אפס הגדרות"
+        message="האם אתה בטוח שברצונך לאפס את ההגדרות לברירת המחדל?"
+        confirmText="אפס"
+        cancelText="ביטול"
+        variant="default"
+      />
+    </>
+  )
+}

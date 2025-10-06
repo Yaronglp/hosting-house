@@ -1,0 +1,166 @@
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
+import { useKV } from '@/hooks/useKV'
+import { Round, KV_KEYS } from '@/lib/types'
+import { useToast } from '@/hooks/useToast'
+
+interface RoundFormProps {
+  classId: string
+  roundId?: string // undefined for new round
+  onSave: (roundId: string) => void
+  onCancel: () => void
+}
+
+export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps) {
+  const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
+  const { error } = useToast()
+  const [formData, setFormData] = useState({
+    name: '',
+    hasDate: false,
+    date: ''
+  })
+  const [isLoading, setIsLoading] = useState(false)
+
+  // Load existing round data if editing
+  useEffect(() => {
+    if (roundId) {
+      const existingRound = rounds.find(r => r.id === roundId)
+      if (existingRound) {
+        setFormData({
+          name: existingRound.name,
+          hasDate: !!existingRound.dateWindow,
+          date: existingRound.dateWindow?.start ? 
+            new Date(existingRound.dateWindow.start).toISOString().split('T')[0] : ''
+        })
+      }
+    }
+  }, [roundId, rounds])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!formData.name.trim()) {
+      error('שם הסבב הוא שדה חובה')
+      return
+    }
+
+    if (formData.hasDate) {
+      if (!formData.date) {
+        error('אנא הזן תאריך הסבב')
+        return
+      }
+    }
+
+    setIsLoading(true)
+    try {
+      if (roundId) {
+        // Edit existing round
+        const updatedRounds = rounds.map(r => 
+          r.id === roundId 
+            ? { 
+                ...r, 
+                name: formData.name.trim(),
+                dateWindow: formData.hasDate ? {
+                  start: new Date(formData.date),
+                  end: new Date(formData.date)
+                } : undefined
+              }
+            : r
+        )
+        await setRounds(updatedRounds)
+        onSave(roundId)
+      } else {
+        // Create new round
+        const newRoundId = `round_${Date.now()}_${Math.random().toString(36).substring(2)}`
+        const newRound: Round = {
+          id: newRoundId,
+          classId,
+          name: formData.name.trim(),
+          dateWindow: formData.hasDate ? {
+            start: new Date(formData.date),
+            end: new Date(formData.date)
+          } : undefined,
+          order: rounds.length // Add to end
+        }
+        
+        const updatedRounds = [...rounds, newRound]
+        await setRounds(updatedRounds)
+        onSave(newRoundId)
+      }
+    } catch (err) {
+      console.error('Failed to save round:', err)
+      error('שגיאה בשמירת הסבב')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{roundId ? 'ערוך סבב' : 'הוסף סבב חדש'}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} data-cy="round-form">
+          <div style={{ marginBottom: '1rem' }}>
+            <label htmlFor="name" className="block text-sm font-medium" style={{ marginTop: '1rem' }}>
+              שם הסבב *
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              className="max-w-md px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+              placeholder="לדוגמה: סבב ראשון"
+              dir="rtl"
+              required
+              data-cy="round-name-input"
+            />
+          </div>
+
+          <div className="flex items-center gap-2" style={{ marginBottom: '2.5rem' }}>
+            <input
+              id="hasDate"
+              type="checkbox"
+              checked={formData.hasDate}
+              onChange={(e) => setFormData(prev => ({ ...prev, hasDate: e.target.checked }))}
+              className="rounded"
+              data-cy="round-has-date-checkbox"
+            />
+            <label htmlFor="hasDate" className="text-sm font-medium">
+              הגדר תאריך הסבב
+            </label>
+          </div>
+
+          {formData.hasDate && (
+            <div className="p-4 bg-muted/50 rounded-lg max-w-md" style={{ marginBottom: '2.5rem' }}>
+              <label htmlFor="date" className="block text-sm font-medium mb-2">
+                תאריך הסבב
+              </label>
+              <input
+                id="date"
+                type="date"
+                value={formData.date}
+                onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
+                className="w-44 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                required={formData.hasDate}
+                data-cy="round-date-input"
+              />
+            </div>
+          )}
+
+          <div className="flex gap-3 justify-end" style={{ marginTop: '2rem' }}>
+            <Button type="button" variant="outline" onClick={onCancel} data-cy="cancel-round-button">
+              ביטול
+            </Button>
+            <Button type="submit" disabled={isLoading} data-cy="save-round-button">
+              {isLoading ? 'שומר...' : 'שמור'}
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  )
+}
