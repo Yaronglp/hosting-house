@@ -128,7 +128,6 @@ Assignment: { roundId, groups[] }
 - **Retro 90s Arcade**: Neon colors, grid backgrounds, retro typography
 - **Hebrew RTL**: Right-to-left layout optimized for Hebrew text
 - **Responsive**: Mobile-first design with desktop enhancements
-- **Accessibility**: High contrast, keyboard navigation, screen reader support
 
 ### Color Palette
 - Primary: Neon green (#00ff41)
@@ -150,35 +149,6 @@ Assignment: { roundId, groups[] }
 - **Mobile Support**: iOS Safari, Android Chrome
 - **PWA Support**: Installable on all major platforms
 
-## 🚀 Deployment
-
-### GitHub Pages (Production)
-The app is automatically deployed to GitHub Pages using GitHub Actions.
-
-#### Production URL
-🌐 **https://yaronglp.github.io/hosting-house/**
-
-#### Automatic Deployment
-- **Trigger**: Every push to `main` branch triggers automatic deployment
-- **Build**: GitHub Actions builds the app (`npm run build`)
-- **Deploy**: Official GitHub Actions deploy to GitHub Pages
-- **PWA**: Full PWA functionality works on production (offline, installable)
-
-#### First-Time Setup
-If deploying for the first time:
-1. Go to repository **Settings** → **Pages**
-2. Under **"Build and deployment"** → **"Source"**
-3. Select **"GitHub Actions"** (NOT "Deploy from a branch")
-4. Push to `main` branch to trigger deployment
-5. Wait ~2 minutes for deployment to complete
-6. Visit the production URL
-
-#### Manual Deployment
-You can also trigger deployment manually:
-1. Go to **Actions** tab in GitHub
-2. Select **"Deploy to GitHub Pages"** workflow
-3. Click **"Run workflow"** → **"Run workflow"**
-
 #### Testing PWA on Mobile
 **iOS (Safari):**
 1. Open `https://yaronglp.github.io/hosting-house/` in Safari
@@ -194,29 +164,6 @@ You can also trigger deployment manually:
 4. Tap **"Add"**
 5. App icon appears on home screen
 
-### Local Development
-
-#### Build Process
-```bash
-# Development server (with hot reload)
-npm run dev
-
-# Production build (creates dist/ folder)
-npm run build
-
-# Preview production build locally
-npm run preview
-
-# Run linter
-npm run lint
-
-# Run Cypress tests
-npm run cy:open      # Interactive mode
-npm run cy:run       # Headless mode
-npm run test:e2e     # Run all E2E tests
-npm run test:all     # Run all tests
-```
-
 ### Deployment Architecture
 ```
 Push to main → GitHub Actions Workflow Triggered
@@ -228,52 +175,6 @@ Push to main → GitHub Actions Workflow Triggered
          Deploy via GitHub Pages API
               ↓
     Live at yaronglp.github.io/hosting-house
-```
-
-### Deployment Features
-- ✅ **Automatic deployment** on every push to main
-- ✅ **No manual intervention** required
-- ✅ **Proper SPA routing** with 404 fallback
-- ✅ **PWA functionality** (offline, installable)
-- ✅ **HTTPS** with automatic SSL certificate
-- ✅ **Global CDN** for fast loading worldwide
-- ✅ **Workflow status** visible in GitHub Actions tab
-
-## 📊 Performance
-
-### Optimization Features
-- **Code Splitting**: Lazy loading of components
-- **Service Worker**: Caching for offline functionality
-- **Bundle Optimization**: Tree shaking and minification
-- **Image Optimization**: Optimized icons and assets
-
-### Storage Efficiency
-- **Compressed Data**: Efficient storage of student preferences
-- **Incremental Updates**: Only changed data is saved
-- **Cleanup**: Automatic removal of orphaned data
-
-## 🛠️ Development
-
-### Project Structure
-```
-src/
-├── components/          # React components
-│   ├── common/         # Shared components
-│   ├── forms/          # Form components
-│   ├── layout/         # Layout components
-│   ├── lists/          # List components
-│   ├── managers/       # Management views
-│   ├── planning/       # Planning interface
-│   ├── sharing/        # Sharing components
-│   ├── ui/             # UI components
-│   └── views/          # Main views
-├── hooks/              # Custom React hooks
-├── lib/                # Core libraries
-│   ├── accessibility/  # A11y utilities
-│   ├── generator/      # Plan generation
-│   ├── sharing/        # Export/sharing
-│   └── validation/     # Validation logic
-└── types/              # TypeScript types
 ```
 
 ### Key Dependencies
@@ -293,12 +194,6 @@ src/
 3. Make your changes
 4. Test thoroughly
 5. Submit a pull request
-
-### Code Standards
-- **TypeScript**: Strict type checking enabled
-- **ESLint**: Code quality and consistency
-- **Prettier**: Code formatting
-- **Accessibility**: WCAG 2.1 AA compliance
 
 ## 📄 License
 
