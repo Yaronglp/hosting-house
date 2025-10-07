@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
+import { Card, CardContent } from '@/components/ui/Card'
 import { useKV } from '@/hooks/useKV'
 import { Student, KV_KEYS } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
