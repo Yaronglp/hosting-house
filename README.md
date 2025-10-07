@@ -152,26 +152,92 @@ Assignment: { roundId, groups[] }
 
 ## 🚀 Deployment
 
-### GitHub Pages
-- **Static Hosting**: Deploy to GitHub Pages for free
-- **Custom Domain**: Support for custom domains
-- **HTTPS**: Automatic SSL certificate
-- **CDN**: Global content delivery
+### GitHub Pages (Production)
+The app is automatically deployed to GitHub Pages using GitHub Actions.
 
-### Build Process
+#### Production URL
+🌐 **https://yaronglp.github.io/hosting-house/**
+
+#### Automatic Deployment
+- **Trigger**: Every push to `main` branch triggers automatic deployment
+- **Build**: GitHub Actions builds the app (`npm run build`)
+- **Deploy**: Official GitHub Actions deploy to GitHub Pages
+- **PWA**: Full PWA functionality works on production (offline, installable)
+
+#### First-Time Setup
+If deploying for the first time:
+1. Go to repository **Settings** → **Pages**
+2. Under **"Build and deployment"** → **"Source"**
+3. Select **"GitHub Actions"** (NOT "Deploy from a branch")
+4. Push to `main` branch to trigger deployment
+5. Wait ~2 minutes for deployment to complete
+6. Visit the production URL
+
+#### Manual Deployment
+You can also trigger deployment manually:
+1. Go to **Actions** tab in GitHub
+2. Select **"Deploy to GitHub Pages"** workflow
+3. Click **"Run workflow"** → **"Run workflow"**
+
+#### Testing PWA on Mobile
+**iOS (Safari):**
+1. Open `https://yaronglp.github.io/hosting-house/` in Safari
+2. Tap the Share button (square with arrow)
+3. Scroll down and tap **"Add to Home Screen"**
+4. Tap **"Add"**
+5. App icon appears on home screen
+
+**Android (Chrome):**
+1. Open `https://yaronglp.github.io/hosting-house/` in Chrome
+2. Tap the menu (three dots)
+3. Tap **"Add to Home screen"**
+4. Tap **"Add"**
+5. App icon appears on home screen
+
+### Local Development
+
+#### Build Process
 ```bash
-# Development
+# Development server (with hot reload)
 npm run dev
 
-# Production build
+# Production build (creates dist/ folder)
 npm run build
 
-# Preview production build
+# Preview production build locally
 npm run preview
 
-# Lint code
+# Run linter
 npm run lint
+
+# Run Cypress tests
+npm run cy:open      # Interactive mode
+npm run cy:run       # Headless mode
+npm run test:e2e     # Run all E2E tests
+npm run test:all     # Run all tests
 ```
+
+### Deployment Architecture
+```
+Push to main → GitHub Actions Workflow Triggered
+              ↓
+         Build App (npm run build)
+              ↓
+         Upload Artifact (dist/)
+              ↓
+         Deploy via GitHub Pages API
+              ↓
+    Live at yaronglp.github.io/hosting-house
+```
+
+### Deployment Features
+- ✅ **Automatic deployment** on every push to main
+- ✅ **No manual intervention** required
+- ✅ **Proper SPA routing** with 404 fallback
+- ✅ **PWA functionality** (offline, installable)
+- ✅ **HTTPS** with automatic SSL certificate
+- ✅ **Global CDN** for fast loading worldwide
+- ✅ **Workflow status** visible in GitHub Actions tab
 
 ## 📊 Performance
 
