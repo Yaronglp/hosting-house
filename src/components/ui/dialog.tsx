@@ -38,7 +38,6 @@ export function Dialog({
       // Prevent scrolling
       document.body.style.overflow = 'hidden'
       
-      // Focus dialog
       if (dialogRef.current) {
         dialogRef.current.focus()
       }
