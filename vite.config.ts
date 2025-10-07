@@ -5,9 +5,13 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
-  const isTest = mode === 'test' || process.env.NODE_ENV === 'test'
+  const isProduction = mode === 'production'
+  
+  // Use /hosting-house/ for GitHub Pages, / for dev
+  const base = isProduction ? '/hosting-house/' : '/'
   
   return {
+    base,
     plugins: [
       react(),
       VitePWA({
@@ -22,14 +26,14 @@ export default defineConfig(({ command, mode }) => {
           description: 'תכנון והגרלת סבבים לבית מארח',
           lang: 'he',
           dir: 'rtl',
-          start_url: '/',
+          start_url: base,
           display: 'standalone',
           background_color: '#ffffff',
           theme_color: '#111827',
           icons: [
-            { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-            { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-            { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+            { src: `${base}icons/house192.png`, sizes: '192x192', type: 'image/png' },
+            { src: `${base}icons/house512.png`, sizes: '512x512', type: 'image/png' },
+            { src: `${base}icons/house512.png`, sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
           ],
         },
       }),

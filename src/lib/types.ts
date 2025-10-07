@@ -55,7 +55,6 @@ export interface Assignment {
 
 export interface ClassSettings {
   groupSize: number
-  // Future settings can be added here
 }
 
 // Default values

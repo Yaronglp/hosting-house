@@ -1,8 +1,4 @@
 /**
- * Accessible tooltip utilities
- */
-
-/**
  * Utility for creating accessible tooltips
  */
 export function createAccessibleTooltip(
