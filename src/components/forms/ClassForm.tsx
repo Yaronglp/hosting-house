@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useKV } from '@/hooks/useKV'
-import { Class, KV_KEYS } from '@/lib/types'
+import { useClasses } from '@/hooks/useClasses'
+import { Class } from '@/lib/types'
 import { FormCard } from './FormCard'
 import { FormField } from './FormField'
 import { FormInput } from './FormInput'
@@ -14,7 +14,7 @@ interface ClassFormProps {
 }
 
 export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
-  const [classes, setClasses] = useKV<Class[]>(KV_KEYS.CLASSES, [])
+  const [classes, setClasses] = useClasses()
   const [formData, setFormData] = useState({
     name: '',
     year: '',

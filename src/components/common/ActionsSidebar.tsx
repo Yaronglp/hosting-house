@@ -44,7 +44,7 @@ export function ActionsSidebar({
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <div className="text-sm neon-text-green">
-            אחסון מתמיד: {persisted === null ? '🔄 בודק…' : persisted ? '✅ מאופשר' : '❌ לא מאופשר'}
+            שמירת נתונים במכשיר: {persisted === null ? '🔄 בודק…' : persisted ? '✅ מאופשר' : '❌ לא מאופשר'}
           </div>
           {isRequesting && (
             <div className="text-xs text-blue-400 mb-2">

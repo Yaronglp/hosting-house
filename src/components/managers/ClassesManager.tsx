@@ -2,18 +2,17 @@ import { useState } from 'react'
 import { ClassesList } from '../lists/ClassesList'
 import { ClassForm } from '../forms/ClassForm'
 import { ClassSettings } from '../common/ClassSettings'
-import { useKV } from '@/hooks/useKV'
-import { Class, KV_KEYS } from '@/lib/types'
+import { useClasses } from '@/hooks/useClasses'
 
 type ViewMode = 'list' | 'form' | 'settings'
 
 interface ClassesManagerProps {
   currentClassId: string | null
-  onClassSelect: (classId: string) => void
+  onClassSelect: (classId: string | null) => void
 }
 
 export function ClassesManager({ currentClassId, onClassSelect }: ClassesManagerProps) {
-  const [classes] = useKV<Class[]>(KV_KEYS.CLASSES, [])
+  const [classes] = useClasses()
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [editingClassId, setEditingClassId] = useState<string | undefined>()
 
@@ -22,6 +21,7 @@ export function ClassesManager({ currentClassId, onClassSelect }: ClassesManager
   const handleClassAdd = () => {
     setEditingClassId(undefined)
     setViewMode('form')
+    onClassSelect(null)
   }
 
   const handleClassEdit = (classId: string) => {

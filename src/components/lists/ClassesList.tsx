@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
-import { useKV } from '@/hooks/useKV'
-import { Class, Student, KV_KEYS } from '@/lib/types'
+import { useClasses } from '@/hooks/useClasses'
+import { Student, KV_KEYS } from '@/lib/types'
 import { kvGet } from '@/lib/db'
 import { EmptyClassesState } from '@/components/common/EmptyClassesState'
 import { useAnnouncer } from '@/hooks/useAccessibility'
@@ -11,13 +11,13 @@ import { ConfirmDialog } from '@/components/ui/Dialog'
 
 interface ClassesListProps {
   currentClassId: string | null
-  onClassSelect: (classId: string) => void
+  onClassSelect: (classId: string | null) => void
   onClassEdit: (classId: string) => void
   onClassAdd: () => void
 }
 
 export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClassAdd }: ClassesListProps) {
-  const [classes, setClasses] = useKV<Class[]>(KV_KEYS.CLASSES, [])
+  const [classes, setClasses] = useClasses()
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
   const [studentCounts, setStudentCounts] = useState<Record<string, number>>({})

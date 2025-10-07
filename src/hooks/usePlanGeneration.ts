@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useKV } from '@/hooks/useKV'
+import { useClasses } from '@/hooks/useClasses'
 import { useAnnouncer } from '@/hooks/useAccessibility'
-import { KV_KEYS, Student, Round, Assignment, Class, ClassSettings } from '@/lib/types'
+import { KV_KEYS, Student, Round, Assignment, ClassSettings } from '@/lib/types'
 import { generatePlan } from '@/lib/generator'
 import { validatePlan, retryRoundPlacement, ValidationResult } from '@/lib/validation'
 import { ExportData } from '@/lib/sharing'
@@ -11,7 +12,7 @@ export function usePlanGeneration(classId: string) {
   const [students, setStudents] = useKV<Student[]>(KV_KEYS.students(classId), [])
   const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
   const [assignments, setAssignments] = useKV<Assignment[]>(KV_KEYS.assignments(classId), [])
-  const [classes, setClasses] = useKV<Class[]>(KV_KEYS.CLASSES, [])
+  const [classes, setClasses] = useClasses()
   const [settings, setSettings] = useKV<ClassSettings>(KV_KEYS.settings(classId), { groupSize: 6 })
 
   // Generation state

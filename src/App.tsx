@@ -3,6 +3,7 @@ import './index.css'
 import { SWUpdateBanner } from './sw-update'
 import { useStorage } from '@/hooks/useStorage'
 import { useKV } from '@/hooks/useKV'
+import { useClasses } from '@/hooks/useClasses'
 import { Class, KV_KEYS, DEFAULT_SETTINGS } from '@/lib/types'
 import { AppHeader } from '@/components/layout/AppHeader'
 import { BackgroundEffects } from '@/components/layout/BackgroundEffects'
@@ -18,12 +19,21 @@ import { PasteNamesModal } from '@/components/common/PasteNamesModal'
 function App() {
   const [active, setActive] = useState('classes')
   const [currentClassId, setCurrentClassId] = useKV<string | null>('currentClassId', null)
-  const [classes] = useKV<Class[]>(KV_KEYS.CLASSES, [])
+  const [classes] = useClasses()
   const { requestPersistence, ...storageRest } = useStorage()
   const { toasts, dismissToast, success, error } = useToast()
   const [showPasteModal, setShowPasteModal] = useState(false)
+  const [currentClass, setCurrentClass] = useState<Class | null>(null)
 
-  const currentClass = currentClassId ? classes.find(c => c.id === currentClassId) : null
+  useEffect(() => {
+    if (currentClassId && classes.length > 0) {
+      const foundClass = classes.find(c => c.id === currentClassId)
+      setCurrentClass(foundClass || null)
+    } else {
+      setCurrentClass(null)
+    }
+  }, [currentClassId, classes])
+
   const [classSettings] = useKV(currentClassId ? KV_KEYS.settings(currentClassId) : '', DEFAULT_SETTINGS)
   const groupSize = classSettings.groupSize
   
@@ -32,12 +42,12 @@ function App() {
     try {
       const result = await requestPersistence()
       if (result) {
-        success('✅ אחסון מתמיד הופעל בהצלחה! הנתונים שלך מוגנים כעת.')
+        success('✅ שמירת נתונים במכשיר הופעלה בהצלחה! הנתונים שלך מוגנים כעת.')
       } else {
-        error('❌ לא ניתן להפעיל אחסון מתמיד. ייתכן שהדפדפן לא תומך או שהמשתמש דחה את הבקשה.')
+        error('❌ לא ניתן להפעיל שמירת נתונים במכשיר. ייתכן שהדפדפן לא תומך או שהמשתמש דחה את הבקשה.')
       }
     } catch (err) {
-      error('❌ שגיאה בהפעלת אחסון מתמיד. אנא נסה שוב.')
+      error('❌ שגיאה בהפעלת שמירת נתונים במכשיר. אנא נסה שוב.')
     }
   }
 
@@ -52,14 +62,6 @@ function App() {
     requestPersistence()
   }, [])
 
-  // Auto-select first class if no current class is set or if current class no longer exists
-  useEffect(() => {
-    if (classes.length > 0) {
-      if (!currentClassId || !classes.find(c => c.id === currentClassId)) {
-        setCurrentClassId(classes[0].id)
-      }
-    }
-  }, [classes, setCurrentClassId]) // Removed currentClassId from dependencies to prevent infinite loop
 
   const handlePasteModalOpen = () => {
     setShowPasteModal(true)
@@ -89,7 +91,9 @@ function App() {
           {active === 'classes' && (
             <ClassesManagerView 
               currentClassId={currentClassId}
-              onClassSelect={setCurrentClassId}
+              onClassSelect={(classId) => {
+                setCurrentClassId(classId)
+              }}
               {...storageProps}
             />
           )}
