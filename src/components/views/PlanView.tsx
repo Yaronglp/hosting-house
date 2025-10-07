@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { PlanManager } from '@/components/managers/PlanManager'
 import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
@@ -6,6 +7,8 @@ import { StorageInfo, ClassInfo } from '@/types/common'
 interface PlanViewProps extends StorageInfo {
   classInfo: ClassInfo
 }
+
+const MemoizedPlanManager = memo(PlanManager)
 
 export function PlanView({
   classInfo,
@@ -30,7 +33,7 @@ export function PlanView({
       <MainContent
         activeTab="plan"
         currentClass={classInfo}
-        planContent={<PlanManager classId={classInfo.id} />}
+        planContent={<MemoizedPlanManager classId={classInfo.id} />}
       />
     </>
   )

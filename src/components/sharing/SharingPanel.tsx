@@ -240,12 +240,10 @@ export function SharingPanel({
                 variant="outline" 
                 size="sm" 
                 disabled={!onImportData || isImporting}
-                asChild
+                className="w-full"
               >
-                <span>
-                  <Upload className="h-4 w-4 ml-2" />
-                  {isImporting ? 'מייבא...' : 'ייבא נתונים'}
-                </span>
+                <Upload className="h-4 w-4 ml-2" />
+                {isImporting ? 'מייבא...' : 'ייבא נתונים'}
               </Button>
               <input
                 type="file"

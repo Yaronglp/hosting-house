@@ -26,9 +26,12 @@ function App() {
   const [currentClass, setCurrentClass] = useState<Class | null>(null)
 
   useEffect(() => {
-    if (currentClassId && classes.length > 0) {
-      const foundClass = classes.find(c => c.id === currentClassId)
-      setCurrentClass(foundClass || null)
+    if (currentClassId) {
+      if (classes.length > 0) {
+        const foundClass = classes.find(c => c.id === currentClassId)
+        setCurrentClass(foundClass || null)
+      }
+      // If classes.length is 0, we're still loading, so don't change currentClass
     } else {
       setCurrentClass(null)
     }
