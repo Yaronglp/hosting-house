@@ -92,7 +92,7 @@ export function checkRepeatedPairings(
     return {
       type: 'warning',
       code: 'repeated-pairings',
-      message: 'צמדים חוזרים',
+      message: 'צמד תלמידים שיפגשו יותר מפעם אחת',
       count: repeatedPairs.length,
       details: repeatedPairs
     }
@@ -101,51 +101,3 @@ export function checkRepeatedPairings(
   return null
 }
 
-/**
- * Check for unmet like preferences
- */
-export function checkUnmetLikes(
-  assignments: Assignment[],
-  students: Student[],
-  rounds: Round[]
-): ValidationError | null {
-  const studentsById = new Map(students.map(s => [s.id, s]))
-  const unmetLikes: string[] = []
-  
-  for (const assignment of assignments) {
-    for (const group of assignment.groups) {
-      const allMembers = [group.hostId, ...group.memberIds]
-      const round = rounds.find(r => r.id === assignment.roundId)
-      
-      for (const memberId of allMembers) {
-        const student = studentsById.get(memberId)
-        if (student) {
-          const likedInGroup = student.like.filter(likedId => 
-            allMembers.includes(likedId)
-          )
-          const unmetInThisGroup = student.like.filter(likedId => 
-            !allMembers.includes(likedId)
-          ).map(likedId => studentsById.get(likedId)?.name || likedId)
-          
-          if (unmetInThisGroup.length > 0) {
-            unmetLikes.push(
-              `${student.name} רוצה: ${unmetInThisGroup.join(', ')} (${round?.name})`
-            )
-          }
-        }
-      }
-    }
-  }
-  
-  if (unmetLikes.length > 0) {
-    return {
-      type: 'warning',
-      code: 'unmet-likes',
-      message: 'העדפות לא מומשו',
-      count: unmetLikes.length,
-      details: unmetLikes
-    }
-  }
-  
-  return null
-}

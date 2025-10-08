@@ -101,8 +101,6 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                 <td className="p-3">
                   <div className="font-medium">{student.name}</div>
                   <div className="text-xs text-muted-foreground">
-                    {student.like.length > 0 && `אוהב: ${student.like.length}`}
-                    {student.like.length > 0 && student.avoid.length > 0 && ' • '}
                     {student.avoid.length > 0 && `כמות תלמידים שהתלמיד מעדיף לא להיות איתם: ${student.avoid.length}`}
                   </div>
                 </td>

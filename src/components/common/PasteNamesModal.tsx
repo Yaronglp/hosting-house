@@ -61,7 +61,6 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
           classId,
           name,
           canHost: true,
-          like: [],
           avoid: []
         }
       })

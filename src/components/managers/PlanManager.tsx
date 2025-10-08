@@ -84,8 +84,8 @@ export function PlanManager({ classId }: PlanManagerProps) {
         />
       )}
 
-      {/* Validation Panel */}
-      {validation && (
+      {/* Validation Panel - hidden in share mode */}
+      {validation && viewMode !== 'share' && (
         <ValidationPanel 
           validation={validation} 
           onRetry={handleRetry}

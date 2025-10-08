@@ -16,13 +16,13 @@ export const BoardControls = memo(({
   onCancelSelection 
 }: BoardControlsProps) => (
   <div className="flex items-center justify-between">
-    <div className="text-sm text-muted-foreground">
+    <div className="text-sm text-muted-foreground padding-bottom-default">
       לחץ על תלמיד כדי לבחור, ואז על קבוצה כדי להעביר
     </div>
     <div className="flex gap-2">
       {moveHistoryLength > 0 && (
         <Button variant="outline" size="sm" onClick={onUndo}>
-          <ArrowRightLeft className="h-4 w-4 ml-2" />
+          <ArrowRightLeft className="h-4 w-4 ml-2 padding-left-default" />
           בטל מעבר אחרון
         </Button>
       )}

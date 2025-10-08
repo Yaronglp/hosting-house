@@ -16,7 +16,6 @@ export {
 
 export {
   violatesAvoid,
-  likeScore,
   assignGuestsToSlots
 } from './guest-assignment'
 

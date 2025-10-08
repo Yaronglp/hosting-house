@@ -6,8 +6,7 @@ import {
 } from './error-checkers'
 import { 
   checkAvoidViolations, 
-  checkRepeatedPairings, 
-  checkUnmetLikes 
+  checkRepeatedPairings
 } from './warning-checkers'
 
 /**
@@ -35,9 +34,6 @@ export function validatePlan(
 
   const repeatedPairingsWarning = checkRepeatedPairings(assignments, students, rounds)
   if (repeatedPairingsWarning) warnings.push(repeatedPairingsWarning)
-
-  const unmetLikesWarning = checkUnmetLikes(assignments, students, rounds)
-  if (unmetLikesWarning) warnings.push(unmetLikesWarning)
 
   return {
     errors,

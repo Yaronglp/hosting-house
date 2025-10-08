@@ -57,19 +57,6 @@ export function violatesAvoid(guestId: string, memberIds: string[], studentsById
   return false
 }
 
-/**
- * Calculate like score for a guest in a group
- */
-export function likeScore(guestId: string, memberIds: string[], studentsById: Map<string, Student>): number {
-  const guest = studentsById.get(guestId)!
-  let score = 0
-  for (const memberId of memberIds) {
-    if (guest.like.includes(memberId)) score += 1
-    const member = studentsById.get(memberId)!
-    if (member.like.includes(guestId)) score += 1
-  }
-  return score
-}
 
 /**
  * Assign guests to host slots with balanced distribution
@@ -104,19 +91,15 @@ export function assignGuestsToSlots(
     // Try to assign the target number of guests to this group
     for (let i = 0; i < targetForThisGroup && guests.length > 0; i++) {
       let bestGuestIndex = -1
-      let bestScore = -Infinity
       
-      // Find the best guest for this group from all remaining guests
+      // Find the first valid guest for this group from all remaining guests
       for (let j = 0; j < guests.length; j++) {
         const guest = guests[j]
         // Skip if guest is a host in any group
         if (allHostIds.has(guest.id)) continue
         if (violatesAvoid(guest.id, [slot.hostId, ...slot.memberIds], studentsById)) continue
-        const score = likeScore(guest.id, [slot.hostId, ...slot.memberIds], studentsById)
-        if (score > bestScore) {
-          bestScore = score
-          bestGuestIndex = j
-        }
+        bestGuestIndex = j
+        break // Take the first valid guest
       }
       
       if (bestGuestIndex === -1) {
@@ -140,16 +123,12 @@ export function assignGuestsToSlots(
       if (allHostIds.has(guest.id)) continue
       
       let bestGroupIndex = -1
-      let bestScore = -Infinity
       for (let i = 0; i < hostSlots.length; i++) {
         const slot = hostSlots[i]
         if (slot.memberIds.length >= slot.capacity) continue
         if (violatesAvoid(guest.id, [slot.hostId, ...slot.memberIds], studentsById)) continue
-        const score = likeScore(guest.id, [slot.hostId, ...slot.memberIds], studentsById)
-        if (score > bestScore) {
-          bestScore = score
-          bestGroupIndex = i
-        }
+        bestGroupIndex = i
+        break // Take the first valid group
       }
       if (bestGroupIndex === -1) {
         return false // Stuck - cannot place all guests

@@ -11,6 +11,5 @@ export {
 
 export {
   checkAvoidViolations,
-  checkRepeatedPairings,
-  checkUnmetLikes
+  checkRepeatedPairings
 } from './warning-checkers'

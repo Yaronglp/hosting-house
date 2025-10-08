@@ -31,11 +31,11 @@ const ValidationItem = memo(({
 
   return (
     <div className={`${bgColor} border rounded-md p-3`}>
-      <div className="flex items-center justify-between mb-1">
+      <div className="flex items-center mb-1">
         <span className={`font-medium ${textColor}`}>{message}</span>
         {count && (
-          <span className={`text-sm ${countBgColor} px-2 py-1 rounded`} data-cy="item-count">
-            {count}
+          <span className={`text-sm ${countBgColor} px-2 py-1 rounded padding-right-default`} data-cy="item-count">
+            ({count})
           </span>
         )}
       </div>
@@ -79,7 +79,7 @@ const ValidationSection = memo(({
 
   return (
     <div className="space-y-2" data-cy={dataCy}>
-      <div className={`flex items-center gap-2 ${iconColor}`}>
+      <div className={`flex items-center gap-2 padding-bottom-default ${iconColor}`}>
         <Icon className="h-4 w-4 padding-left-default" />
         <span className="font-medium">{title} ({items.length})</span>
       </div>
@@ -122,12 +122,12 @@ RetryButton.displayName = 'RetryButton'
 
 // Extract success state component
 const SuccessState = memo(() => (
-  <div className="bg-green-50 border border-green-200 rounded-md p-3">
+  <div className="bg-green-50 border border-green-200 rounded-md padding-default">
     <div className="flex items-center gap-2 text-green-800">
       <CheckCircle className="h-4 w-4 padding-left-default" data-cy="success-icon"/>
       <span>התוכנית עומדת בכל הדרישות!</span>
     </div>
-    <div className="text-sm text-green-700 mt-1">
+    <div className="text-sm text-green-700 mt-1 padding-vertical-default">
       כל התלמידים קיבלו שיבוץ<br />
       אין תלמידים שלא שובצו
     </div>

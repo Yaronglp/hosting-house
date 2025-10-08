@@ -23,7 +23,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
   const [formData, setFormData] = useState({
     name: '',
     canHost: true,
-    like: [] as string[],
     avoid: [] as string[]
   })
 
@@ -35,7 +34,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
         setFormData({
           name: existingStudent.name,
           canHost: existingStudent.canHost,
-          like: existingStudent.like,
           avoid: existingStudent.avoid
         })
       }
@@ -52,7 +50,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
                 ...s, 
                 name: data.name.trim(),
                 canHost: data.canHost,
-                like: data.like,
                 avoid: data.avoid
               }
             : s
@@ -67,7 +64,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
           classId,
           name: data.name.trim(),
           canHost: data.canHost,
-          like: data.like,
           avoid: data.avoid
         }
         
@@ -106,9 +102,7 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
         <StudentPreferences
           students={students}
           currentStudentId={studentId}
-          like={formData.like}
           avoid={formData.avoid}
-          onLikeChange={(like) => setFormData(prev => ({ ...prev, like }))}
           onAvoidChange={(avoid) => setFormData(prev => ({ ...prev, avoid }))}
         />
 

@@ -24,7 +24,6 @@ export interface Student {
   classId: string
   name: string
   canHost: boolean
-  like: string[] // Student IDs
   avoid: string[] // Student IDs
 }
 
