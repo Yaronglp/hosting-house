@@ -61,9 +61,8 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-lg font-semibold">תאריכי מפגש</h2>
           <p className="text-sm text-muted-foreground">
-            {rounds.length} תאריכי מפגש מוגדרים
+            {rounds.length} תאריכי מפגשים מוגדרים
           </p>
         </div>
         <Button onClick={onRoundAdd} data-cy="add-round-button">

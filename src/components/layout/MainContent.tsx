@@ -22,7 +22,7 @@ export function MainContent({
     switch (activeTab) {
       case 'classes': return '🏫 כיתות'
       case 'students': return '👥 תלמידים'
-      case 'rounds': return '🔄 סבבים'
+      case 'rounds': return '🔄 תאריכי מפגשים'
       case 'plan': return '📋 תכנון'
       default: return ''
     }

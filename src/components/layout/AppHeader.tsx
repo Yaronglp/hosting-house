@@ -57,11 +57,11 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
                   onClick={() => onTabChange('rounds')}
                   type="button"
                   role="button"
-                  aria-label="תאריכים"
+                  aria-label="תאריכי מפגשים"
                   style={{ minHeight: '44px' }}
                   data-cy="tab-rounds"
                 >
-                  תאריכים
+                  תאריכי מפגשים
                 </button>
               </NavigationMenuItem>
               <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
