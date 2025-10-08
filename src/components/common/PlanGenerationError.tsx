@@ -22,7 +22,7 @@ export function PlanGenerationError({
             <h3 className="text-lg font-semibold text-red-800">שגיאה ביצירת התוכנית</h3>
             <p className="text-sm text-red-700 max-w-md mx-auto">{error}</p>
           </div>
-          <div className="bg-red-100 rounded-lg p-4 text-red-800 text-sm">
+          <div className="bg-red-100 rounded-lg p-4 text-red-800 text-sm padding-default">
             <h4 className="font-medium mb-2">הצעות לפתרון:</h4>
             <ul className="space-y-1 text-right">
               <li>• בדוק שיש מספיק מארחים זמינים</li>

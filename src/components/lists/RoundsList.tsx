@@ -59,7 +59,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center padding-bottom-default">
         <div>
           <p className="text-sm text-muted-foreground">
             {rounds.length} תאריכי מפגשים מוגדרים

@@ -43,7 +43,7 @@ export function ActionsSidebar({
           <CardTitle className="neon-text text-lg terminal-cursor">⚡ פעולות</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
-          <div className="text-sm neon-text-green">
+          <div className="text-sm neon-text-green padding-bottom-default">
             שמירת נתונים במכשיר: {persisted === null ? '🔄 בודק…' : persisted ? '✅ מאופשר' : '❌ לא מאופשר'}
           </div>
           {isRequesting && (

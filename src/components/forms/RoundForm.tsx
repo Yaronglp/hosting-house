@@ -114,7 +114,7 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} data-cy="round-form">
-          <div className="p-4 bg-muted/50 rounded-lg max-w-md" style={{ marginTop: '1rem' }}>
+          <div className="p-4 bg-muted/50 rounded-lg max-w-md padding-default" style={{ marginTop: '1rem' }}>
             <label htmlFor="date" className="block text-sm font-medium mb-2">
               תאריך המפגש *
             </label>

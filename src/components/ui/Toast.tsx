@@ -45,7 +45,7 @@ export function ToastItem({ toast, onClose }: ToastItemProps) {
 
   return (
     <div
-      className={`flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg transition-all duration-300 animate-in slide-in-from-right ${variantStyles[toast.variant]}`}
+      className={`flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg transition-all duration-300 animate-in slide-in-from-right padding-default ${variantStyles[toast.variant]}`}
       role="alert"
       aria-live="polite"
     >

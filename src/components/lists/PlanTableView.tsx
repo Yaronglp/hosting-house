@@ -25,7 +25,7 @@ export function PlanTableView({
               <div key={round.id} className="text-sm">אין נתונים עבור {round.name}</div>
             )
             return (
-              <div key={round.id} className="border rounded-lg p-3">
+              <div key={round.id} className="border rounded-lg p-3 padding-default">
                 <div className="font-medium mb-2">{round.name}</div>
                 {assignment.groups.map(group => (
                   <div key={group.id} className="text-sm">

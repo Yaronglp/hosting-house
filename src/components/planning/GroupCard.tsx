@@ -27,7 +27,7 @@ export const GroupCard = memo(({
   onStudentClick 
 }: GroupCardProps) => (
   <div
-    className={`border rounded-lg p-3 cursor-pointer transition-colors ${
+    className={`border rounded-lg p-3 padding-default cursor-pointer transition-colors ${
       isTargetable 
         ? 'border-blue-300 bg-blue-50 hover:bg-blue-100' 
         : 'border-gray-200 hover:border-gray-300'
