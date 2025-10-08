@@ -57,7 +57,7 @@ export function MainContent({
             {activeTab === 'rounds' && roundsContent}
             {activeTab === 'rounds' && !currentClass && (
               <NoClassMessage>
-                <p>🏫 בחר כיתה תחילה כדי לנהל סבבים</p>
+                <p>🏫 בחר כיתה תחילה כדי לנהל תאריכי מפגש</p>
                 <p className="text-sm mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}

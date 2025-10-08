@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { useKV } from '@/hooks/useKV'
 import { ClassSettings as ClassSettingsType, KV_KEYS, DEFAULT_SETTINGS } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
-import { ConfirmDialog } from '@/components/ui/Dialog'
 
 interface ClassSettingsProps {
   classId: string
@@ -22,7 +21,6 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
     groupSize: DEFAULT_SETTINGS.groupSize,
   })
   const [isLoading, setIsLoading] = useState(false)
-  const [showResetDialog, setShowResetDialog] = useState(false)
 
   // Load current settings into form
   useEffect(() => {
@@ -54,18 +52,6 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
     }
   }
 
-  const handleReset = async () => {
-    try {
-      await setSettings(DEFAULT_SETTINGS)
-      setFormData({
-        groupSize: DEFAULT_SETTINGS.groupSize,
-      })
-      success('הגדרות אופסו לברירת המחדל')
-    } catch (err) {
-      console.error('Failed to reset settings:', err)
-      error('שגיאה באיפוס ההגדרות')
-    }
-  }
 
   return (
     <>
@@ -87,7 +73,7 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="groupSize" className="block text-sm font-medium mb-2">
-              גודל קבוצה ברירת מחדל
+            מספר התלמידים הרצוי בכל קבוצה (לא כולל המארח)
             </label>
             <input
               id="groupSize"
@@ -101,23 +87,16 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
               }))}
               className="w-24 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring text-center"
             />
-            <p className="text-xs text-muted-foreground mt-2">
-              מספר התלמידים הרצוי בכל קבוצה (לא כולל המארח). יועבר אוטומטית לקיבולת המארח.
-            </p>
           </div>
 
           <div className="bg-muted/50 p-4 rounded-lg">
             <h4 className="font-medium mb-2">השפעה על הגדרות אחרות:</h4>
             <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• קיבולת מארח ברירת מחדל: {formData.groupSize + 2}</li>
               <li>• מספר הקבוצות יחושב אוטומטית לפי מספר התלמידים</li>
             </ul>
           </div>
 
           <div className="flex gap-3 justify-end">
-            <Button type="button" variant="outline" onClick={() => setShowResetDialog(true)}>
-              אפס לברירת מחדל
-            </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading ? 'שומר...' : 'שמור הגדרות'}
             </Button>
@@ -126,16 +105,6 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
         </CardContent>
       </Card>
       
-      <ConfirmDialog
-        isOpen={showResetDialog}
-        onClose={() => setShowResetDialog(false)}
-        onConfirm={handleReset}
-        title="אפס הגדרות"
-        message="האם אתה בטוח שברצונך לאפס את ההגדרות לברירת המחדל?"
-        confirmText="אפס"
-        cancelText="ביטול"
-        variant="default"
-      />
     </>
   )
 }

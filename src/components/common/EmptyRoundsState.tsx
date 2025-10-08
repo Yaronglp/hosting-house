@@ -9,10 +9,10 @@ export function EmptyRoundsState({ onAddRound }: EmptyRoundsStateProps) {
   return (
     <EmptyState
       icon={<Clock className="h-6 w-6" />}
-      title="אין סבבי אירוח"
-      description="צור סבבי אירוח כדי לתכנן מתי כל תלמיד יארח. כל סבב יכול לכלול תאריכים ושמות מותאמים אישית."
+      title="אין תאריכי מפגש"
+      description="צור תאריכי מפגש כדי לתכנן מתי כל תלמיד יארח. כל תאריך מפגש יכול לכלול תאריכים ושמות מותאמים אישית."
       action={{
-        label: "הוסף סבב ראשון",
+        label: "הוסף תאריך מפגש",
         onClick: onAddRound
       }}
     />

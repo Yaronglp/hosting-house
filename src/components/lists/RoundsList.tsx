@@ -37,7 +37,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
       await setRounds(updatedRounds)
     } catch (err) {
       console.error('Failed to delete round:', err)
-      error('שגיאה במחיקת הסבב')
+      error('שגיאה במחיקת תאריך המפגש')
     } finally {
       setIsDeleting(null)
     }
@@ -50,8 +50,8 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
     return (
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-12">
-          <p className="text-muted-foreground mb-4">אין סבבים בכיתה</p>
-          <Button onClick={onRoundAdd} data-cy="add-round-button">הוסף סבב ראשון</Button>
+          <p className="text-muted-foreground mb-4">אין תאריכי מפגש בכיתה</p>
+          <Button onClick={onRoundAdd} data-cy="add-round-button">הוסף תאריך מפגש</Button>
         </CardContent>
       </Card>
     )
@@ -61,13 +61,13 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-lg font-semibold">סבבי הכיתה</h2>
+          <h2 className="text-lg font-semibold">תאריכי מפגש</h2>
           <p className="text-sm text-muted-foreground">
-            {rounds.length} סבבים מוגדרים
+            {rounds.length} תאריכי מפגש מוגדרים
           </p>
         </div>
         <Button onClick={onRoundAdd} data-cy="add-round-button">
-          הוסף סבב
+          הוסף תאריך מפגש
         </Button>
       </div>
       
@@ -81,13 +81,11 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
                     <span className="text-sm font-medium text-muted-foreground">
                       #{round.order + 1}
                     </span>
-                    <CardTitle className="text-base">{round.name}</CardTitle>
                   </div>
-                  {round.dateWindow && (
-                    <CardDescription>
-                      תאריך: {new Date(round.dateWindow.start).toLocaleDateString('he-IL')}
-                    </CardDescription>
-                  )}
+                  
+                  <CardDescription>
+                    תאריך: {new Date(round.dateWindow.start).toLocaleDateString('he-IL')}
+                  </CardDescription>
                 </div>
                 <div className="flex gap-2">
                   <Button
@@ -118,7 +116,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
         isOpen={!!deleteConfirm}
         onClose={() => setDeleteConfirm(null)}
         onConfirm={handleDeleteConfirm}
-        title="מחק סבב"
+        title="מחק תאריך מפגש"
         message={deleteConfirm ? `האם אתה בטוח שברצונך למחוק את "${deleteConfirm.name}"?` : ''}
         confirmText="מחק"
         cancelText="ביטול"

@@ -57,7 +57,7 @@ export function usePlanGeneration(classId: string) {
       let errorMessage = 'יצירת התוכנית נכשלה'
       
       if (e?.message === 'insufficient-hosts') {
-        errorMessage = 'אין מספיק מארחים עבור מספר הסבבים. עדכן יכולת אירוח או הפחת סבבים.'
+        errorMessage = 'אין מספיק מארחים עבור מספר תאריכי המפגש. עדכן יכולת אירוח או הפחת תאריכי מפגש.'
       }
       
       setError(errorMessage)

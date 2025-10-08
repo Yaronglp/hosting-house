@@ -67,7 +67,7 @@ export function PlanGeneratorView({
         </CardHeader>
         <CardContent>
           <div className="text-sm text-muted-foreground">
-            תלמידים: {students.length} • סבבים: {sortedRounds.length}
+            תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
           </div>
         </CardContent>
       </Card>
