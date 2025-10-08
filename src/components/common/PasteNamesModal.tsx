@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { useKV } from '@/hooks/useKV'
-import { Student, KV_KEYS } from '@/lib/types'
+import { useStudents } from '@/hooks/useStudents'
+import { Student } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
 
 interface PasteNamesModalProps {
@@ -14,7 +14,7 @@ interface PasteNamesModalProps {
 }
 
 export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }: PasteNamesModalProps) {
-  const [students, setStudents] = useKV<Student[]>(KV_KEYS.students(classId), [])
+  const [students, setStudents] = useStudents(classId)
   const { error } = useToast()
   const [namesText, setNamesText] = useState('')
   const [isLoading, setIsLoading] = useState(false)

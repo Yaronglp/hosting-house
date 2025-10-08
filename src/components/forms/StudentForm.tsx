@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useStudents } from '@/hooks/useStudents'
 import { useKV } from '@/hooks/useKV'
 import { Student, KV_KEYS, DEFAULT_SETTINGS } from '@/lib/types'
 import { FormCard } from './FormCard'
@@ -17,7 +18,7 @@ interface StudentFormProps {
 }
 
 export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFormProps) {
-  const [students, setStudents] = useKV<Student[]>(KV_KEYS.students(classId), [])
+  const [students, setStudents] = useStudents(classId)
   const [settings] = useKV(KV_KEYS.settings(classId), DEFAULT_SETTINGS)
   const [formData, setFormData] = useState({
     name: '',

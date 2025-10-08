@@ -41,11 +41,21 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
       return
     }
 
+    // Check if date is in the past
+    const selectedDate = new Date(formData.date)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0) // Reset time to start of day for accurate comparison
+    
+    if (selectedDate < today) {
+      error('לא ניתן לבחור תאריך בעבר')
+      return
+    }
+
     // Check for duplicate dates
-    const selectedDate = new Date(formData.date).toDateString()
+    const selectedDateString = new Date(formData.date).toDateString()
     const existingDate = rounds.find(r => {
       if (!r.dateWindow) return false
-      return new Date(r.dateWindow.start).toDateString() === selectedDate
+      return new Date(r.dateWindow.start).toDateString() === selectedDateString
     })
 
     if (existingDate && (!roundId || existingDate.id !== roundId)) {
@@ -113,6 +123,7 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
               type="date"
               value={formData.date}
               onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
+              min={new Date().toISOString().split('T')[0]}
               className="w-44 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               required
               data-cy="round-date-input"

@@ -29,9 +29,25 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
     })
   }, [settings])
 
+  const handleGroupSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    if (value === '') {
+      setFormData(prev => ({ ...prev, groupSize: 0 }))
+    } else {
+      const numValue = parseInt(value)
+      if (!isNaN(numValue)) {
+        setFormData(prev => ({ ...prev, groupSize: numValue }))
+      }
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    if (formData.groupSize === 0) {
+      error('יש להזין גודל קבוצה')
+      return
+    }
     if (formData.groupSize < 3 || formData.groupSize > 15) {
       error('גודל קבוצה חייב להיות בין 3 ל-15')
       return
@@ -44,6 +60,7 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
       }
       await setSettings(newSettings)
       success('הגדרות נשמרו בהצלחה')
+      onClose()
     } catch (err) {
       console.error('Failed to save settings:', err)
       error('שגיאה בשמירת ההגדרות')
@@ -80,11 +97,8 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
               type="number"
               min="3"
               max="15"
-              value={formData.groupSize}
-              onChange={(e) => setFormData(prev => ({ 
-                ...prev, 
-                groupSize: parseInt(e.target.value) || DEFAULT_SETTINGS.groupSize 
-              }))}
+              value={formData.groupSize === 0 ? '' : formData.groupSize}
+              onChange={handleGroupSizeChange}
               className="w-24 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring text-center"
             />
           </div>

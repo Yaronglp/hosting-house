@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
-import { useKV } from '@/hooks/useKV'
-import { Student, KV_KEYS } from '@/lib/types'
+import { useStudents } from '@/hooks/useStudents'
 import { useToast } from '@/hooks/useToast'
 import { ConfirmDialog } from '@/components/ui/Dialog'
 
@@ -14,7 +13,7 @@ interface StudentsTableProps {
 }
 
 export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNames }: StudentsTableProps) {
-  const [students, setStudents] = useKV<Student[]>(KV_KEYS.students(classId), [])
+  const [students, setStudents] = useStudents(classId)
   const { error } = useToast()
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
