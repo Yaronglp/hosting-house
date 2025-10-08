@@ -32,7 +32,7 @@ export const RoundCard = memo(({
       {assignment.groups.map(group => {
         const host = studentsById.get(group.hostId)
         const members = group.memberIds.map(id => studentsById.get(id)).filter(Boolean) as Student[]
-        const isTargetable = selectedStudentId && group.memberIds.length < (host?.capacity || 0)
+        const isTargetable = !!selectedStudentId
 
         if (!host) return null
 

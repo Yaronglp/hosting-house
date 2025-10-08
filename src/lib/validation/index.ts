@@ -6,7 +6,6 @@ export type { ValidationError, ValidationResult } from './types'
 // Re-export individual checkers for advanced usage
 export {
   checkDuplicateHosts,
-  checkCapacityOverflow,
   checkInsufficientHosts
 } from './error-checkers'
 

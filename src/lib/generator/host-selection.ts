@@ -13,12 +13,6 @@ export function pickUniqueHosts(students: Student[], numGroups: number, rng: () 
   return pool.slice(0, numGroups).map(host => host.id)
 }
 
-/**
- * Calculate capacity for a host
- */
-export function capacityForHost(student: Student): number {
-  return Math.max(0, student.capacity)
-}
 
 /**
  * Build host slots for a round
@@ -31,8 +25,8 @@ export function buildHostSlots(
   const slots: Array<{ hostId: string, capacity: number, memberIds: string[] }> = []
   for (const hostId of hostIds) {
     const host = studentsById.get(hostId)!
-    // Use group size setting if provided, otherwise use individual student capacity
-    const capacity = groupSize ? groupSize + 2 : capacityForHost(host)
+    // Use group size setting for all hosts
+    const capacity = (groupSize || 6) + 2
     slots.push({ hostId, capacity, memberIds: [] })
   }
   return slots

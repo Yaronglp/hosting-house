@@ -83,7 +83,7 @@ export function ActionsSidebar({
                   className="retro-button border-0 hologram w-full"
                   onClick={studentsActions.pasteNames}
                 >
-                  📋 הדבק שמות
+                  📋 הזן רשימת שמות תלמידים
                 </Button>
               </>
             )}

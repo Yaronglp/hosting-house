@@ -132,7 +132,7 @@ export function generatePrintHTML(
           <td class="guests-list">
             ${guests.length > 0 ? guests.map(g => g!.name).join('<br>') : '<em>אין אורחים</em>'}
           </td>
-          <td class="capacity-info">${guests.length}/${host?.capacity || 0}</td>
+          <td class="capacity-info">${guests.length} אורחים</td>
         </tr>
 `
     })

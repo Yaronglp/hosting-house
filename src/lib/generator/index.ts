@@ -11,7 +11,6 @@ export {
 
 export {
   pickUniqueHosts,
-  capacityForHost,
   buildHostSlots
 } from './host-selection'
 

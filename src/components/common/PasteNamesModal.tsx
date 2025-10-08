@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { useKV } from '@/hooks/useKV'
-import { Student, KV_KEYS, DEFAULT_STUDENT_CAPACITY } from '@/lib/types'
+import { Student, KV_KEYS } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
 
 interface PasteNamesModalProps {
@@ -55,14 +55,12 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
       // Create new students
       const newStudents: Student[] = names.map(name => {
         const studentId = `student_${Date.now()}_${Math.random().toString(36).substring(2)}`
-        const capacity = DEFAULT_STUDENT_CAPACITY(groupSize)
         
         return {
           id: studentId,
           classId,
           name,
           canHost: true,
-          capacity,
           like: [],
           avoid: []
         }

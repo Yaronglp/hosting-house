@@ -2,7 +2,6 @@ import { Assignment, Student, Round } from '../types'
 import { ValidationResult } from './types'
 import { 
   checkDuplicateHosts, 
-  checkCapacityOverflow, 
   checkInsufficientHosts 
 } from './error-checkers'
 import { 
@@ -26,8 +25,6 @@ export function validatePlan(
   const duplicateHostsError = checkDuplicateHosts(assignments, students)
   if (duplicateHostsError) errors.push(duplicateHostsError)
 
-  const capacityOverflowError = checkCapacityOverflow(assignments, students, rounds)
-  if (capacityOverflowError) errors.push(capacityOverflowError)
 
   const insufficientHostsError = checkInsufficientHosts(students, rounds)
   if (insufficientHostsError) errors.push(insufficientHostsError)

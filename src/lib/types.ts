@@ -24,7 +24,6 @@ export interface Student {
   classId: string
   name: string
   canHost: boolean
-  capacity: number
   like: string[] // Student IDs
   avoid: string[] // Student IDs
 }
@@ -62,6 +61,3 @@ export const DEFAULT_SETTINGS: ClassSettings = {
   groupSize: 6,
 }
 
-export const DEFAULT_STUDENT_CAPACITY = (groupSize: number): number => {
-  return groupSize + 2
-}

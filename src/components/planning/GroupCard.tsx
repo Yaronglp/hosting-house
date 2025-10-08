@@ -40,7 +40,7 @@ export const GroupCard = memo(({
       <Crown className="h-4 w-4 text-yellow-600" />
       <span className="font-medium" data-cy="host-student">{host.name}</span>
       <span className="text-xs text-muted-foreground">
-        ({group.memberIds.length}/{host.capacity})
+        ({group.memberIds.length} אורחים)
       </span>
     </div>
 

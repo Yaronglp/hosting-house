@@ -35,41 +35,6 @@ export function checkDuplicateHosts(
   return null
 }
 
-/**
- * Check for capacity overflow in groups
- */
-export function checkCapacityOverflow(
-  assignments: Assignment[],
-  students: Student[],
-  rounds: Round[]
-): ValidationError | null {
-  const studentsById = new Map(students.map(s => [s.id, s]))
-  const overflowDetails: string[] = []
-  
-  for (const assignment of assignments) {
-    for (const group of assignment.groups) {
-      const host = studentsById.get(group.hostId)
-      if (host && group.memberIds.length > host.capacity) {
-        const round = rounds.find(r => r.id === assignment.roundId)
-        overflowDetails.push(
-          `${host.name} (${round?.name}): ${group.memberIds.length}/${host.capacity}`
-        )
-      }
-    }
-  }
-  
-  if (overflowDetails.length > 0) {
-    return {
-      type: 'blocking',
-      code: 'capacity-overflow',
-      message: 'חריגה מיכולת אירוח',
-      count: overflowDetails.length,
-      details: overflowDetails
-    }
-  }
-  
-  return null
-}
 
 /**
  * Check for insufficient hosts

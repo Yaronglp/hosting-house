@@ -61,7 +61,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
           <p className="text-muted-foreground mb-4">אין תלמידים בכיתה</p>
           <div className="flex gap-2">
             <Button onClick={onStudentAdd} data-cy="add-student-button">הוסף תלמיד</Button>
-            <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button">הדבק שמות</Button>
+            <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button">הזן רשימת שמות תלמידים</Button>
           </div>
         </CardContent>
       </Card>
@@ -79,7 +79,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button">
-            הדבק שמות
+          הזן רשימת שמות תלמידים
           </Button>
           <Button onClick={onStudentAdd} data-cy="add-student-button">
             הוסף תלמיד
@@ -93,7 +93,6 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
             <tr className="border-b">
               <th className="text-right p-3 font-medium">שם</th>
               <th className="text-center p-3 font-medium">יכול לארח</th>
-              <th className="text-center p-3 font-medium">קיבולת</th>
               <th className="text-center p-3 font-medium">פעולות</th>
             </tr>
           </thead>
@@ -121,9 +120,6 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                   >
                     {student.canHost ? 'כן' : 'לא'}
                   </button>
-                </td>
-                <td className="p-3 text-center text-sm">
-                  {student.capacity}
                 </td>
                 <td className="p-3 text-center">
                   <div className="flex gap-1 justify-center">

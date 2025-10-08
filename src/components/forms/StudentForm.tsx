@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useKV } from '@/hooks/useKV'
-import { Student, KV_KEYS, DEFAULT_STUDENT_CAPACITY, DEFAULT_SETTINGS } from '@/lib/types'
+import { Student, KV_KEYS, DEFAULT_SETTINGS } from '@/lib/types'
 import { FormCard } from './FormCard'
 import { FormField } from './FormField'
 import { FormInput } from './FormInput'
@@ -22,11 +22,9 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
   const [formData, setFormData] = useState({
     name: '',
     canHost: true,
-    capacity: DEFAULT_STUDENT_CAPACITY(settings.groupSize),
     like: [] as string[],
     avoid: [] as string[]
   })
-  const [capacityInput, setCapacityInput] = useState(DEFAULT_STUDENT_CAPACITY(settings.groupSize).toString())
 
   // Load existing student data if editing
   useEffect(() => {
@@ -36,22 +34,12 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
         setFormData({
           name: existingStudent.name,
           canHost: existingStudent.canHost,
-          capacity: existingStudent.capacity,
           like: existingStudent.like,
           avoid: existingStudent.avoid
         })
-        setCapacityInput(existingStudent.capacity.toString())
       }
-    } else {
-      // For new students, use current settings
-      const defaultCapacity = DEFAULT_STUDENT_CAPACITY(settings.groupSize)
-      setFormData(prev => ({
-        ...prev,
-        capacity: defaultCapacity
-      }))
-      setCapacityInput(defaultCapacity.toString())
     }
-  }, [studentId, students, settings.groupSize])
+  }, [studentId, students])
 
   const { handleSubmit, isLoading } = useFormSubmit({
     onSubmit: async (data) => {
@@ -63,7 +51,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
                 ...s, 
                 name: data.name.trim(),
                 canHost: data.canHost,
-                capacity: data.capacity,
                 like: data.like,
                 avoid: data.avoid
               }
@@ -79,7 +66,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
           classId,
           name: data.name.trim(),
           canHost: data.canHost,
-          capacity: data.capacity,
           like: data.like,
           avoid: data.avoid
         }
@@ -115,34 +101,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
           testId="student-can-host-checkbox"
         />
 
-        <FormField label="קיבולת">
-          <FormInput
-            id="capacity"
-            type="number"
-            value={capacityInput}
-            onChange={(value) => {
-              setCapacityInput(value)
-              const numValue = parseInt(value)
-              if (!isNaN(numValue) && numValue > 0) {
-                setFormData(prev => ({ 
-                  ...prev, 
-                  capacity: numValue
-                }))
-              }
-            }}
-            onBlur={(e) => {
-              if (e.target.value === '' || parseInt(e.target.value) <= 0) {
-                setCapacityInput('1')
-                setFormData(prev => ({ 
-                  ...prev, 
-                  capacity: 1 
-                }))
-              }
-            }}
-            className="w-24 text-center"
-            testId="student-capacity-input"
-          />
-        </FormField>
 
         <StudentPreferences
           students={students}

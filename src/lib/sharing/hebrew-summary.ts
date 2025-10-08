@@ -31,7 +31,7 @@ export function generateHebrewSummary(
       } else {
         summary += `👥 אורחים: אין\n`
       }
-      summary += `📊 ${guests.length}/${host?.capacity || 0} מקומות\n`
+      summary += `📊 ${guests.length} אורחים\n`
     })
     
     if (index < sortedRounds.length - 1) {

@@ -47,10 +47,6 @@ export function usePlanBoardLogic({ assignments, students, rounds, onUpdateAssig
       return { valid: false, reason: 'לא ניתן להעביר מארח' }
     }
 
-    // Check capacity
-    if (toGroup.memberIds.length >= hostStudent.capacity) {
-      return { valid: false, reason: 'הקבוצה מלאה' }
-    }
 
     // Check avoid constraints
     const allMembersInTarget = [toGroup.hostId, ...toGroup.memberIds]
