@@ -16,7 +16,7 @@ export function PlanGenerationError({
       <CardContent className="py-8">
         <div className="text-center space-y-4">
           <div className="p-3 rounded-full bg-red-100 text-red-600 w-fit mx-auto">
-            <AlertTriangle className="h-6 w-6" />
+            <AlertTriangle className="h-6 w-6 padding-left-default" />
           </div>
           <div className="space-y-2">
             <h3 className="text-lg font-semibold text-red-800">שגיאה ביצירת התוכנית</h3>

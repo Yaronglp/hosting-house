@@ -105,7 +105,7 @@ export function ExportImportSection({
             onClick={handleExportJSON}
             disabled={!hasData}
           >
-            <Download className="h-4 w-4 ml-2" />
+            <Download className="h-4 w-4 ml-2 padding-left-default" />
             ייצא נתונים
           </Button>
           <label className="relative">
@@ -115,7 +115,7 @@ export function ExportImportSection({
               disabled={!onImportData || isImporting}
               className="w-full"
             >
-              <Upload className="h-4 w-4 ml-2" />
+              <Upload className="h-4 w-4 ml-2 padding-left-default" />
               {isImporting ? 'מייבא...' : 'ייבא נתונים'}
             </Button>
             <input

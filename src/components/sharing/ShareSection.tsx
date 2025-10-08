@@ -80,7 +80,7 @@ export function ShareSection({
           onClick={handleGenerateSummary}
           disabled={!hasData}
         >
-          <MessageCircle className="h-4 w-4 ml-2" />
+          <MessageCircle className="h-4 w-4 ml-2 padding-left-default" />
           שתף ב-WhatsApp
         </Button>
         <Button 
@@ -89,7 +89,7 @@ export function ShareSection({
           onClick={handleCopyToClipboard}
           disabled={!hasData}
         >
-          <Copy className="h-4 w-4 ml-2" />
+          <Copy className="h-4 w-4 ml-2 padding-left-default" />
           העתק ללוח
         </Button>
       </div>

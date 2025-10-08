@@ -80,7 +80,7 @@ const ValidationSection = memo(({
   return (
     <div className="space-y-2" data-cy={dataCy}>
       <div className={`flex items-center gap-2 ${iconColor}`}>
-        <Icon className="h-4 w-4" />
+        <Icon className="h-4 w-4 padding-left-default" />
         <span className="font-medium">{title} ({items.length})</span>
       </div>
       {items.map((item, index) => (
@@ -124,7 +124,7 @@ RetryButton.displayName = 'RetryButton'
 const SuccessState = memo(() => (
   <div className="bg-green-50 border border-green-200 rounded-md p-3">
     <div className="flex items-center gap-2 text-green-800">
-      <CheckCircle className="h-4 w-4" data-cy="success-icon"/>
+      <CheckCircle className="h-4 w-4 padding-left-default" data-cy="success-icon"/>
       <span>התוכנית עומדת בכל הדרישות!</span>
     </div>
     <div className="text-sm text-green-700 mt-1">
@@ -147,9 +147,9 @@ export const ValidationPanel = memo(({ validation, onRetry, isRetrying }: Valida
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {isValid ? (
-              <CheckCircle className="h-5 w-5 text-green-600" cy-data="success-icon"/>
+              <CheckCircle className="h-5 w-5 text-green-600 padding-left-default" cy-data="success-icon"/>
             ) : (
-              <XCircle className="h-5 w-5 text-red-600" cy-data="error-icon"/>
+              <XCircle className="h-5 w-5 text-red-600 padding-left-default" cy-data="error-icon"/>
             )}
             <CardTitle>
               {isValid ? 'תוכנית תקינה' : 'בעיות בתוכנית'}

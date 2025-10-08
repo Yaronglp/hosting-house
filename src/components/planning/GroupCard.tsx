@@ -37,8 +37,8 @@ export const GroupCard = memo(({
   >
     {/* Host */}
     <div className="flex items-center gap-2 mb-2">
-      <Crown className="h-4 w-4 text-yellow-600" />
-      <span className="font-medium" data-cy="host-student">{host.name}</span>
+      <Crown className="h-4 w-4 text-yellow-600 padding-left-default" />
+      <span className="font-medium padding-left-default" data-cy="host-student">{host.name}</span>
       <span className="text-xs text-muted-foreground">
         ({group.memberIds.length} אורחים)
       </span>

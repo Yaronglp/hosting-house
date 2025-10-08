@@ -468,6 +468,10 @@ button {
   padding: 0.5rem 0;
 }
 
+.padding-left-default {
+  padding-left: 0.5rem;
+}
+
 /* Add missing retro-pulse class */
 .retro-pulse {
   animation: retro-pulse-animation 2s ease-in-out infinite alternate;

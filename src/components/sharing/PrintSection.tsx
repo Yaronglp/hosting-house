@@ -45,7 +45,7 @@ export function PrintSection({
         onClick={handlePrint}
         disabled={!hasData}
       >
-        <Printer className="h-4 w-4 ml-2" />
+        <Printer className="h-4 w-4 ml-2 padding-left-default" />
         הדפס תוכנית
       </Button>
     </div>
