@@ -41,6 +41,18 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
       return
     }
 
+    // Check for duplicate dates
+    const selectedDate = new Date(formData.date).toDateString()
+    const existingDate = rounds.find(r => {
+      if (!r.dateWindow) return false
+      return new Date(r.dateWindow.start).toDateString() === selectedDate
+    })
+
+    if (existingDate && (!roundId || existingDate.id !== roundId)) {
+      error('תאריך זה כבר קיים במערכת')
+      return
+    }
+
     setIsLoading(true)
     try {
       if (roundId) {
