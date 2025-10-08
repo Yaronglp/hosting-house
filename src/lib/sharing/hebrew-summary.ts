@@ -40,7 +40,7 @@ export function generateHebrewSummary(
   })
   
   summary += `\n🎯 סה"כ ${students.length} תלמידים ב-${sortedRounds.length} תאריכי מפגש`
-  summary += `\n📱 נוצר באמצעות בית מארח PWA`
+  summary += `\n📱 נוצר באמצעות בית מארח Yaron Galperin`
   
   return summary
 }

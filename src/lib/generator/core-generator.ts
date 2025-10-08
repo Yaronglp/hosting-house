@@ -40,6 +40,16 @@ export function generatePlan(input: GenerateInput, options: GenerateOptions): Ge
     const nonHosts = input.students.filter(s => !hostIds.includes(s.id))
     const guests = [...nonHosts]
     shuffleInPlace(guests, rng)
+    
+    // Double-check that no hosts are in the guest list
+    const hostIdsSet = new Set(hostIds)
+    const invalidGuests = guests.filter(g => hostIdsSet.has(g.id))
+    if (invalidGuests.length > 0) {
+      console.error('Hosts found in guest list:', invalidGuests.map(g => g.name))
+      // Remove hosts from guest list
+      const validGuests = guests.filter(g => !hostIdsSet.has(g.id))
+      guests.splice(0, guests.length, ...validGuests)
+    }
 
     const maxRetries = 100
     for (let attempt = 0; attempt < maxRetries; attempt++) {
@@ -55,6 +65,14 @@ export function generatePlan(input: GenerateInput, options: GenerateOptions): Ge
       const nonHosts = input.students.filter(s => !hostIds.includes(s.id))
       guests.splice(0, guests.length, ...nonHosts)
       shuffleInPlace(guests, rng)
+      
+      // Double-check that no hosts are in the guest list for retry
+      const invalidGuests = guests.filter(g => hostIdsSet.has(g.id))
+      if (invalidGuests.length > 0) {
+        console.error('Hosts found in guest list during retry:', invalidGuests.map(g => g.name))
+        const validGuests = guests.filter(g => !hostIdsSet.has(g.id))
+        guests.splice(0, guests.length, ...validGuests)
+      }
     }
 
     // Create groups for this round

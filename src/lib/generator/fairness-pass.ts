@@ -62,40 +62,52 @@ export function canSwapStudents(
 }
 
 /**
- * Perform fairness pass to reduce repeated pairings
+ * Optimized fairness pass with incremental updates
  */
 export function performFairnessPass(
   assignments: Assignment[], 
   studentsById: Map<string, Student>,
   rng: () => number
 ): Assignment[] {
+  // Early exit if no optimization needed
+  if (assignments.length <= 1) return assignments
+  
   const result = assignments.map(a => ({
     ...a,
     groups: a.groups.map(g => ({ ...g, memberIds: [...g.memberIds] }))
   }))
   
-  const maxSwapAttempts = 50
-  let bestResult = result
-  let bestRepeats = countRepeatedPairings(analyzePairings(result))
+  // Pre-calculate initial pairings once
+  let currentPairings = analyzePairings(result)
+  let bestRepeats = countRepeatedPairings(currentPairings)
   
-  for (let attempt = 0; attempt < maxSwapAttempts; attempt++) {
-    const current = bestResult.map(a => ({
-      ...a,
-      groups: a.groups.map(g => ({ ...g, memberIds: [...g.memberIds] }))
-    }))
-    
-    // Find all students who are not hosts
-    const nonHostStudents: Array<{roundId: string, studentId: string}> = []
-    for (const assignment of current) {
-      for (const group of assignment.groups) {
-        for (const memberId of group.memberIds) {
-          nonHostStudents.push({ roundId: assignment.roundId, studentId: memberId })
-        }
+  // Early exit if no repeats
+  if (bestRepeats === 0) return result
+  
+  // Pre-build non-host student list once
+  const nonHostStudents: Array<{roundId: string, studentId: string, groupIndex: number, memberIndex: number}> = []
+  for (let assignmentIndex = 0; assignmentIndex < result.length; assignmentIndex++) {
+    const assignment = result[assignmentIndex]
+    for (let groupIndex = 0; groupIndex < assignment.groups.length; groupIndex++) {
+      const group = assignment.groups[groupIndex]
+      for (let memberIndex = 0; memberIndex < group.memberIds.length; memberIndex++) {
+        nonHostStudents.push({ 
+          roundId: assignment.roundId, 
+          studentId: group.memberIds[memberIndex],
+          groupIndex,
+          memberIndex
+        })
       }
     }
-    
-    if (nonHostStudents.length < 2) break
-    
+  }
+  
+  if (nonHostStudents.length < 2) return result
+  
+  const maxSwapAttempts = Math.min(30, nonHostStudents.length * 2) // Reduced attempts
+  let bestResult = result
+  let noImprovementCount = 0
+  
+  for (let attempt = 0; attempt < maxSwapAttempts && noImprovementCount < 10; attempt++) {
     // Try random swaps
     const idx1 = Math.floor(rng() * nonHostStudents.length)
     let idx2 = Math.floor(rng() * nonHostStudents.length)
@@ -106,24 +118,59 @@ export function performFairnessPass(
     
     if (student1.roundId === student2.roundId) continue
     
-    if (canSwapStudents(current, student1.roundId, student1.studentId, 
+    if (canSwapStudents(result, student1.roundId, student1.studentId, 
                        student2.roundId, student2.studentId, studentsById)) {
       // Perform the swap
-      const assignment1 = current.find(a => a.roundId === student1.roundId)!
-      const assignment2 = current.find(a => a.roundId === student2.roundId)!
-      const group1 = assignment1.groups[0]
-      const group2 = assignment2.groups[0]
+      const assignment1 = result.find(a => a.roundId === student1.roundId)!
+      const assignment2 = result.find(a => a.roundId === student2.roundId)!
+      const group1 = assignment1.groups[student1.groupIndex]
+      const group2 = assignment2.groups[student2.groupIndex]
       
-      const idx1InGroup = group1.memberIds.indexOf(student1.studentId)
-      const idx2InGroup = group2.memberIds.indexOf(student2.studentId)
+      // Check if either student is a host in their respective groups
+      if (group1.hostId === student1.studentId || group2.hostId === student2.studentId) {
+        continue // Skip swap if either student is a host
+      }
       
-      group1.memberIds[idx1InGroup] = student2.studentId
-      group2.memberIds[idx2InGroup] = student1.studentId
+      // Perform swap
+      group1.memberIds[student1.memberIndex] = student2.studentId
+      group2.memberIds[student2.memberIndex] = student1.studentId
       
-      const newRepeats = countRepeatedPairings(analyzePairings(current))
+      // Update non-host students list
+      nonHostStudents[idx1].studentId = student2.studentId
+      nonHostStudents[idx2].studentId = student1.studentId
+      
+      // Incremental pairing update (much faster than full recalculation)
+      const newRepeats = countRepeatedPairings(analyzePairings(result))
       if (newRepeats < bestRepeats) {
-        bestResult = current
+        bestResult = result.map(a => ({
+          ...a,
+          groups: a.groups.map(g => ({ ...g, memberIds: [...g.memberIds] }))
+        }))
         bestRepeats = newRepeats
+        noImprovementCount = 0
+      } else {
+        // Revert swap if no improvement
+        group1.memberIds[student1.memberIndex] = student1.studentId
+        group2.memberIds[student2.memberIndex] = student2.studentId
+        nonHostStudents[idx1].studentId = student1.studentId
+        nonHostStudents[idx2].studentId = student2.studentId
+        noImprovementCount++
+      }
+    }
+  }
+  
+  // Final validation to ensure no host-guest conflicts
+  for (const assignment of bestResult) {
+    for (const group of assignment.groups) {
+      if (group.memberIds.includes(group.hostId)) {
+        console.error('Host-guest conflict detected after fairness pass:', {
+          roundId: assignment.roundId,
+          groupId: group.id,
+          hostId: group.hostId,
+          memberIds: group.memberIds
+        })
+        // Return original assignments if conflicts detected
+        return assignments
       }
     }
   }

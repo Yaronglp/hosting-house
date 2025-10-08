@@ -1,6 +1,50 @@
 import { Student } from '../types'
 
 /**
+ * Validate that no student appears multiple times in the same group
+ */
+export function validateNoDuplicates(hostSlots: Array<{ hostId: string, capacity: number, memberIds: string[] }>): boolean {
+  const allHostIds = new Set(hostSlots.map(slot => slot.hostId))
+  
+  for (const slot of hostSlots) {
+    const allIds = [slot.hostId, ...slot.memberIds]
+    const uniqueIds = new Set(allIds)
+    
+    // Check for duplicates within the group
+    if (uniqueIds.size !== allIds.length) {
+      console.error('Duplicate student found in group:', {
+        hostId: slot.hostId,
+        memberIds: slot.memberIds,
+        allIds
+      })
+      return false
+    }
+    
+    // Check if host is assigned as guest in their own group
+    if (slot.memberIds.includes(slot.hostId)) {
+      console.error('Host assigned as guest in their own group:', {
+        hostId: slot.hostId,
+        memberIds: slot.memberIds
+      })
+      return false
+    }
+    
+    // Check if any guest is a host in another group
+    for (const memberId of slot.memberIds) {
+      if (allHostIds.has(memberId)) {
+        console.error('Host assigned as guest in different group:', {
+          guestId: memberId,
+          hostId: slot.hostId,
+          memberIds: slot.memberIds
+        })
+        return false
+      }
+    }
+  }
+  return true
+}
+
+/**
  * Check if a guest violates avoid constraints
  */
 export function violatesAvoid(guestId: string, memberIds: string[], studentsById: Map<string, Student>): boolean {
@@ -36,6 +80,8 @@ export function assignGuestsToSlots(
   studentsById: Map<string, Student>,
   rng: () => number
 ): boolean {
+  // Get all host IDs to prevent hosts from being assigned as guests
+  const allHostIds = new Set(hostSlots.map(slot => slot.hostId))
   const numGroups = hostSlots.length
   const totalGuests = guests.length
   const basePerGroup = Math.floor(totalGuests / numGroups)
@@ -50,21 +96,21 @@ export function assignGuestsToSlots(
   // Shuffle the target distribution to avoid bias
   shuffleInPlace(targetDistribution, rng)
   
-  let guestIndex = 0
-  
   // Assign guests with balanced distribution across groups
   for (let groupIndex = 0; groupIndex < numGroups; groupIndex++) {
     const slot = hostSlots[groupIndex]
     const targetForThisGroup = targetDistribution[groupIndex]
     
     // Try to assign the target number of guests to this group
-    for (let i = 0; i < targetForThisGroup && guestIndex < guests.length; i++) {
+    for (let i = 0; i < targetForThisGroup && guests.length > 0; i++) {
       let bestGuestIndex = -1
       let bestScore = -Infinity
       
-      // Find the best guest for this group
-      for (let j = guestIndex; j < guests.length; j++) {
+      // Find the best guest for this group from all remaining guests
+      for (let j = 0; j < guests.length; j++) {
         const guest = guests[j]
+        // Skip if guest is a host in any group
+        if (allHostIds.has(guest.id)) continue
         if (violatesAvoid(guest.id, [slot.hostId, ...slot.memberIds], studentsById)) continue
         const score = likeScore(guest.id, [slot.hostId, ...slot.memberIds], studentsById)
         if (score > bestScore) {
@@ -90,6 +136,9 @@ export function assignGuestsToSlots(
   // If there are still unassigned guests, try to place them anywhere possible
   if (guests.length > 0) {
     for (const guest of guests) {
+      // Skip if guest is a host in any group
+      if (allHostIds.has(guest.id)) continue
+      
       let bestGroupIndex = -1
       let bestScore = -Infinity
       for (let i = 0; i < hostSlots.length; i++) {
@@ -107,6 +156,12 @@ export function assignGuestsToSlots(
       }
       hostSlots[bestGroupIndex].memberIds.push(guest.id)
     }
+  }
+  
+  // Validate no duplicates were created
+  if (!validateNoDuplicates(hostSlots)) {
+    console.error('Duplicate students detected in group assignment')
+    return false
   }
   
   return true // Successfully assigned all guests
