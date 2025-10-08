@@ -27,10 +27,10 @@ export function ViewModeNavigation({
             onClick={() => onViewModeChange('generator')}
             role="tab"
             aria-selected={viewMode === 'generator'}
-            aria-label="מחולל תוכניות - מקש קיצור 1"
+            aria-label="יוצר קבוצות מפגש - מקש קיצור 1"
             data-cy="generator-view-button"
           >
-            מחולל
+            יוצר קבוצות מפגש
           </Button>
           <Button
             variant={viewMode === 'board' ? 'default' : 'outline'}
@@ -38,11 +38,11 @@ export function ViewModeNavigation({
             onClick={() => onViewModeChange('board')}
             role="tab"
             aria-selected={viewMode === 'board'}
-            aria-label="לוח תכנון אינטראקטיבי - מקש קיצור 2"
+            aria-label="לוח מפגשים - מקש קיצור 2"
             data-cy="board-view-button"
           >
             <Eye className="h-4 w-4 ml-2" />
-            לוח תכנון
+            לוח מפגשים
           </Button>
           <Button
             variant={viewMode === 'table' ? 'default' : 'outline'}
@@ -54,7 +54,7 @@ export function ViewModeNavigation({
             data-cy="table-view-button"
           >
             <Table className="h-4 w-4 ml-2" />
-            טבלה
+            תצוגה בטבלה
           </Button>
           <Button
             variant={viewMode === 'share' ? 'default' : 'outline'}

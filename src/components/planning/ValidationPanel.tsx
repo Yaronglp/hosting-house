@@ -129,8 +129,7 @@ const SuccessState = memo(() => (
     </div>
     <div className="text-sm text-green-700 mt-1">
       כל התלמידים קיבלו שיבוץ<br />
-      אין תלמידים שלא שובצו<br />
-      המערכת פועלת במסגרת הקיבולת המותרת
+      אין תלמידים שלא שובצו
     </div>
   </div>
 ))

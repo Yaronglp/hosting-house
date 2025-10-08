@@ -45,8 +45,8 @@ export function PlanGeneratorView({
         <CardHeader>
           <div className="flex items-start justify-between">
             <div>
-              <CardTitle>מחולל תוכנית</CardTitle>
-              <CardDescription>מארח פעם אחת + שיבוץ אורחים עם העדפות</CardDescription>
+              <CardTitle>יוצר קבוצות מפגש</CardTitle>
+              <CardDescription>כל מארח יכול לארח פעם אחת + שיבוץ אורחים על סמך העדפות שנבחרו</CardDescription>
             </div>
             <div className="flex gap-2">
               <Button 

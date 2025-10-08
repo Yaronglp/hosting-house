@@ -12,6 +12,11 @@ export default defineConfig(({ command, mode }) => {
   
   return {
     base,
+    server: {
+      watch: {
+        ignored: ['**/tsconfig.tsbuildinfo', '**/node_modules/**']
+      }
+    },
     plugins: [
       react(),
       VitePWA({

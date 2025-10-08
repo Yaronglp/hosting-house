@@ -98,7 +98,7 @@ export function PlanManager({ classId }: PlanManagerProps) {
         <Card>
           <CardHeader>
             <CardTitle>לוח תכנון אינטראקטיבי</CardTitle>
-            <CardDescription>לחץ על תלמיד כדי לבחור, ואז על קבוצה כדי להעביר</CardDescription>
+            <CardDescription>ע״מ לבצע שינויים בין קבוצות תלמידים, לחץ על תלמיד ולאחר מכן על קבוצה מבוקשת</CardDescription>
           </CardHeader>
           <CardContent>
             <PlanBoard
