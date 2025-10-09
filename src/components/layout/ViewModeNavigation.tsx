@@ -20,14 +20,14 @@ export function ViewModeNavigation({
   return (
     <Card>
       <CardContent className="pt-6">
-        <div className="flex gap-2" role="tablist" aria-label="מצבי תצוגה">
+        <div className="view-mode-responsive gap-2" role="tablist" aria-label="מצבי תצוגה">
           <Button
             variant={viewMode === 'generator' ? 'default' : 'outline'}
             size="sm"
             onClick={() => onViewModeChange('generator')}
             role="tab"
             aria-selected={viewMode === 'generator'}
-            aria-label="יוצר קבוצות מפגש - מקש קיצור 1"
+            aria-label="יוצר קבוצות מפגש"
             data-cy="generator-view-button"
           >
             יוצר קבוצות מפגש
@@ -38,10 +38,10 @@ export function ViewModeNavigation({
             onClick={() => onViewModeChange('board')}
             role="tab"
             aria-selected={viewMode === 'board'}
-            aria-label="לוח מפגשים - מקש קיצור 2"
+            aria-label="לוח מפגשים"
             data-cy="board-view-button"
           >
-            <Eye className="h-4 w-4 ml-2" />
+            <Eye className="h-4 w-4 ml-2 padding-left-default" />
             לוח מפגשים
           </Button>
           <Button
@@ -50,10 +50,10 @@ export function ViewModeNavigation({
             onClick={() => onViewModeChange('table')}
             role="tab"
             aria-selected={viewMode === 'table'}
-            aria-label="תצוגת טבלה - מקש קיצור 3"
+            aria-label="תצוגת טבלה"
             data-cy="table-view-button"
           >
-            <Table className="h-4 w-4 ml-2" />
+            <Table className="h-4 w-4 ml-2 padding-left-default" />
             תצוגה בטבלה
           </Button>
           <Button
@@ -62,10 +62,10 @@ export function ViewModeNavigation({
             onClick={() => onViewModeChange('share')}
             role="tab"
             aria-selected={viewMode === 'share'}
-            aria-label="שיתוף וגיבוי - מקש קיצור 4"
+            aria-label="שיתוף וגיבוי"
             data-cy="share-view-button"
           >
-            <Share className="h-4 w-4 ml-2" />
+            <Share className="h-4 w-4 ml-2 padding-left-default" />
             שיתוף
           </Button>
         </div>

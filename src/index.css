@@ -495,3 +495,22 @@ button {
       0 0 30px var(--neon-pink);
   }
 }
+
+/* Responsive view mode navigation */
+@media (min-width: 600px) {
+  .view-mode-responsive {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .view-mode-responsive {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+
+    > button {
+      margin: 0 !important;
+    }
+  }
+}
