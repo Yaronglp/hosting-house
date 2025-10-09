@@ -114,16 +114,16 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="names" className="block text-sm font-medium mb-2">
+                <label htmlFor="names" className="block text-sm font-medium mb-2 padding-bottom-default">
                   שמות התלמידים (שורה אחת לכל תלמיד)
                 </label>
                 <textarea
                   id="names"
                   value={namesText}
                   onChange={(e) => setNamesText(e.target.value)}
-                  className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-1 focus:ring-ring resize-none bg-input text-foreground"
+                  className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-1 focus:ring-ring resize-none bg-input text-foreground padding-default"
                   style={{ height: '6rem', lineHeight: '1.5rem' }}
-                  placeholder="יוסי כהן&#10;שרה לוי&#10;דוד ישראלי&#10;..."
+                  placeholder="יוסי כהן&#10;שרה לוי&#10;..."
                   dir="rtl"
                   required
                   data-cy="names-textarea"

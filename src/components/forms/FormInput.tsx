@@ -23,7 +23,7 @@ export function FormInput({
   dir = 'rtl',
   testId
 }: FormInputProps) {
-  const baseClasses = 'px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring'
+  const baseClasses = 'px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring padding-default'
   
   return (
     <input

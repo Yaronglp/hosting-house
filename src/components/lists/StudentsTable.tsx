@@ -71,7 +71,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-lg font-semibold">תלמידי הכיתה</h2>
+          <h2 className="text-lg font-semibold margin-top-default">תלמידי הכיתה</h2>
           <p className="text-sm text-muted-foreground">
             {students.length} תלמידים • {students.filter(s => s.canHost).length} יכולים לארח
           </p>
@@ -84,6 +84,10 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
             הוסף תלמיד
           </Button>
         </div>
+      </div>
+
+      <div className="text-xs text-muted-foreground padding-vertical-default">
+        💡 <strong>טיפ:</strong> לחץ על "יכול לארח" כדי לשנות במהירות
       </div>
       
       <div className="overflow-x-auto">
@@ -100,7 +104,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
               <tr key={student.id} className="border-b hover:bg-muted/50" data-cy="student-item">
                 <td className="p-3">
                   <div className="font-medium">{student.name}</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-xs text-muted-foreground text-small">
                     {student.avoid.length > 0 && `כמות תלמידים שהתלמיד מעדיף לא להיות איתם: ${student.avoid.length}`}
                   </div>
                 </td>
@@ -143,10 +147,6 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div className="text-xs text-muted-foreground">
-        💡 טיפ: לחץ על "יכול לארח" כדי לשנות במהירות
       </div>
       
       <ConfirmDialog

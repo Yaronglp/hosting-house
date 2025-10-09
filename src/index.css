@@ -480,6 +480,14 @@ button {
   padding-right: 0.5rem;
 }
 
+.margin-top-default {
+  margin-top: 0.5rem;
+}
+
+.text-small {
+  font-size: 0.8rem;
+}
+
 /* Add missing retro-pulse class */
 .retro-pulse {
   animation: retro-pulse-animation 2s ease-in-out infinite alternate;
@@ -537,6 +545,11 @@ button {
 .validation-success-detail {
   color: #66ff66;
   text-shadow: 0 0 3px rgba(102, 255, 102, 0.2);
+}
+
+.plan-host-name {
+  color: #66ff66;
+  font-weight: bold;
 }
 
 .validation-error-detail {

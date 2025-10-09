@@ -29,7 +29,7 @@ export function PlanTableView({
                 <div className="font-medium mb-2">{round.name}</div>
                 {assignment.groups.map(group => (
                   <div key={group.id} className="text-sm">
-                    <div className="mb-1">
+                    <div className="mb-1 plan-host-name">
                       מארח: {students.find(s => s.id === group.hostId)?.name || group.hostId}
                     </div>
                     <div className="pl-3">

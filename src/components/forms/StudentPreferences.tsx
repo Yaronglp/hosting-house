@@ -28,13 +28,13 @@ export function StudentPreferences({
   }
 
   return (
-    <div className="mb-4">
-      <label className="block text-sm font-medium mb-2">
+    <div className="mb-4 padding-bottom-default">
+      <label className="block text-sm font-medium mb-2 padding-vertical-default">
         תלמידים שהתלמיד מעדיף לא להיות איתם
       </label>
-      <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-input rounded-md p-2">
+      <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-input rounded-md p-2 padding-default">
         {otherStudents.map(student => (
-          <label key={student.id} className="flex items-center gap-2 text-sm">
+          <label key={student.id} className="flex items-center gap-2 text-sm padding-default">
             <input
               type="checkbox"
               checked={avoid.includes(student.id)}
