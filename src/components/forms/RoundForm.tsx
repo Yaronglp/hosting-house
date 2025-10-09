@@ -114,8 +114,8 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} data-cy="round-form">
-          <div className="p-4 bg-muted/50 rounded-lg max-w-md padding-default" style={{ marginTop: '1rem' }}>
-            <label htmlFor="date" className="block text-sm font-medium mb-2">
+          <div className="p-4 bg-muted/50 rounded-lg max-w-md">
+            <label htmlFor="date" className="block text-sm font-medium mb-2 padding-bottom-default">
               תאריך המפגש *
             </label>
             <input
@@ -124,13 +124,13 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
               value={formData.date}
               onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
               min={new Date().toISOString().split('T')[0]}
-              className="w-44 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+              className="w-44 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring padding-default"
               required
               data-cy="round-date-input"
             />
           </div>
 
-          <div className="flex gap-3 justify-end" style={{ marginTop: '2rem' }}>
+          <div className="flex gap-3 justify-end margin-top-default">
             <Button type="button" variant="outline" onClick={onCancel} data-cy="cancel-round-button">
               ביטול
             </Button>
