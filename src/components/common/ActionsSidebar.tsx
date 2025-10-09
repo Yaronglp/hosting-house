@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { backupAllDataToFile } from '@/utils/backup'
+import { useToast } from '@/hooks/useToast'
 
 interface ActionsSidebarProps {
   activeTab: string
@@ -36,9 +37,10 @@ export function ActionsSidebar({
   studentsActions,
   roundsActions
 }: ActionsSidebarProps) {
+  const { error } = useToast()
   return (
     <aside className="lg:w-80 w-full flex-shrink-0 space-y-4">
-      <Card className="retro-card hologram w-full">
+      <Card className="hologram w-full">
         <CardHeader>
           <CardTitle className="neon-text text-lg terminal-cursor">⚡ פעולות</CardTitle>
         </CardHeader>
@@ -56,14 +58,14 @@ export function ActionsSidebar({
             {activeTab === 'classes' && classesActions && (
               <>
                 <Button 
-                  className="retro-button border-0 hologram w-full"
+                  className="border-0 hologram w-full"
                   onClick={classesActions.addClass}
                 >
                   ➕ הוסף כיתה
                 </Button>
                 {classesActions.canOpenSettings && (
                   <Button 
-                    className="retro-button border-0 hologram w-full"
+                    className="border-0 hologram w-full"
                     onClick={classesActions.openSettings}
                   >
                     ⚙️ הגדרות כיתה
@@ -74,13 +76,13 @@ export function ActionsSidebar({
             {activeTab === 'students' && studentsActions && (
               <>
                 <Button 
-                  className="retro-button border-0 hologram w-full"
+                  className="border-0 hologram w-full"
                   onClick={studentsActions.addStudent}
                 >
                   👤 הוסף תלמיד
                 </Button>
                 <Button 
-                  className="retro-button border-0 hologram w-full"
+                  className="border-0 hologram w-full"
                   onClick={studentsActions.pasteNames}
                 >
                   📋 הזן רשימת שמות תלמידים
@@ -89,17 +91,17 @@ export function ActionsSidebar({
             )}
             {activeTab === 'rounds' && roundsActions && (
               <Button 
-                className="retro-button border-0 hologram w-full"
+                className="border-0 hologram w-full"
                 onClick={roundsActions.addRound}
               >
                 🔄 הוסף סבב
               </Button>
             )}
-            <Button className="retro-button border-0 hologram w-full" onClick={() => backupAllDataToFile()}>
+            <Button className="border-0 hologram w-full" onClick={() => backupAllDataToFile(error)}>
               💾 גיבוי
             </Button>
             <Button 
-              className="retro-button border-0 hologram w-full" 
+              className="border-0 hologram w-full" 
               disabled={isRequesting || persisted === true} 
               onClick={onRequestPersistence}
             >

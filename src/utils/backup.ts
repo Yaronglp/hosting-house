@@ -57,13 +57,18 @@ export async function importAllData(backup: any): Promise<void> {
   }
 }
 
-export async function backupAllDataToFile(): Promise<void> {
+export async function backupAllDataToFile(onError?: (message: string) => void): Promise<void> {
   try {
     const data = await exportAllData()
     const filename = `bait-meareah-backup-${new Date().toISOString().split('T')[0]}.json`
     backupToFile(data, filename)
   } catch (error) {
     console.error('Failed to backup data:', error)
-    alert('שגיאה בגיבוי הנתונים')
+    const errorMessage = 'שגיאה בגיבוי הנתונים'
+    if (onError) {
+      onError(errorMessage)
+    } else {
+      alert(errorMessage)
+    }
   }
 }

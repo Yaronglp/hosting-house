@@ -37,7 +37,7 @@ export function MainContent({
   return (
     <>
       <main className="flex-1 min-w-0 w-full">
-        <Card className="retro-card hologram vhs-static w-full">
+        <Card className="hologram vhs-static w-full">
           <CardHeader>
             <CardTitle className="neon-text text-xl">
               {getTabTitle()}

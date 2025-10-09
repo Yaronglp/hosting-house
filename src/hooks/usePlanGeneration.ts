@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useKV } from '@/hooks/useKV'
 import { useClasses } from '@/hooks/useClasses'
 import { useAnnouncer } from '@/hooks/useAccessibility'
+import { useToast } from '@/hooks/useToast'
 import { KV_KEYS, Student, Round, Assignment, ClassSettings } from '@/lib/types'
 import { generatePlan } from '@/lib/generator'
 import { validatePlan, retryRoundPlacement, ValidationResult } from '@/lib/validation'
@@ -23,6 +24,7 @@ export function usePlanGeneration(classId: string) {
   const [validation, setValidation] = useState<ValidationResult | null>(null)
 
   const announce = useAnnouncer()
+  const { success } = useToast()
   const sortedRounds = useMemo(() => [...rounds].sort((a, b) => a.order - b.order), [rounds])
   const currentClass = classes.find(c => c.id === classId)
   const canGenerate = students.length > 0 && sortedRounds.length > 0
@@ -119,8 +121,8 @@ export function usePlanGeneration(classId: string) {
       }
 
       setError(null)
-      const successMessage = `הייבוא הושלם בהצלחה!\n\nיובאו:\n• ${importData.students.length} תלמידים\n• ${importData.rounds.length} סבבים\n• ${importData.assignments?.length || 0} הקצאות`
-      alert(successMessage)
+      const successMessage = `הייבוא הושלם בהצלחה! יובאו: ${importData.students.length} תלמידים, ${importData.rounds.length} סבבים, ${importData.assignments?.length || 0} הקצאות`
+      success(successMessage)
       announce('נתונים יובאו בהצלחה')
     } catch (e: any) {
       console.error('Import failed:', e)

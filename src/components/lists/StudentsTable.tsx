@@ -109,10 +109,12 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                   </div>
                 </td>
                 <td className="p-3 text-center">
-                  <button
+                  <Button
                     onClick={() => toggleCanHost(student.id)}
+                    size="sm"
+                    variant={student.canHost ? "default" : "ghost"}
                     style={{ width: '64px', minWidth: '64px', maxWidth: '64px' }}
-                    className={`px-2 py-1 rounded text-xs font-medium transition-colors inline-flex items-center justify-center ${
+                    className={`px-2 py-1 text-xs font-medium ${
                       student.canHost 
                         ? 'bg-green-100 text-green-800 hover:bg-green-200' 
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -120,7 +122,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                     data-cy="student-can-host-toggle"
                   >
                     {student.canHost ? 'כן' : 'לא'}
-                  </button>
+                  </Button>
                 </td>
                 <td className="p-3 text-center">
                   <div className="flex gap-1 justify-center">
