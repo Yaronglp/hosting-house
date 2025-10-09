@@ -73,7 +73,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
         <div>
           <h2 className="text-lg font-semibold margin-top-default">תלמידי הכיתה</h2>
           <p className="text-sm text-muted-foreground">
-            {students.length} תלמידים • {students.filter(s => s.canHost).length} יכולים לארח
+            {students.length} תלמידים <br /> {students.filter(s => s.canHost).length} יכולים לארח
           </p>
         </div>
         <div className="flex gap-2">
