@@ -1,8 +1,10 @@
 import { memo } from 'react'
 import { Assignment, Student, Round } from '@/lib/types'
+import { ValidationResult } from '@/lib/validation/types'
 import { BoardControls } from './BoardControls'
 import { BoardStatus } from './BoardStatus'
 import { RoundCard } from './RoundCard'
+import { ValidationPanel } from './ValidationPanel'
 import { usePlanBoardLogic } from './usePlanBoardLogic'
 
 interface PlanBoardProps {
@@ -10,9 +12,12 @@ interface PlanBoardProps {
   students: Student[]
   rounds: Round[]
   onUpdateAssignments: (assignments: Assignment[]) => void
+  validation?: ValidationResult
+  onRetry?: () => void
+  isRetrying?: boolean
 }
 
-export const PlanBoard = memo(({ assignments, students, rounds, onUpdateAssignments }: PlanBoardProps) => {
+export const PlanBoard = memo(({ assignments, students, rounds, onUpdateAssignments, validation, onRetry, isRetrying }: PlanBoardProps) => {
   const {
     selectedStudentId,
     moveHistory,
@@ -39,6 +44,14 @@ export const PlanBoard = memo(({ assignments, students, rounds, onUpdateAssignme
         selectedStudentId={selectedStudentId}
         selectedStudent={selectedStudentId ? studentsById.get(selectedStudentId) : undefined}
       />
+
+      {validation && (
+        <ValidationPanel 
+          validation={validation} 
+          onRetry={onRetry}
+          isRetrying={isRetrying}
+        />
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {sortedRounds.map(round => {

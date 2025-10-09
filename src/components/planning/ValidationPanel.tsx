@@ -23,18 +23,17 @@ const ValidationItem = memo(({
   type: 'error' | 'warning'
 }) => {
   const isError = type === 'error'
-  const bgColor = isError ? 'bg-red-50 border-red-200' : 'bg-yellow-50 border-yellow-200'
-  const textColor = isError ? 'text-red-800' : 'text-yellow-800'
-  const countBgColor = isError ? 'bg-red-100 text-red-600' : 'bg-yellow-100 text-yellow-600'
-  const detailColor = isError ? 'text-red-700' : 'text-yellow-700'
+  const bgColor = isError ? 'validation-error-bg' : 'validation-warning-bg'
+  const textColor = isError ? 'validation-error-text' : 'validation-warning-text'
+  const detailColor = isError ? 'validation-error-detail' : 'validation-warning-detail'
   const maxDetails = isError ? 5 : 3
 
   return (
     <div className={`${bgColor} border rounded-md p-3`}>
-      <div className="flex items-center mb-1">
+      <div className="flex items-center mb-1 padding-right-default padding-top-default">
         <span className={`font-medium ${textColor}`}>{message}</span>
         {count && (
-          <span className={`text-sm ${countBgColor} px-2 py-1 rounded padding-right-default`} data-cy="item-count">
+          <span className={`text-sm ${textColor} px-2 py-1 rounded padding-right-default`} data-cy="item-count">
             ({count})
           </span>
         )}
@@ -46,7 +45,7 @@ const ValidationItem = memo(({
               <li key={i}>{detail}</li>
             ))}
             {details.length > maxDetails && (
-              <li className={isError ? 'text-red-500' : 'text-yellow-500'}>
+              <li className={isError ? 'validation-error-detail' : 'validation-warning-detail'}>
                 ועוד {details.length - maxDetails} נוספים...
               </li>
             )}
@@ -75,7 +74,7 @@ const ValidationSection = memo(({
 }) => {
   if (items.length === 0) return null
 
-  const iconColor = type === 'error' ? 'text-red-600' : 'text-yellow-600'
+  const iconColor = type === 'error' ? 'validation-error-icon' : 'validation-warning-icon'
 
   return (
     <div className="space-y-2" data-cy={dataCy}>
@@ -122,12 +121,12 @@ RetryButton.displayName = 'RetryButton'
 
 // Extract success state component
 const SuccessState = memo(() => (
-  <div className="bg-green-50 border border-green-200 rounded-md padding-default">
-    <div className="flex items-center gap-2 text-green-800">
-      <CheckCircle className="h-4 w-4 padding-left-default" data-cy="success-icon"/>
+  <div className="validation-success-bg rounded-md padding-default">
+    <div className="flex items-center gap-2 validation-success-text">
+      <CheckCircle className="h-4 w-4 padding-left-default validation-success-icon" data-cy="success-icon"/>
       <span>התוכנית עומדת בכל הדרישות!</span>
     </div>
-    <div className="text-sm text-green-700 mt-1 padding-vertical-default">
+    <div className="text-sm validation-success-detail mt-1 padding-vertical-default">
       כל התלמידים קיבלו שיבוץ<br />
       אין תלמידים שלא שובצו
     </div>
@@ -147,9 +146,9 @@ export const ValidationPanel = memo(({ validation, onRetry, isRetrying }: Valida
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {isValid ? (
-              <CheckCircle className="h-5 w-5 text-green-600 padding-left-default" cy-data="success-icon"/>
+              <CheckCircle className="h-5 w-5 validation-success-icon padding-left-default" cy-data="success-icon"/>
             ) : (
-              <XCircle className="h-5 w-5 text-red-600 padding-left-default" cy-data="error-icon"/>
+              <XCircle className="h-5 w-5 validation-error-icon padding-left-default" cy-data="error-icon"/>
             )}
             <CardTitle>
               {isValid ? 'תוכנית תקינה' : 'בעיות בתוכנית'}

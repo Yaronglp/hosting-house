@@ -84,15 +84,6 @@ export function PlanManager({ classId }: PlanManagerProps) {
         />
       )}
 
-      {/* Validation Panel - hidden in share mode */}
-      {validation && viewMode !== 'share' && (
-        <ValidationPanel 
-          validation={validation} 
-          onRetry={handleRetry}
-          isRetrying={isRetrying}
-        />
-      )}
-
       {/* Board View */}
       {viewMode === 'board' && assignments.length > 0 && (
         <Card>
@@ -106,6 +97,9 @@ export function PlanManager({ classId }: PlanManagerProps) {
               students={students}
               rounds={rounds}
               onUpdateAssignments={handleUpdateAssignments}
+              validation={validation}
+              onRetry={handleRetry}
+              isRetrying={isRetrying}
             />
           </CardContent>
         </Card>
