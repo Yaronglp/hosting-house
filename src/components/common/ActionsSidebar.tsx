@@ -94,7 +94,7 @@ export function ActionsSidebar({
                 className="border-0 hologram w-full"
                 onClick={roundsActions.addRound}
               >
-                🔄 הוסף סבב
+                🔄 הוסף תאריך מפגש
               </Button>
             )}
             <Button className="border-0 hologram w-full" onClick={() => backupAllDataToFile(error)}>

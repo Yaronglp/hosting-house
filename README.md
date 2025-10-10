@@ -1,216 +1,245 @@
-# 🏠 בית מארח (Hosting House) - Student Hosting Management System
+# 🏠 בית מארח (Hosting House) - מדריך למשתמש
 
-A modern Progressive Web App (PWA) for teachers to manage student hosting rotations with a retro 90s arcade aesthetic. Built with React, TypeScript, and Vite.
-
-## ✨ Key Features
-
-### 🎯 Core Capabilities
-- **Multi-Class Management** - Create and manage multiple classes with different settings
-- **Student Management** - Add students with hosting preferences, capacity settings, and social preferences
-- **Round Management** - Create hosting rounds with optional date windows
-- **Smart Plan Generation** - AI-powered algorithm for fair student assignments with retry logic
-- **Interactive Planning Board** - Manual adjustments with select-and-move interface
-- **Comprehensive Validation** - Real-time error checking and warnings
-- **Data Export/Import** - JSON backup and restore functionality
-- **Sharing & Communication** - WhatsApp summaries, printable views, and clipboard integration
-- **Progressive Web App** - Installable on mobile and desktop, works offline
-- **Accessibility** - Full keyboard navigation and screen reader support
-
-### 🔧 Technical Features
-- **Offline-First** - All data stored locally using Dexie.js
-- **Persistent Storage** - Data survives browser restarts and device reboots
-- **RTL Support** - Full Hebrew language support with right-to-left layout
-- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-- **PWA Capabilities** - Installable app with service worker for offline functionality
-
-## 📱 Progressive Web App (PWA)
-
-### Installation
-- **Desktop**: Click the install button in your browser's address bar
-- **Mobile**: Add to home screen from your browser's menu
-- **Features**: Works offline, has app-like interface, receives updates automatically
-
-### Offline Capabilities
-- All data is stored locally on your device
-- Works without internet connection
-- Automatic data synchronization when online
-- Persistent storage prevents data loss
-
-## 🎯 User Guide
-
-### 1. Class Management
-- **Create Classes**: Set up multiple classes with different names and years
-- **Class Settings**: Configure group size (default: 6 students per group)
-- **Switch Classes**: Easily switch between different classes
-
-### 2. Student Management
-- **Add Students**: Paste a list of student names (one per line)
-- **Student Attributes**:
-  - **Hosting Capability**: Mark if student can host (default: yes)
-  - **Capacity**: Set minimum and maximum group size for hosting
-  - **Preferences**: Set "like" and "avoid" relationships with other students
-- **Edit Students**: Modify any student information after adding
-
-### 3. Round Management
-- **Create Rounds**: Define hosting rounds with names and optional date windows
-- **Round Order**: Set the sequence of hosting rounds
-- **Flexible Scheduling**: Add as many rounds as needed
-
-### 4. Plan Generation
-- **Smart Algorithm**: 
-  - Ensures each student hosts exactly once across all rounds
-  - Respects hosting capacity constraints
-  - Honors "avoid" relationships (hard constraints)
-  - Optimizes for "like" preferences (soft constraints)
-  - Includes fairness pass to reduce repeated pairings
-- **Retry Logic**: Automatically retries with different seeds if initial generation fails
-- **Seed Control**: View and regenerate plans with different random seeds
-
-### 5. Manual Adjustments
-- **Interactive Board**: Visual representation of all groups per round
-- **Select and Move**: Click on students to move them between groups
-- **Real-time Validation**: Immediate feedback on valid/invalid moves
-- **Undo Support**: Revert invalid moves automatically
-
-### 6. Validation System
-- **Blocking Errors**:
-  - Duplicate hosts across rounds
-  - Capacity overflow in groups
-  - Insufficient hosts for all rounds
-- **Warnings**:
-  - Avoid relationships violated
-  - Repeated pairings across rounds
-  - Unmet "like" preferences
-- **Auto-Fix**: Attempt to resolve issues automatically
-
-### 7. Sharing & Export
-- **WhatsApp Summary**: Generate Hebrew text summaries for messaging
-- **Print View**: Clean, printable layout for physical distribution
-- **JSON Export**: Complete data backup in JSON format
-- **JSON Import**: Restore data from backup files
-- **Clipboard Integration**: Copy summaries directly to clipboard
-
-## 🔧 Technical Details
-
-### Architecture
-- **Frontend**: React 19 + TypeScript + Vite
-- **UI Framework**: shadcn/ui components with Tailwind CSS
-- **Storage**: Dexie.js (IndexedDB wrapper)
-- **PWA**: Vite PWA plugin with Workbox
-- **State Management**: Custom hooks with local storage
-
-### Data Model
-```typescript
-// Core entities
-Class: { id, name, year, createdAt, updatedAt }
-Student: { id, classId, name, canHost, capacity, like[], avoid[] }
-Round: { id, classId, name, dateWindow?, order }
-Group: { id, roundId, hostId, memberIds[], notes? }
-Assignment: { roundId, groups[] }
-```
-
-### Algorithm Details
-- **Host Selection**: Greedy algorithm ensuring each student hosts exactly once
-- **Guest Assignment**: Balanced distribution with preference optimization
-- **Fairness Pass**: Local swaps to minimize repeated pairings
-- **Retry Logic**: Multiple attempts with different random seeds
-- **Constraint Handling**: Hard constraints (capacity, avoid) vs soft constraints (like)
-
-### Storage Strategy
-- **Local-First**: All data stored in browser's IndexedDB
-- **Persistent Storage**: Requests `navigator.storage.persist()` for data protection
-- **Backup System**: JSON export/import for data portability
-- **Privacy**: No external servers, data never leaves the device
-
-## 🎨 Design System
-
-### Visual Theme
-- **Retro 90s Arcade**: Neon colors, grid backgrounds, retro typography
-- **Hebrew RTL**: Right-to-left layout optimized for Hebrew text
-- **Responsive**: Mobile-first design with desktop enhancements
-
-### Color Palette
-- Primary: Neon green (#00ff41)
-- Secondary: Electric blue (#0080ff)
-- Accent: Hot pink (#ff0080)
-- Background: Dark grid pattern
-- Text: High contrast white/black
-
-## 🔒 Privacy & Security
-
-### Data Protection
-- **Local Storage Only**: No external servers or databases
-- **No Tracking**: No analytics or user tracking
-- **Offline-First**: Works completely offline
-- **User Control**: Full control over data export/import
-
-### Browser Compatibility
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge
-- **Mobile Support**: iOS Safari, Android Chrome
-- **PWA Support**: Installable on all major platforms
-
-#### Testing PWA on Mobile
-**iOS (Safari):**
-1. Open `https://yaronglp.github.io/hosting-house/` in Safari
-2. Tap the Share button (square with arrow)
-3. Scroll down and tap **"Add to Home Screen"**
-4. Tap **"Add"**
-5. App icon appears on home screen
-
-**Android (Chrome):**
-1. Open `https://yaronglp.github.io/hosting-house/` in Chrome
-2. Tap the menu (three dots)
-3. Tap **"Add to Home screen"**
-4. Tap **"Add"**
-5. App icon appears on home screen
-
-### Deployment Architecture
-```
-Push to main → GitHub Actions Workflow Triggered
-              ↓
-         Build App (npm run build)
-              ↓
-         Upload Artifact (dist/)
-              ↓
-         Deploy via GitHub Pages API
-              ↓
-    Live at yaronglp.github.io/hosting-house
-```
-
-### Key Dependencies
-- **React 19**: Latest React with concurrent features
-- **TypeScript**: Type safety and better DX
-- **Vite**: Fast build tool and dev server
-- **Tailwind CSS**: Utility-first CSS framework
-- **Dexie.js**: IndexedDB wrapper for local storage
-- **Radix UI**: Accessible component primitives
-- **Lucide React**: Icon library
-
-## 🤝 Contributing
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-### Common Issues
-- **Data Loss**: Enable persistent storage and create regular backups
-- **Generation Failures**: Check student constraints and try different seeds
-- **Mobile Issues**: Ensure PWA is properly installed
-
-### Getting Help
-- **Documentation**: Check this README and inline code comments
-- **Issues**: Report bugs and feature requests on GitHub
-- **Community**: Join discussions in the project repository
+אפליקציה חכמה לניהול תורנויות אירוח תלמידים בכיתה. כל תלמיד מארח בדיוק פעם אחת במחזור, והאפליקציה עובדת גם ללא חיבור לאינטרנט.
 
 ---
 
-**בית מארח** - Making student hosting management simple, fair, and fun! 🏠✨
+## 📱 התקנת האפליקציה
+
+### iPhone ו-iPad (iOS)
+1. פתח את Safari בדפדפן
+2. היכנס לכתובת: `https://yaronglp.github.io/hosting-house/`
+3. לחץ על כפתור השיתוף (ריבוע עם חץ) בתחתית המסך
+4. גלול למטה ולחץ על **"הוסף למסך הבית"**
+5. לחץ על **"הוסף"**
+6. סמל האפליקציה יופיע במסך הבית
+
+### Android
+1. פתח את Chrome בדפדפן
+2. היכנס לכתובת: `https://yaronglp.github.io/hosting-house/`
+3. לחץ על התפריט (שלוש נקודות) בפינה הימנית העליונה
+4. לחץ על **"הוסף למסך הבית"**
+5. לחץ על **"הוסף"**
+6. סמל האפליקציה יופיע במסך הבית
+
+### מחשב (Desktop)
+- לחץ על כפתור ההתקנה שמופיע בשורת הכתובת של הדפדפן
+- האפליקציה תותקן ותופיע ברשימת האפליקציות
+
+---
+
+## 🚀 התחלה מהירה - 5 שלבים פשוטים
+
+### שלב 1: יצירת כיתה
+- לחץ על "כיתות" בתפריט העליון
+- לחץ על "כיתה חדשה"
+- הזן שם כיתה ושנה
+- לחץ "שמור"
+
+### שלב 2: הוספת תלמידים
+- לחץ על "תלמידים" בתפריט
+- לחץ על "הוסף תלמידים"
+- הדבק רשימת שמות (שורה אחת לכל תלמיד)
+- לחץ "שמור"
+
+### שלב 3: יצירת מפגשים
+- לחץ על "תאריכי מפגשים" בתפריט
+- לחץ על "הוסף תאריך מפגש"
+- הזן תאריך למפגש
+- לחץ "שמור"
+- חזור על הפעולה לכל מפגש
+
+### שלב 4: יצירת תוכנית
+- לחץ על "תוכנית" בתפריט
+- לחץ על "צור תוכנית"
+- האפליקציה תחשב אוטומטית מי מארח בכל סיבוב
+
+### שלב 5: שיתוף התוכנית
+- לחץ על "שיתוף וגיבוי"
+- לחץ על "שתף ב-WhatsApp" או "העתק ללוח"
+- שלח את ההודעה להורים
+
+---
+
+## 🎯 יכולות האפליקציה
+
+### ניהול כיתות
+**יצירה וניהול של מספר כיתות**
+- הוספת כיתות חדשות עם שמות ושנים
+- מעבר בין כיתות שונות
+- הגדרת גודל קבוצה (ברירת מחדל: 6 תלמידים)
+
+**הגדרות כיתה**
+- קביעת מספר התלמידים הרצוי בכל קבוצה
+- הגדרות נשמרות לכל כיתה בנפרד
+
+### ניהול תלמידים
+**הוספת תלמידים**
+- הדבקת רשימת שמות (הוספה מהירה)
+- הוספת תלמידים בודדים
+- עריכת פרטי תלמידים קיימים
+
+**הגדרות תלמיד**
+- **יכולת אירוח**: האם התלמיד יכול לארח (כן/לא)
+- **העדפות חברתיות**: מי להימנע ממנו (למשל: תלמידים שלא מסתדרים)
+- **עריכת פרטים**: שינוי שם או העדפות בכל עת
+
+### ניהול מפגשים
+**יצירת מפגשי אירוח**
+- הוספת תאריכים לכל מפגש
+- סדר המפגשים נשמר אוטומטית
+
+### יצירת תוכנית חכמה
+**אלגוריתם אוטומטי**
+- כל תלמיד מארח בדיוק פעם אחת בכל המחזור
+- כיבוד העדפות תלמידים (מי להימנע ממנו)
+- חלוקה הוגנת של תלמידים לקבוצות
+- ניסיונות מרובים אם התוכנית הראשונית נכשלת
+
+**מה קורה אם היצירה נכשלת?**
+- האפליקציה תנסה מספר פעמים עם חישובים שונים
+- אם עדיין נכשלת, בדוק שיש מספיק תלמידים שיכולים לארח
+- נסה לשנות את ההגדרות או להסיר העדפות "הימנע"
+
+### התאמות ידניות
+**לוח תכנון אינטראקטיבי**
+- תצוגה ויזואלית של כל הקבוצות בכל סיבוב
+- לחיצה על תלמיד כדי לבחור אותו
+- לחיצה על קבוצה אחרת כדי להעביר את התלמיד
+- ביטול בחירה בלחיצה על מקום ריק
+
+**אימות בזמן אמת**
+- האפליקציה מציגה מיד אם השינוי תקין
+- ביטול אוטומטי של שינויים לא תקינים
+- הודעות ברורות על מה צריך לתקן
+
+### מערכת אימות
+**שגיאות חוסמות (אדומות)**
+- תלמיד מארח יותר מפעם אחת
+- קבוצה גדולה מדי (מעל הגדרות גודל הקבוצה בכיתה)
+- לא מספיק מארחים לכל המפגשים
+
+**אזהרות (צהובות)**
+- הפרת העדפות "הימנע"
+- תלמידים שמופיעים יחד מספר פעמים
+
+**תיקון אוטומטי**
+- האפליקציה מנסה לתקן בעיות פשוטות בעצמה
+
+### שיתוף וייצוא
+**שיתוף ב-WhatsApp**
+- יצירת סיכום בעברית מוכן לשליחה
+- הודעה מפורטת עם כל הקבוצות והתאריכים
+- העתקה ללוח או שליחה ישירה
+
+**הדפסה**
+- תצוגה נקייה להדפסה
+- מתאימה לחלוקה פיזית להורים
+- כוללת את כל הפרטים הנדרשים
+
+**גיבוי ושחזור**
+- ייצוא כל הנתונים לקובץ JSON
+- שחזור נתונים מקובץ גיבוי
+- העברה של נתונים בין מכשירים
+- הגנה מפני אובדן נתונים
+
+---
+
+## 📱 עבודה ללא אינטרנט
+
+### שמירת נתונים מקומית
+- כל הנתונים נשמרים במכשיר שלך
+- האפליקציה עובדת גם ללא חיבור לאינטרנט
+- הנתונים נשמרים בין הפעלות האפליקציה
+- אין צורך בחשבון או הרשמה
+
+### הגנה על נתונים
+- האפליקציה מבקשת הרשאה לשמירה קבועה
+- הנתונים מוגנים מפני מחיקה אוטומטית
+- גיבוי מומלץ לפני עדכונים גדולים
+
+---
+
+## 💡 טיפים והמלצות
+
+### גודל קבוצות
+- **מומלץ**: 4-6 תלמידים בכל קבוצה
+- **מינימום**: 3 תלמידים (לא כולל המארח)
+- **מקסימום**: 8 תלמידים (לא כולל המארח)
+
+### מספר מפגשים
+- **כיתה קטנה (עד 20 תלמידים)**: 3-4 סיבובים
+- **כיתה בינונית (20-30 תלמידים)**: 4-6 סיבובים
+- **כיתה גדולה (מעל 30 תלמידים)**: 6-8 סיבובים
+
+### העדפות תלמידים
+- השתמש ב"הימנע" רק במקרים קיצוניים
+- יותר מדי העדפות עלול למנוע יצירת תוכנית
+- עדיף להסיר העדפות מאשר להוסיף
+
+### גיבויים
+- צור גיבוי לפני שינויים גדולים
+- בדוק שהגיבוי עובד על ידי שחזור
+
+---
+
+## 🔧 פתרון בעיות נפוצות
+
+### אובדן נתונים
+**מה לעשות:**
+1. בדוק אם יש גיבוי ישן
+2. נסה לפתוח את האפליקציה בדפדפן אחר
+3. אם אין גיבוי, התחל מחדש עם כיתה חדשה
+
+**איך למנוע:**
+- צור גיבוי קבוע
+- אל תמחק נתוני דפדפן
+- השתמש באותו דפדפן תמיד
+
+### יצירת תוכנית שנכשלת בכל פעם
+**סיבות אפשריות:**
+- יותר מדי תלמידים עם העדפות "הימנע"
+- לא מספיק תלמידים שיכולים לארח
+- הגדרות לא מתאימות
+
+**פתרונות:**
+1. הסר חלק מההעדפות "הימנע"
+2. הוסף תלמידים שיכולים לארח
+3. שנה את גודל הקבוצות
+4. נסה מספר פעמים
+
+### בעיות בדפדפן
+**Chrome (מומלץ):**
+- עדכן את הדפדפן לגרסה האחרונה
+- נקה cache אם יש בעיות
+
+**Safari (iOS):**
+- ודא שהדפדפן מעודכן
+- הפעל JavaScript
+
+**Firefox:**
+- בדוק שהדפדפן תומך ב-PWA
+- עדכן לגרסה חדשה
+
+### האפליקציה לא נטענת
+1. בדוק חיבור לאינטרנט
+2. נסה דפדפן אחר
+3. נקה cache של הדפדפן
+4. נסה שוב מאוחר יותר
+
+
+---
+
+## 🎉 סיכום
+
+**בית מארח** הופך את ניהול תורנויות האירוח לפשוט ויעיל:
+
+✅ **חכם** - אלגוריתם אוטומטי שיוצר תוכנית הוגנת  
+✅ **גמיש** - התאמות ידניות לפי הצורך  
+✅ **מהיר** - יצירת תוכנית תוך שניות  
+✅ **בטוח** - כל הנתונים נשמרים במכשיר שלך  
+✅ **קל לשימוש** - ממשק פשוט ואינטואיטיבי  
+✅ **עובד ללא אינטרנט** - זמין תמיד  
+
+**התחל עכשיו** - צור את הכיתה הראשונה שלך ותהנה מניהול פשוט ויעיל של מפגשי האירוח!
+ 🏠✨*
