@@ -12,17 +12,17 @@ export function PlanGenerationError({
   onRetry 
 }: PlanGenerationErrorProps) {
   return (
-    <Card className="border-red-200 bg-red-50">
+    <Card className="border-[var(--validation-error-border)] bg-[var(--validation-error-bg)]">
       <CardContent className="py-8">
         <div className="text-center space-y-4">
-          <div className="p-3 rounded-full bg-red-100 text-red-600 w-fit mx-auto">
+          <div className="p-3 rounded-full bg-[var(--validation-error-bg)] text-[var(--validation-error-icon)] w-fit mx-auto">
             <AlertTriangle className="h-6 w-6 padding-left-default" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-red-800">שגיאה ביצירת התוכנית</h3>
-            <p className="text-sm text-red-700 max-w-md mx-auto">{error}</p>
+            <h3 className="text-lg font-semibold text-[var(--validation-error-text)]">שגיאה ביצירת התוכנית</h3>
+            <p className="text-sm text-[var(--validation-error-text)] max-w-md mx-auto">{error}</p>
           </div>
-          <div className="bg-red-100 rounded-lg p-4 text-red-800 text-sm padding-default">
+          <div className="bg-[var(--validation-error-bg)] rounded-lg p-4 text-[var(--validation-error-text)] text-sm padding-default">
             <h4 className="font-medium mb-2">הצעות לפתרון:</h4>
             <ul className="space-y-1 text-right">
               <li>• בדוק שיש מספיק מארחים זמינים</li>

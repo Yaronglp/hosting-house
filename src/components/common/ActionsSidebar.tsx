@@ -49,7 +49,7 @@ export function ActionsSidebar({
             שמירת נתונים במכשיר: {persisted === null ? '🔄 בודק…' : persisted ? '✅ מאופשר' : '❌ לא מאופשר'}
           </div>
           {isRequesting && (
-            <div className="text-xs text-blue-400 mb-2">
+            <div className="text-xs text-neon-cyan mb-2">
               🔄 מבקש הרשאה מהדפדפן...
             </div>
           )}

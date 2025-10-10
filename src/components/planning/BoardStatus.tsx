@@ -10,16 +10,16 @@ interface BoardStatusProps {
 export const BoardStatus = memo(({ error, selectedStudentId, selectedStudent }: BoardStatusProps) => (
   <>
     {error && (
-      <div className="bg-red-50 border border-red-200 rounded-md p-3 text-red-800 text-sm">
+      <div className="bg-[var(--validation-error-bg)] border-[var(--validation-error-border)] rounded-md p-3 text-[var(--validation-error-text)] text-sm">
         {error}
       </div>
     )}
 
     {selectedStudentId && (
-      <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
-        <div className="text-blue-800 text-sm">
+      <div className="bg-[var(--validation-info-bg)] border-[var(--validation-info-border)] rounded-md p-3">
+        <div className="text-[var(--validation-info-text)] text-sm">
           נבחר: <strong>{selectedStudent?.name}</strong>
-          <span className="text-blue-600 mr-2">- בחר קבוצה יעד</span>
+          <span className="text-[var(--validation-info-text)] mr-2">- בחר קבוצה יעד</span>
         </div>
       </div>
     )}

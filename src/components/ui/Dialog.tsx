@@ -83,7 +83,7 @@ export function Dialog({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'var(--overlay-dark)',
         backdropFilter: 'blur(4px)',
         padding: '1rem'
       }}

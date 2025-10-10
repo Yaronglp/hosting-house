@@ -12,15 +12,15 @@ const buttonVariants = cva(
         default:
           "retro-button",
         destructive:
-          "retro-button bg-gradient-to-r from-red-500 to-red-700 border-red-400 text-white hover:from-red-600 hover:to-red-800",
+          "retro-button bg-[var(--button-destructive-bg)] border-[var(--button-destructive-border)] text-white hover:bg-[var(--button-destructive-hover)]",
         outline:
-          "border-2 border-cyan-400 bg-transparent text-cyan-400 hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.5)] transition-all duration-300",
+          "border-2 border-[var(--button-outline-border)] bg-transparent text-[var(--button-outline-text)] hover:bg-[var(--button-outline-hover-bg)] hover:text-[var(--button-outline-hover-text)] hover:shadow-[var(--button-outline-hover-shadow)] transition-all duration-300",
         secondary:
-          "retro-button bg-gradient-to-r from-blue-500 to-purple-600 border-blue-400",
-        ghost: "bg-transparent text-cyan-400 hover:bg-cyan-400/10 hover:text-pink-400 border border-transparent hover:border-cyan-400",
-        link: "text-cyan-400 underline-offset-4 hover:underline hover:text-pink-400 transition-colors",
+          "retro-button bg-[var(--button-secondary-bg)] border-[var(--button-secondary-border)]",
+        ghost: "bg-transparent text-[var(--button-ghost-text)] hover:bg-[var(--button-ghost-hover-bg)] hover:text-[var(--button-ghost-hover-text)] border border-transparent hover:border-[var(--button-ghost-hover-border)]",
+        link: "text-[var(--button-link-text)] underline-offset-4 hover:underline hover:text-[var(--button-link-hover-text)] transition-colors",
         retro: "retro-button",
-        neon: "bg-transparent border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-black hover:shadow-[0_0_20px_rgba(255,0,255,0.8)] transition-all duration-300 font-bold uppercase tracking-wider",
+        neon: "bg-transparent border-2 border-[var(--button-neon-border)] text-[var(--button-neon-text)] hover:bg-[var(--button-neon-hover-bg)] hover:text-[var(--button-neon-hover-text)] hover:shadow-[var(--button-neon-hover-shadow)] transition-all duration-300 font-bold uppercase tracking-wider",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -20,26 +20,26 @@ export function EmptyState({
   variant = 'default' 
 }: EmptyStateProps) {
   return (
-    <Card className={`text-center ${variant === 'error' ? 'border-red-200 bg-red-50' : ''}`}>
+    <Card className={`text-center ${variant === 'error' ? 'border-[var(--validation-error-border)] bg-[var(--validation-error-bg)]' : ''}`}>
       <CardContent className="py-12">
         <div className="flex flex-col items-center space-y-4">
           {icon && (
             <div className={`p-3 rounded-full ${
               variant === 'error' 
-                ? 'bg-red-100 text-red-600' 
-                : 'bg-blue-100 text-blue-600'
+                ? 'bg-[var(--validation-error-bg)] text-[var(--validation-error-icon)]' 
+                : 'bg-[var(--validation-info-bg)] text-[var(--validation-info-text)]'
             }`}>
               {icon}
             </div>
           )}
           <div className="space-y-2">
             <h3 className={`text-lg font-semibold ${
-              variant === 'error' ? 'text-red-800' : 'text-gray-900'
+              variant === 'error' ? 'text-[var(--validation-error-text)]' : 'text-foreground'
             }`}>
               {title}
             </h3>
             <p className={`text-sm max-w-md mx-auto ${
-              variant === 'error' ? 'text-red-700' : 'text-gray-600'
+              variant === 'error' ? 'text-[var(--validation-error-text)]' : 'text-muted-foreground'
             }`}>
               {description}
             </p>

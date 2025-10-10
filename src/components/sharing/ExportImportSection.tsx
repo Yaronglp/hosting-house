@@ -128,7 +128,7 @@ export function ExportImportSection({
           </label>
         </div>
         {importError && (
-          <div className="text-sm text-red-600 flex items-center gap-1">
+          <div className="text-sm text-[var(--validation-error-text)] flex items-center gap-1">
             <AlertCircle className="h-4 w-4" />
             {importError}
           </div>

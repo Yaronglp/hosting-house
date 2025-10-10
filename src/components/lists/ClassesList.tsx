@@ -87,8 +87,8 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
       {classes.map((cls) => (
         <Card 
           key={cls.id} 
-          className={`w-full cursor-pointer transition-all hover:shadow-md focus-within:ring-2 focus-within:ring-blue-500 ${
-            currentClassId === cls.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+          className={`w-full cursor-pointer transition-all hover:shadow-md focus-within:ring-2 focus-within:ring-neon-cyan ${
+            currentClassId === cls.id ? 'ring-2 ring-neon-cyan bg-[var(--overlay-neon-cyan-10)]' : ''
           }`}
           onClick={() => handleSelectClass(cls.id)}
           role="button"
@@ -127,7 +127,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
                     onClassEdit(cls.id)
                   }}
                   aria-label={`ערוך כיתה ${cls.name}`}
-                  className="h-8 w-8 p-0 hover:bg-blue-100 focus:ring-2 focus:ring-blue-500"
+                  className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
                   data-cy="edit-class-button"
                 >
                   <Edit className="h-4 w-4" />
@@ -142,13 +142,13 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
                   }}
                   disabled={isDeleting === cls.id}
                   aria-label={`מחק כיתה ${cls.name}`}
-                  className="h-8 w-8 p-0 hover:bg-red-100 focus:ring-2 focus:ring-red-500 disabled:opacity-50"
+                  className="h-8 w-8 p-0 hover:bg-[var(--validation-error-bg)] focus:ring-2 focus:ring-[var(--validation-error-border)] disabled:opacity-50"
                   data-cy="delete-class-button"
                 >
                   {isDeleting === cls.id ? (
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-red-600 border-t-transparent" />
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--validation-error-icon)] border-t-transparent" />
                   ) : (
-                    <Trash2 className="h-4 w-4 text-red-600" />
+                    <Trash2 className="h-4 w-4 text-[var(--validation-error-icon)]" />
                   )}
                 </Button>
               </div>
@@ -157,9 +157,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
           
           <CardContent className="pt-0 pb-6">
             <div className={`flex items-center gap-2 text-sm rounded-md px-3 py-2 ${
-              currentClassId === cls.id 
-                ? 'text-blue-700 bg-blue-100' 
-                : 'text-transparent bg-transparent pointer-events-none select-none'
+              currentClassId !== cls.id && 'text-transparent bg-transparent pointer-events-none select-none'
             }`}>
               <Users className="h-4 w-4" />
               <span>כיתה פעילה</span>
@@ -168,13 +166,11 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
         </Card>
       ))}
       
-      <Card className="w-full border-dashed border-2 border-gray-300 hover:border-blue-400 transition-colors">
+      <Card className="w-full border-dashed border-2 border-muted hover:border-neon-cyan transition-colors">
         <CardContent className="py-8">
           <div className="text-center">
             <Button 
               onClick={onClassAdd}
-              variant="ghost"
-              className="text-blue-600 hover:text-blue-700 focus:ring-2 focus:ring-blue-500"
               aria-label="הוסף כיתה חדשה"
               data-cy="add-class-button"
             >
