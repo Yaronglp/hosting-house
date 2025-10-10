@@ -1,4 +1,5 @@
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/NavigationMenu'
+import { Button } from '@/components/ui/Button'
 
 interface AppHeaderProps {
   currentClassName?: string
@@ -18,7 +19,7 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
               🏠 בית מארח
             </h1>
             {currentClassName && (
-              <span className="neon-text-green text-xs min-[700px]:text-sm hologram">
+              <span className="neon-text-green text-xs min-[700px]:text-sm hologram header-class-selected">
                 • {currentClassName}
               </span>
             )}
@@ -26,56 +27,52 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
           <NavigationMenu className="w-full min-[700px]:w-auto min-[700px]:flex-1 justify-center min-[700px]:justify-start min-[700px]:ml-[1em]">
             <NavigationMenuList className="gap-2 min-[700px]:gap-6 justify-between min-[700px]:justify-end">
               <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
-                <button
-                  className={`retro-button w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'classes' ? 'neon-text-pink' : ''}`}
-                  onClick={() => onTabChange('classes')}
-                  type="button"
-                  role="button"
-                  aria-label="כיתות"
-                  style={{ minHeight: '44px' }}
-                  data-cy="tab-classes"
-                >
-                  כיתות
-                </button>
-              </NavigationMenuItem>
-              <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
-                <button
-                  className={`retro-button w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'students' ? 'neon-text-pink' : ''}`}
-                  onClick={() => onTabChange('students')}
-                  type="button"
-                  role="button"
-                  aria-label="תלמידים"
-                  style={{ minHeight: '44px' }}
-                  data-cy="tab-students"
-                >
-                  תלמידים
-                </button>
-              </NavigationMenuItem>
-              <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
-                <button
-                  className={`retro-button w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'rounds' ? 'neon-text-pink' : ''}`}
-                  onClick={() => onTabChange('rounds')}
-                  type="button"
-                  role="button"
-                  aria-label="תאריכי מפגשים"
-                  style={{ minHeight: '44px' }}
-                  data-cy="tab-rounds"
-                >
-                  תאריכי מפגשים
-                </button>
-              </NavigationMenuItem>
-              <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
-                <button
-                  className={`retro-button w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'plan' ? 'neon-text-pink' : ''}`}
+                <Button
+                  className={`w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'plan' ? 'neon-text-pink' : ''}`}
                   onClick={() => onTabChange('plan')}
                   type="button"
-                  role="button"
                   aria-label="תכנון"
                   style={{ minHeight: '44px' }}
                   data-cy="tab-plan"
                 >
                   תכנון
-                </button>
+                </Button>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
+                <Button
+                  className={`w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'rounds' ? 'neon-text-pink' : ''}`}
+                  onClick={() => onTabChange('rounds')}
+                  type="button"
+                  aria-label="תאריכי מפגשים"
+                  style={{ minHeight: '44px' }}
+                  data-cy="tab-rounds"
+                >
+                  תאריכי מפגשים
+                </Button>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
+                <Button
+                  className={`w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'students' ? 'neon-text-pink' : ''}`}
+                  onClick={() => onTabChange('students')}
+                  type="button"
+                  aria-label="תלמידים"
+                  style={{ minHeight: '44px' }}
+                  data-cy="tab-students"
+                >
+                  תלמידים
+                </Button>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
+                <Button
+                  className={`w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'classes' ? 'neon-text-pink' : ''}`}
+                  onClick={() => onTabChange('classes')}
+                  type="button"
+                  aria-label="כיתות"
+                  style={{ minHeight: '44px' }}
+                  data-cy="tab-classes"
+                >
+                  כיתות
+                </Button>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
