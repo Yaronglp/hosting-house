@@ -705,3 +705,7 @@ button {
 .header-class-selected {
   font-size: 1.5rem;
 }
+
+.group-members-list {
+  row-gap: 0.5rem;
+}

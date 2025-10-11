@@ -48,7 +48,7 @@ export const GroupCard = memo(({
     {members.length > 0 ? (
       <div className="space-y-1">
         <div className="text-xs text-muted-foreground">אורחים:</div>
-        <div className="flex flex-wrap gap-1" data-cy="group-members">
+        <div className="flex flex-wrap gap-1 group-members-list" data-cy="group-members">
           {members.map(member => (
             <StudentChip
               key={member.id}
