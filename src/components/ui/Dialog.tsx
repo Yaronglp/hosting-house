@@ -179,7 +179,7 @@ export function ConfirmDialog({
         </>
       }
     >
-      <p className="text-sm" dir="rtl">
+      <p className="text-sm whitespace-pre-line" dir="rtl">
         {message}
       </p>
     </Dialog>

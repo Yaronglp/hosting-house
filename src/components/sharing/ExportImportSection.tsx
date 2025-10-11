@@ -64,7 +64,7 @@ export function ExportImportSection({
       const importData = parseImportJSON(text)
       
       // Show confirmation
-      const confirmMessage = `כיתה: ${importData.class.name}\nתלמידים: ${importData.students.length}\nסבבים: ${importData.rounds.length}\nתאריך יצירה: ${new Date(importData.timestamp).toLocaleString('he-IL')}\n\nפעולה זו תחליף את כל הנתונים הקיימים.`
+      const confirmMessage = `כיתה: ${importData.class.name}\nתלמידים: ${importData.students.length}\nתאריכי מפגשים: ${importData.rounds.length}\nתאריך יצירה: ${new Date(importData.timestamp).toLocaleString('he-IL')}\n\nפעולה זו תחליף את כל הנתונים הקיימים.`
       
       setImportConfirm({ data: importData, message: confirmMessage })
       event.target.value = '' // Reset file input
@@ -108,24 +108,23 @@ export function ExportImportSection({
             <Download className="h-4 w-4 ml-2 padding-left-default" />
             ייצא נתונים
           </Button>
-          <label className="relative">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              disabled={!onImportData || isImporting}
-              className="w-full"
-            >
-              <Upload className="h-4 w-4 ml-2 padding-left-default" />
-              {isImporting ? 'מייבא...' : 'ייבא נתונים'}
-            </Button>
-            <input
-              type="file"
-              accept=".json"
-              onChange={handleImportJSON}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              disabled={!onImportData || isImporting}
-            />
-          </label>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            disabled={!onImportData || isImporting}
+            onClick={() => document.getElementById('import-file-input')?.click()}
+          >
+            <Upload className="h-4 w-4 ml-2 padding-left-default" />
+            {isImporting ? 'מייבא...' : 'ייבא נתונים'}
+          </Button>
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleImportJSON}
+            className="hidden"
+            disabled={!onImportData || isImporting}
+            id="import-file-input"
+          />
         </div>
         {importError && (
           <div className="text-sm text-[var(--validation-error-text)] flex items-center gap-1">
