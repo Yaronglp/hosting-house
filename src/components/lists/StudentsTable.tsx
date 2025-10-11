@@ -87,7 +87,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
       </div>
 
       <div className="text-xs text-muted-foreground padding-vertical-default">
-        💡 <strong>טיפ:</strong> לחץ על "יכול לארח" כדי לשנות במהירות
+        💡 <strong>טיפ:</strong> לחץ על "יכול לארח" כדי לשנות במהירות את יכולת התלמיד לארח
       </div>
       
       <div className="overflow-x-auto">
