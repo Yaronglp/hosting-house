@@ -128,6 +128,8 @@ html {
   --button-neon-hover-text: #000000;
   --button-neon-hover-shadow: 0 0 20px rgba(236, 72, 153, 0.8);
   
+  --selection-info-text: #ffa469;
+  
   /* Dark Arcade Background - HSL format for Tailwind compatibility */
   --background: 240 20% 6%;
   --foreground: 180 100% 50%;

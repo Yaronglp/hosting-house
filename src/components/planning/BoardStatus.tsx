@@ -17,9 +17,8 @@ export const BoardStatus = memo(({ error, selectedStudentId, selectedStudent }: 
 
     {selectedStudentId && (
       <div className="bg-[var(--validation-info-bg)] border-[var(--validation-info-border)] rounded-md p-3">
-        <div className="text-[var(--validation-info-text)] text-sm">
-          נבחר: <strong>{selectedStudent?.name}</strong>
-          <span className="text-[var(--validation-info-text)] mr-2">- בחר קבוצה יעד</span>
+        <div className="text-[var(--selection-info-text)] text-sm">
+          נבחר: <strong>{selectedStudent?.name}</strong> - בחר קבוצת יעד
         </div>
       </div>
     )}
