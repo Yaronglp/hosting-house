@@ -50,7 +50,7 @@ export function usePlanGeneration(classId: string) {
         students, 
         rounds: sortedRounds, 
         groupSize: settings.groupSize,
-        numGroups: Math.min(sortedRounds.length, Math.floor(students.length / 3))
+        numGroups: Math.ceil(students.length / settings.groupSize)
       }, { seed })
       await setAssignments(result.assignments)
       announce('תוכנית נוצרה בהצלחה!')

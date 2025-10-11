@@ -14,7 +14,8 @@ export function generatePlan(input: GenerateInput, options: GenerateOptions): Ge
   const rounds = [...input.rounds].sort((a, b) => a.order - b.order)
 
   // Determine number of groups to create per round
-  const numGroups = input.numGroups || Math.min(rounds.length, Math.floor(input.students.length / 3))
+  const groupSize = input.groupSize || 6
+  const numGroups = input.numGroups || Math.ceil(input.students.length / groupSize)
   
   // Track used hosts across all rounds
   const usedHosts = new Set<string>()

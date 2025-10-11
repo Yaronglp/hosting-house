@@ -25,8 +25,8 @@ export function buildHostSlots(
   const slots: Array<{ hostId: string, capacity: number, memberIds: string[] }> = []
   for (const hostId of hostIds) {
     const host = studentsById.get(hostId)!
-    // Use group size setting for all hosts
-    const capacity = (groupSize || 6) + 2
+    // Use group size setting for all hosts (groupSize = number of guests, +1 for host)
+    const capacity = (groupSize || 6) + 1
     slots.push({ hostId, capacity, memberIds: [] })
   }
   return slots
