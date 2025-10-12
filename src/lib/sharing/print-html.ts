@@ -89,13 +89,32 @@ export function generatePrintHTML(
       border-top: 1px solid #ddd;
       padding-top: 20px;
     }
+    .close-button {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 9999;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .close-button:hover {
+      background: #1d4ed8;
+    }
     @media print {
       body { margin: 0; }
       .round { page-break-inside: avoid; }
+      .close-button { display: none; }
     }
   </style>
 </head>
 <body>
+  <button class="close-button" onclick="window.close()">סגור</button>
   <div class="header">
     <h1>תוכנית בית מארח</h1>
     <div class="subtitle">כיתה: ${className}</div>

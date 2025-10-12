@@ -29,7 +29,7 @@ export function PrintSection({
     try {
       const printHTML_content = generatePrintHTML(assignments, students, rounds, classData.name)
       printHTML(printHTML_content)
-      success('חלון ההדפסה נפתח')
+      success('חלון ההדפסה נפתח - לחץ על "סגור" כדי לחזור לאפליקציה')
     } catch (error) {
       console.error('Failed to print:', error)
       error('שגיאה בהדפסה')
