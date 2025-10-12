@@ -6,10 +6,10 @@ import { PlanBoard } from '../../src/components/planning/PlanBoard'
 
 // Mock data
 const mockStudents = [
-  { id: '1', classId: 'class1', name: 'יוסי כהן', canHost: true, capacity: 6, like: [], avoid: [] },
-  { id: '2', classId: 'class1', name: 'שרה לוי', canHost: true, capacity: 6, like: [], avoid: [] },
-  { id: '3', classId: 'class1', name: 'דוד ישראלי', canHost: true, capacity: 6, like: [], avoid: [] },
-  { id: '4', classId: 'class1', name: 'מיכל רוזן', canHost: true, capacity: 6, like: [], avoid: [] }
+  { id: '1', classId: 'class1', name: 'יוסי כהן', canHost: true, capacity: 6, avoid: [] },
+  { id: '2', classId: 'class1', name: 'שרה לוי', canHost: true, capacity: 6, avoid: [] },
+  { id: '3', classId: 'class1', name: 'דוד ישראלי', canHost: true, capacity: 6, avoid: [] },
+  { id: '4', classId: 'class1', name: 'מיכל רוזן', canHost: true, capacity: 6, avoid: [] }
 ]
 
 const mockRounds = [
@@ -114,9 +114,9 @@ describe('PlanBoard Component', () => {
   it('should show group statistics', () => {
     cy.mount(<PlanBoard {...defaultProps} />)
     
-    // Check group member counts are rendered as (members/capacity)
-    cy.get('[data-cy="group-card"]').first().should('contain', '(2/6)')
-    cy.get('[data-cy="group-card"]').eq(1).should('contain', '(0/6)')
+    // Check group member counts are rendered as (guests אורחים)
+    cy.get('[data-cy="group-card"]').first().should('contain', '(2 אורחים)')
+    cy.get('[data-cy="group-card"]').eq(1).should('contain', '(0 אורחים)')
   })
 
   it('should handle empty groups', () => {
@@ -156,6 +156,6 @@ describe('PlanBoard Component', () => {
     
     cy.mount(<PlanBoard {...defaultProps} assignments={largeAssignments} />)
     
-    cy.get('[data-cy="group-card"]').should('contain', '(3/6)')
+    cy.get('[data-cy="group-card"]').should('contain', '(3 אורחים)')
   })
 })

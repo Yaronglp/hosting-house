@@ -57,10 +57,10 @@ describe('AppHeader Component', () => {
     cy.mount(<AppHeader activeTab="classes" onTabChange={() => {}} />)
     
     // Check ARIA attributes
-    cy.get('[data-cy="tab-classes"]').should('have.attr', 'role', 'button')
-    cy.get('[data-cy="tab-students"]').should('have.attr', 'role', 'button')
-    cy.get('[data-cy="tab-rounds"]').should('have.attr', 'role', 'button')
-    cy.get('[data-cy="tab-plan"]').should('have.attr', 'role', 'button')
+    cy.get('[data-cy="tab-classes"]').should('have.attr', 'type', 'button')
+    cy.get('[data-cy="tab-students"]').should('have.attr', 'type', 'button')
+    cy.get('[data-cy="tab-rounds"]').should('have.attr', 'type', 'button')
+    cy.get('[data-cy="tab-plan"]').should('have.attr', 'type', 'button')
     
     // Check keyboard navigation
     cy.get('[data-cy="tab-classes"]').focus()

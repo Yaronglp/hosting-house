@@ -77,7 +77,6 @@ describe('StudentForm Component', () => {
     // Verify form fields are populated with existing student data
     cy.get('[data-cy="student-name-input"]').should('have.value', 'יוסי כהן')
     cy.get('[data-cy="student-can-host-checkbox"]').should('be.checked')
-    cy.get('[data-cy="student-capacity-input"]').should('have.value', '6')
   })
 
   it('should handle form submission for new student', () => {
@@ -86,7 +85,6 @@ describe('StudentForm Component', () => {
     
     cy.get('[data-cy="student-name-input"]').type('דוד ישראלי')
     cy.get('[data-cy="student-can-host-checkbox"]').uncheck()
-    cy.get('[data-cy="student-capacity-input"]').clear().type('4')
     cy.get('[data-cy="save-button"]').click()
     
     cy.then(() => {
@@ -129,16 +127,6 @@ describe('StudentForm Component', () => {
     cy.get('[data-cy="save-button"]').should('be.visible')
   })
 
-  it('should handle capacity changes', () => {
-    mountWithToast(<StudentForm {...defaultProps} />)
-    
-    cy.get('[data-cy="student-capacity-input"]').clear().type('8')
-    cy.get('[data-cy="student-capacity-input"]').should('have.value', '8')
-    
-    cy.get('[data-cy="student-capacity-input"]').clear().type('2')
-    cy.get('[data-cy="student-capacity-input"]').should('have.value', '2')
-  })
-
   it('should handle hosting capability toggle', () => {
     mountWithToast(<StudentForm {...defaultProps} />)
     
@@ -153,23 +141,14 @@ describe('StudentForm Component', () => {
   it('should show student preferences section', () => {
     mountWithToast(<StudentForm {...defaultProps} />)
     
-    // Check for the preferences section content
-    cy.contains('תלמידים שהתלמיד אוהב להיות איתם').should('be.visible')
     cy.contains('תלמידים שהתלמיד מעדיף לא להיות איתם').should('be.visible')
-    
-    // Check for preference checkboxes
-    cy.get('[data-cy="like-student-checkbox"]').should('be.visible')
+  
     cy.get('[data-cy="avoid-student-checkbox"]').should('be.visible')
   })
 
   it('should handle preference changes', () => {
     mountWithToast(<StudentForm {...defaultProps} />)
-    
-    // Test like preferences
-    cy.get('[data-cy="like-student-checkbox"]').first().check()
-    cy.get('[data-cy="like-student-checkbox"]').first().should('be.checked')
-    
-    // Test avoid preferences
+
     cy.get('[data-cy="avoid-student-checkbox"]').first().check()
     cy.get('[data-cy="avoid-student-checkbox"]').first().should('be.checked')
   })
