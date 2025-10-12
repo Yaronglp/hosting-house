@@ -25,7 +25,7 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
             )}
           </div>
           <NavigationMenu className="w-full min-[700px]:w-auto min-[700px]:flex-1 justify-center min-[700px]:justify-start min-[700px]:ml-[1em]">
-            <NavigationMenuList className="gap-2 min-[700px]:gap-6 justify-between min-[700px]:justify-end">
+            <NavigationMenuList className="gap-2 min-[700px]:gap-6 justify-between min-[700px]:justify-end navigation-container-list">
               <NavigationMenuItem className="flex-1 min-[700px]:flex-initial">
                 <Button
                   className={`w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-xs min-[700px]:text-sm retro-pulse ${activeTab === 'plan' ? 'neon-text-pink' : ''}`}

@@ -401,14 +401,20 @@ button {
 
 /* Force spacing on navigation menu items */
 .retro-nav ul {
-  padding: 0 !important;
+  padding: 0;
 }
 .retro-nav li {
-  margin-left: 1.5rem !important;
+  margin-left: 1.5rem;
 }
 
 .retro-nav li:first-child {
-  margin-left: 0 !important;
+  margin-left: 0;
+}
+
+@media (max-width: 449px) {
+  .retro-nav li {
+    margin: 0;
+  }
 }
 
 /* Retro loading animation */
@@ -708,4 +714,12 @@ button {
 
 .group-members-list {
   row-gap: 0.5rem;
+}
+
+@media (max-width: 449px) {
+  .navigation-container-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
