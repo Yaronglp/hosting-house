@@ -746,6 +746,10 @@ textarea::placeholder {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    direction: rtl
   }
+
+  .navigation-container-list > *:nth-child(1) { order: 3; } /* Plan - Bottom Left */
+  .navigation-container-list > *:nth-child(2) { order: 4; } /* Meeting Dates - Bottom Right */
+  .navigation-container-list > *:nth-child(3) { order: 1; } /* Students - Top Left */
+  .navigation-container-list > *:nth-child(4) { order: 2; } /* Classes - Top Right */
 }
