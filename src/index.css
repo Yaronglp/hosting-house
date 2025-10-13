@@ -501,18 +501,6 @@ button {
   pointer-events: none;
 }
 
-/* Terminal Cursor */
-.terminal-cursor::after {
-  content: '▋';
-  color: var(--neon-green);
-  animation: cursor-blink 1s ease-in-out infinite;
-}
-
-@keyframes cursor-blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
 input,
 textarea,
 select {
@@ -758,5 +746,6 @@ textarea::placeholder {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    direction: rtl
   }
 }

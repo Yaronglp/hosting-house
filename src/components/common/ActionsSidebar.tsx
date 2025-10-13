@@ -30,7 +30,7 @@ export function ActionsSidebar({
     <aside className="lg:w-80 w-full flex-shrink-0 space-y-4">
       <Card className="hologram w-full">
         <CardHeader>
-          <CardTitle className="neon-text text-lg terminal-cursor">⚡ פעולות</CardTitle>
+          <CardTitle className="neon-text text-lg">⚡ פעולות</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <div className="flex flex-col gap-3">
