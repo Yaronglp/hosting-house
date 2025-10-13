@@ -1,20 +1,14 @@
 import { RoundsManager } from '@/components/managers/RoundsManager'
 import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
-import { StorageInfo, ClassInfo } from '@/types/common'
+import { ClassInfo } from '@/types/common'
 
-interface RoundsManagerViewProps extends StorageInfo {
+interface RoundsManagerViewProps {
   classInfo: ClassInfo
 }
 
 export function RoundsManagerView({
-  classInfo,
-  persisted,
-  usage,
-  quota,
-  usagePercent,
-  isRequesting,
-  onRequestPersistence
+  classInfo
 }: RoundsManagerViewProps) {
   const manager = RoundsManager({ 
     classId: classInfo.id, 
@@ -25,12 +19,6 @@ export function RoundsManagerView({
     <>
       <ActionsSidebar
         activeTab="rounds"
-        persisted={persisted}
-        usage={usage}
-        quota={quota}
-        usagePercent={usagePercent}
-        isRequesting={isRequesting}
-        onRequestPersistence={onRequestPersistence}
         roundsActions={{
           addRound: manager.actions.addRound
         }}

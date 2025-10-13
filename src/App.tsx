@@ -20,7 +20,7 @@ function App() {
   const [active, setActive] = useState('classes')
   const [currentClassId, setCurrentClassId] = useKV<string | null>('currentClassId', null)
   const [classes] = useClasses()
-  const { requestPersistence, ...storageRest } = useStorage()
+  const { requestPersistence } = useStorage()
   const { toasts, dismissToast, success, error } = useToast()
   const [showPasteModal, setShowPasteModal] = useState(false)
   const [currentClass, setCurrentClass] = useState<Class | null>(null)
@@ -39,26 +39,6 @@ function App() {
 
   const [classSettings] = useKV(currentClassId ? KV_KEYS.settings(currentClassId) : '', DEFAULT_SETTINGS)
   const groupSize = classSettings.groupSize
-  
-  // Handle persistence request with user feedback
-  const handleRequestPersistence = async () => {
-    try {
-      const result = await requestPersistence()
-      if (result) {
-        success('✅ שמירת נתונים במכשיר הופעלה בהצלחה! הנתונים שלך מוגנים כעת.')
-      } else {
-        error('❌ לא ניתן להפעיל שמירת נתונים במכשיר. ייתכן שהדפדפן לא תומך או שהמשתמש דחה את הבקשה.')
-      }
-    } catch (err) {
-      error('❌ שגיאה בהפעלת שמירת נתונים במכשיר. אנא נסה שוב.')
-    }
-  }
-
-  // Map storage props to match StorageInfo interface
-  const storageProps = {
-    ...storageRest,
-    onRequestPersistence: handleRequestPersistence
-  }
 
   useEffect(() => {
     // Auto-request persistence on app load (silent)
@@ -97,7 +77,6 @@ function App() {
               onClassSelect={(classId) => {
                 setCurrentClassId(classId)
               }}
-              {...storageProps}
             />
           )}
           
@@ -105,34 +84,31 @@ function App() {
             <StudentsManagerView
               classInfo={currentClass}
               onPasteModalOpen={handlePasteModalOpen}
-              {...storageProps}
             />
           )}
           
           {active === 'students' && !currentClass && (
-            <EmptyView activeTab={active} {...storageProps} />
+            <EmptyView activeTab={active} />
           )}
           
           {active === 'rounds' && currentClass && (
             <RoundsManagerView
               classInfo={currentClass}
-              {...storageProps}
             />
           )}
           
           {active === 'rounds' && !currentClass && (
-            <EmptyView activeTab={active} {...storageProps} />
+            <EmptyView activeTab={active} />
           )}
           
           {active === 'plan' && currentClass && (
             <PlanView
               classInfo={currentClass}
-              {...storageProps}
             />
           )}
           
           {active === 'plan' && !currentClass && (
-            <EmptyView activeTab={active} {...storageProps} />
+            <EmptyView activeTab={active} />
           )}
         </div>
       </div>

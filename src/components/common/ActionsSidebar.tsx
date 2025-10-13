@@ -5,12 +5,6 @@ import { useToast } from '@/hooks/useToast'
 
 interface ActionsSidebarProps {
   activeTab: string
-  persisted: boolean | null
-  usage: number
-  quota: number | null
-  usagePercent: number
-  isRequesting: boolean
-  onRequestPersistence: () => void
   classesActions?: {
     addClass: () => void
     canOpenSettings: boolean
@@ -27,12 +21,6 @@ interface ActionsSidebarProps {
 
 export function ActionsSidebar({
   activeTab,
-  persisted,
-  usage,
-  quota,
-  usagePercent,
-  isRequesting,
-  onRequestPersistence,
   classesActions,
   studentsActions,
   roundsActions
@@ -45,15 +33,6 @@ export function ActionsSidebar({
           <CardTitle className="neon-text text-lg terminal-cursor">⚡ פעולות</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
-          <div className="text-sm neon-text-green padding-bottom-default">
-            שמירת נתונים במכשיר: {persisted === null ? '🔄 בודק…' : persisted ? '✅ מאופשר' : '❌ לא מאופשר'}
-          </div>
-          {isRequesting && (
-            <div className="text-xs text-neon-cyan mb-2">
-              🔄 מבקש הרשאה מהדפדפן...
-            </div>
-          )}
-          <div className="retro-loading-bar mb-2"></div>
           <div className="flex flex-col gap-3">
             {activeTab === 'classes' && classesActions && (
               <>
@@ -99,13 +78,6 @@ export function ActionsSidebar({
             )}
             <Button className="border-0 hologram w-full" onClick={() => backupAllDataToFile(error)}>
               💾 גיבוי
-            </Button>
-            <Button 
-              className="border-0 hologram w-full" 
-              disabled={isRequesting || persisted === true} 
-              onClick={onRequestPersistence}
-            >
-              {isRequesting ? '🔄 מבקש...' : persisted === true ? '✅ מאופשר' : '🔒 בקש לשמור נתונים במכשיר'}
             </Button>
           </div>
         </CardContent>

@@ -1,22 +1,15 @@
 import { ClassesManager } from '@/components/managers/ClassesManager'
 import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
-import { StorageInfo } from '@/types/common'
 
-interface ClassesManagerViewProps extends StorageInfo {
+interface ClassesManagerViewProps {
   currentClassId: string | null
   onClassSelect: (classId: string) => void
 }
 
 export function ClassesManagerView({ 
   currentClassId, 
-  onClassSelect,
-  persisted,
-  usage,
-  quota,
-  usagePercent,
-  isRequesting,
-  onRequestPersistence
+  onClassSelect
 }: ClassesManagerViewProps) {
   const manager = ClassesManager({ currentClassId, onClassSelect })
   
@@ -24,12 +17,6 @@ export function ClassesManagerView({
     <>
       <ActionsSidebar
         activeTab="classes"
-        persisted={persisted}
-        usage={usage}
-        quota={quota}
-        usagePercent={usagePercent}
-        isRequesting={isRequesting}
-        onRequestPersistence={onRequestPersistence}
         classesActions={{
           addClass: manager.actions.addClass,
           canOpenSettings: manager.actions.canOpenSettings,
