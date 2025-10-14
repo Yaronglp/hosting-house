@@ -142,6 +142,73 @@ Cypress.Commands.add('verifyHeaderShowsClass', (className: string) => {
   cy.get('[data-cy="app-header"]').should('contain', className)
 })
 
+Cypress.Commands.add('addIndividualStudent', (name: string) => {
+  cy.navigateToTab('students')
+  cy.get('[data-cy="add-student-button"]').click()
+  cy.get('[data-cy="student-name-input"]').type(name)
+  cy.get('[data-cy="save-button"]').click()
+  cy.get('[data-cy="student-item"]').should('contain', name)
+})
+
+Cypress.Commands.add('deleteStudentByIndex', (index: number = 0) => {
+  cy.get('[data-cy="student-item"]').eq(index).within(() => {
+    cy.get('[data-cy="delete-student-button"]').click()
+  })
+  cy.get('[data-cy="dialog-confirm-button"]').should('be.visible').click()
+  cy.get('[data-cy="dialog-confirm-button"]').should('not.exist')
+})
+
+Cypress.Commands.add('editStudentByIndex', (index: number, updates: { name?: string; canHost?: boolean; avoidStudent?: boolean }) => {
+  cy.get('[data-cy="student-item"]').eq(index).within(() => {
+    cy.get('[data-cy="edit-student-button"]').click()
+  })
+  
+  if (updates.name) {
+    cy.get('[data-cy="student-name-input"]').clear().type(updates.name)
+  }
+  
+  if (updates.canHost !== undefined) {
+    if (updates.canHost) {
+      cy.get('[data-cy="student-can-host-checkbox"]').check()
+    } else {
+      cy.get('[data-cy="student-can-host-checkbox"]').uncheck()
+    }
+  }
+  
+  if (updates.avoidStudent) {
+    cy.get('[data-cy="avoid-student-checkbox"]').first().check()
+  }
+  
+  cy.get('[data-cy="save-button"]').click()
+})
+
+Cypress.Commands.add('verifyStudentCount', (expectedCount: number) => {
+  cy.get('[data-cy="student-item"]').should('have.length', expectedCount)
+})
+
+Cypress.Commands.add('verifyStudentsExist', (names: string[]) => {
+  names.forEach(name => {
+    cy.get('[data-cy="student-item"]').should('contain', name)
+  })
+})
+
+Cypress.Commands.add('verifyEmptyStudentsState', () => {
+  cy.navigateToTab('students')
+  cy.contains('אין תלמידים בכיתה').should('be.visible')
+  cy.get('[data-cy="add-student-button"]').should('be.visible')
+  cy.get('[data-cy="paste-names-button"]').should('be.visible')
+})
+
+Cypress.Commands.add('testPasteModal', (names: string[], expectedCount?: number) => {
+  cy.get('[data-cy="paste-names-button"]').click()
+  cy.get('[data-cy="names-textarea"]').type(names.join('\n'))
+  cy.get('[data-cy="add-students-button"]').click()
+  
+  if (expectedCount !== undefined) {
+    cy.get('[data-cy="student-item"]').should('have.length', expectedCount)
+  }
+})
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -160,6 +227,13 @@ declare global {
       verifyGroupsHaveStudents(): Chainable<void>
       verifyEmptyClassesState(): Chainable<void>
       verifyHeaderShowsClass(className: string): Chainable<void>
+      addIndividualStudent(name: string): Chainable<void>
+      deleteStudentByIndex(index?: number): Chainable<void>
+      editStudentByIndex(index: number, updates: { name?: string; canHost?: boolean; avoidStudent?: boolean }): Chainable<void>
+      verifyStudentCount(expectedCount: number): Chainable<void>
+      verifyStudentsExist(names: string[]): Chainable<void>
+      verifyEmptyStudentsState(): Chainable<void>
+      testPasteModal(names: string[], expectedCount?: number): Chainable<void>
     }
   }
 }

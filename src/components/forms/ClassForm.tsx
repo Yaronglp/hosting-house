@@ -79,7 +79,7 @@ export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
             id="name"
             value={formData.name}
             onChange={(value) => setFormData(prev => ({ ...prev, name: value }))}
-            placeholder="לדוגמה: כיתה ה׳1"
+            placeholder="לדוגמה: כיתה א׳1"
             required
             testId="class-name-input"
           />

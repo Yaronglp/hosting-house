@@ -10,6 +10,7 @@ interface EmptyStateProps {
     onClick: () => void
   }
   variant?: 'default' | 'error'
+  testId?: string
 }
 
 export function EmptyState({ 
@@ -17,10 +18,11 @@ export function EmptyState({
   title, 
   description, 
   action, 
-  variant = 'default' 
+  variant = 'default',
+  testId
 }: EmptyStateProps) {
   return (
-    <Card className={`text-center ${variant === 'error' ? 'border-[var(--validation-error-border)] bg-[var(--validation-error-bg)]' : ''}`}>
+    <Card className={`text-center ${variant === 'error' ? 'border-[var(--validation-error-border)] bg-[var(--validation-error-bg)]' : ''}`} data-cy={testId}>
       <CardContent className="py-12">
         <div className="flex flex-col items-center space-y-4">
           {icon && (
