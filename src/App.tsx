@@ -21,7 +21,7 @@ function App() {
   const [currentClassId, setCurrentClassId] = useKV<string | null>('currentClassId', null)
   const [classes] = useClasses()
   const { requestPersistence } = useStorage()
-  const { toasts, dismissToast, success, error } = useToast()
+  const { toasts, dismissToast, success } = useToast()
   const [showPasteModal, setShowPasteModal] = useState(false)
   const [currentClass, setCurrentClass] = useState<Class | null>(null)
 
@@ -60,7 +60,6 @@ function App() {
 
   return (
     <div className="min-h-screen retro-grid flex flex-col max-w-full overflow-x-hidden">
-      <BackgroundEffects />
       <SWUpdateBanner />
       <ToastContainer toasts={toasts} onClose={dismissToast} />
       <AppHeader 

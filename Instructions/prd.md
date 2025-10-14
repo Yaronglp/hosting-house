@@ -64,10 +64,11 @@ Teachers can generate WhatsApp/clipboard summaries, a printable view, and export
 ---
 
 ## 6. Data Model
-- **Class:** `{ id, name, year }`  
-- **Student:** `{ id, classId, name, canHost, capacityMin, capacityMax, like[], avoid[] }`  
-- **Round:** `{ id, classId, name, dateWindow? }`  
-- **Group:** `{ id, roundId, hostId, memberIds[], notes? }`  
+- **Class:** `{ id, name, year?, createdAt, updatedAt }`  
+- **Student:** `{ id, classId, name, canHost, avoid[] }`  
+- **Round:** `{ id, classId, name, dateWindow?: { start }, order }`  
+  - *Note:* `dateWindow.end` not currently used
+- **Group:** `{ id, roundId, hostId, memberIds[] }`
 - **Assignment:** `{ roundId, groups[] }`  
 - **Settings:** `{ groupSize }` (default = 6)  
 

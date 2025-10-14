@@ -37,6 +37,7 @@ html {
   --overlay-neon-cyan-10: rgba(0, 255, 255, 0.1);
   --overlay-neon-cyan-20: rgba(0, 255, 255, 0.2);
   --overlay-neon-cyan-60: rgba(0, 255, 255, 0.6);
+  --overlay-neon-cyan-80: rgba(0, 255, 255, 0.8);
   --overlay-neon-green-10: rgba(0, 255, 0, 0.1);
   
   /* Shadow colors */
@@ -156,6 +157,7 @@ html {
   --accent: 24 100% 50%;
   --accent-foreground: 0 0% 0%;
   --destructive: 348 100% 50%;
+  --destructive-foreground: 0 0% 100%;
   --border: 180 100% 50%;
   --input: 228 27% 14%;
   --ring: 300 100% 50%;
@@ -427,38 +429,6 @@ button {
   }
 }
 
-/* Retro loading animation */
-.retro-loading-bar {
-  width: 100%;
-  height: 20px;
-  background: var(--dark-bg);
-  border: 2px solid var(--neon-cyan);
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-}
-
-.retro-loading-bar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--overlay-neon-cyan-80),
-    transparent
-  );
-  animation: loading-sweep 2s ease-in-out infinite;
-}
-
-@keyframes loading-sweep {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
 /* Holographic Effect */
 .hologram {
   position: relative;
@@ -526,6 +496,36 @@ input::placeholder,
 textarea::placeholder {
   color: var(--placeholder-cyan); /* Brighter cyan for better visibility */
   opacity: 0.6;
+}
+
+/* Retro Grid Background */
+.retro-grid {
+  background-image: 
+    linear-gradient(var(--overlay-neon-cyan-10) 1px, transparent 1px),
+    linear-gradient(90deg, var(--overlay-neon-cyan-10) 1px, transparent 1px);
+  background-size: 50px 50px;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.retro-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 25% 25%, var(--overlay-neon-pink-10) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, var(--overlay-neon-cyan-10) 0%, transparent 50%);
+  animation: grid-pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes grid-pulse {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.7; }
 }
 
 /* Print styles (turn off retro effects for printing) */

@@ -82,6 +82,5 @@ export function useStorage() {
     ...storageInfo,
     isRequesting,
     requestPersistence,
-    updateStorageInfo,
   }
 }

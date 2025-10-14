@@ -33,7 +33,6 @@ export interface Round {
   name: string
   dateWindow?: {
     start: Date
-    end: Date
   }
   order: number
 }
@@ -43,7 +42,6 @@ export interface Group {
   roundId: string
   hostId: string
   memberIds: string[]
-  notes?: string
 }
 
 export interface Assignment {
