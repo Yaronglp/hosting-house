@@ -172,7 +172,6 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
             <Button 
               onClick={onClassAdd}
               aria-label="הוסף כיתה חדשה"
-              data-cy="add-class-button"
             >
               + הוסף כיתה חדשה
             </Button>

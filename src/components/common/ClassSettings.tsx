@@ -72,7 +72,7 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
 
   return (
     <>
-      <Card>
+      <Card data-cy="class-settings">
         <CardHeader>
           <div className="flex justify-between items-start">
             <div>
@@ -100,6 +100,7 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
               value={formData.groupSize === 0 ? '' : formData.groupSize}
               onChange={handleGroupSizeChange}
               className="w-24 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring text-center"
+              data-cy="group-size-input"
             />
           </div>
 
@@ -111,7 +112,7 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
           </div>
 
           <div className="flex gap-3 justify-end">
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading} data-cy="save-settings-button">
               {isLoading ? 'שומר...' : 'שמור הגדרות'}
             </Button>
           </div>

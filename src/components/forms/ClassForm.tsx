@@ -81,7 +81,7 @@ export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
             onChange={(value) => setFormData(prev => ({ ...prev, name: value }))}
             placeholder="לדוגמה: כיתה ה׳1"
             required
-            data-cy="class-name-input"
+            testId="class-name-input"
           />
         </FormField>
 
@@ -92,7 +92,7 @@ export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
             onChange={(value) => setFormData(prev => ({ ...prev, year: value }))}
             placeholder="לדוגמה: תשפ״ה"
             className="max-w-xs"
-            data-cy="class-year-input"
+            testId="class-year-input"
           />
         </FormField>
 

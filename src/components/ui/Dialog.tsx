@@ -167,12 +167,13 @@ export function ConfirmDialog({
       showCloseButton={false}
       footer={
         <>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant="outline" onClick={onClose} data-cy="dialog-cancel-button">
             {cancelText}
           </Button>
           <Button
             variant={variant === 'danger' ? 'destructive' : 'default'}
             onClick={handleConfirm}
+            data-cy="dialog-confirm-button"
           >
             {confirmText}
           </Button>

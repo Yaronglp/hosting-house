@@ -39,6 +39,7 @@ export function ActionsSidebar({
                 <Button 
                   className="border-0 hologram w-full"
                   onClick={classesActions.addClass}
+                  data-cy="add-class-button"
                 >
                   ➕ הוסף כיתה
                 </Button>
@@ -46,6 +47,7 @@ export function ActionsSidebar({
                   <Button 
                     className="border-0 hologram w-full"
                     onClick={classesActions.openSettings}
+                    data-cy="settings-button"
                   >
                     ⚙️ הגדרות כיתה
                   </Button>

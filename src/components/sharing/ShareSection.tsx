@@ -79,6 +79,7 @@ export function ShareSection({
           size="sm" 
           onClick={handleGenerateSummary}
           disabled={!hasData}
+          data-cy="whatsapp-share-button"
         >
           <MessageCircle className="h-4 w-4 ml-2 padding-left-default" />
           שתף ב-WhatsApp
@@ -88,6 +89,7 @@ export function ShareSection({
           size="sm" 
           onClick={handleCopyToClipboard}
           disabled={!hasData}
+          data-cy="copy-to-clipboard-button"
         >
           <Copy className="h-4 w-4 ml-2 padding-left-default" />
           העתק ללוח

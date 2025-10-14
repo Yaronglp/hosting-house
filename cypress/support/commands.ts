@@ -10,153 +10,160 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-// Stable selectors using data-cy attributes
-Cypress.Commands.add('getBySel', (selector: string, ...args) => 
-  cy.get(`[data-cy="${selector}"]`, ...args)
-)
 
-// Programmatic login/state setup for testing
-Cypress.Commands.add('login', (user = 'demo') => {
-  // For this PWA app, we'll seed the database with test data
-  cy.window().then((win) => {
-    // Clear existing data
-    if (win.indexedDB) {
-      win.indexedDB.deleteDatabase('hosting-house-db')
-    }
-  })
-  cy.visit('/')
-})
-
-// Seed test data for consistent testing
-Cypress.Commands.add('seedTestData', () => {
-  cy.window().then((win) => {
-    // This will be implemented based on the app's storage structure
-    // For now, we'll use the app's natural flow
-  })
-})
-
-// Clear all app data
 Cypress.Commands.add('clearAppData', () => {
   cy.window().then((win) => {
     if (win.indexedDB) {
-      win.indexedDB.deleteDatabase('hosting-house-db')
+      // Delete the database and wait for completion
+      const deleteRequest = win.indexedDB.deleteDatabase('BaitMeareahDB')
+      
+      return new Cypress.Promise((resolve) => {
+        deleteRequest.onsuccess = () => {
+          // Also clear localStorage and sessionStorage
+          win.localStorage.clear()
+          win.sessionStorage.clear()
+          resolve()
+        }
+        deleteRequest.onerror = () => {
+          // Even if delete fails, clear storage
+          win.localStorage.clear()
+          win.sessionStorage.clear()
+          resolve()
+        }
+        deleteRequest.onblocked = () => {
+          // If blocked, still clear storage
+          win.localStorage.clear()
+          win.sessionStorage.clear()
+          resolve()
+        }
+      })
+    } else {
+      // No IndexedDB, just clear storage
+      win.localStorage.clear()
+      win.sessionStorage.clear()
+      return Promise.resolve()
     }
   })
 })
+
 
 // Wait for app to be ready
 Cypress.Commands.add('waitForAppReady', () => {
   cy.get('[data-cy="app-header"]', { timeout: 10000 }).should('be.visible')
 })
 
-// Keyboard navigation helper: simulate pressing Tab from an element and return focused element
-// Allows usage like: cy.get('body').tab() or cy.get('[data-cy="input"]').tab()
-Cypress.Commands.add('tab', { prevSubject: 'element' }, (subject: JQuery<HTMLElement>) => {
-  return cy.window().then((win) => {
-    const doc = win.document
-    const focusable = Array.from(
-      doc.querySelectorAll<HTMLElement>(
-        'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      )
-    ).filter(el => !el.hasAttribute('disabled') && el.tabIndex !== -1 && el.offsetParent !== null)
-
-    const active = doc.activeElement as HTMLElement | null
-    const currentIndex = active ? focusable.indexOf(active) : -1
-    const nextIndex = (currentIndex + 1) % focusable.length
-    const next = focusable[nextIndex]
-    if (next) next.focus()
-    return cy.focused()
-  })
-})
 
 // Navigate to specific tab
 Cypress.Commands.add('navigateToTab', (tabName: string) => {
   cy.get(`[data-cy="tab-${tabName}"]`).click()
-  cy.get(`[data-cy="tab-${tabName}"]`).should('have.class', 'active')
+  cy.get(`[data-cy="tab-${tabName}"]`).should('have.class', 'neon-text-pink')
 })
 
-// Create a test class
-Cypress.Commands.add('createTestClass', (className: string, year: string = '2024') => {
+
+// Helper commands for common flows
+Cypress.Commands.add('createClass', (name: string, year?: string) => {
   cy.navigateToTab('classes')
   cy.get('[data-cy="add-class-button"]').click()
-  cy.get('[data-cy="class-name-input"]').type(className)
-  cy.get('[data-cy="class-year-input"]').type(year)
-  cy.get('[data-cy="save-class-button"]').click()
-  cy.get('[data-cy="class-item"]').should('contain', className)
+  cy.get('[data-cy="class-name-input"]').type(name)
+  if (year) {
+    cy.get('[data-cy="class-year-input"]').type(year)
+  }
+  cy.get('[data-cy="save-button"]').click()
+  cy.get('[data-cy="class-item"]').should('contain', name)
 })
 
-// Add test students
-Cypress.Commands.add('addTestStudents', (studentNames: string[]) => {
+Cypress.Commands.add('addStudentsViaPaste', (names: string[]) => {
   cy.navigateToTab('students')
   cy.get('[data-cy="paste-names-button"]').click()
-  cy.get('[data-cy="names-textarea"]').type(studentNames.join('\n'))
+  cy.get('[data-cy="names-textarea"]').type(names.join('\n'))
   cy.get('[data-cy="add-students-button"]').click()
-  cy.get('[data-cy="student-item"]').should('have.length', studentNames.length)
+  cy.get('[data-cy="student-item"]').should('have.length', names.length)
 })
 
-// Create test rounds
-Cypress.Commands.add('createTestRounds', (roundNames: string[]) => {
+Cypress.Commands.add('addRound', (date: string) => {
   cy.navigateToTab('rounds')
-  roundNames.forEach((roundName, index) => {
-    cy.get('[data-cy="add-round-button"]').click()
-    cy.get('[data-cy="round-name-input"]').type(roundName)
-    cy.get('[data-cy="save-round-button"]').click()
-    cy.get('[data-cy="round-item"]').should('contain', roundName)
-  })
+  cy.get('[data-cy="add-round-button"]').click()
+  cy.get('[data-cy="round-date-input"]').type(date)
+  cy.get('[data-cy="save-round-button"]').click()
+  cy.get('[data-cy="round-item"]').should('be.visible')
 })
 
-// Generate a plan
-Cypress.Commands.add('generatePlan', () => {
-  cy.navigateToTab('plan')
-  cy.get('[data-cy="generate-plan-button"]').click()
+Cypress.Commands.add('verifyPlanGenerated', () => {
   cy.get('[data-cy="plan-board"]', { timeout: 10000 }).should('be.visible')
+  cy.get('[data-cy="validation-panel"]').should('contain', 'תוכנית תקינה')
 })
 
-// Check for validation errors
-Cypress.Commands.add('checkValidationErrors', (expectedErrors: string[] = []) => {
-  if (expectedErrors.length === 0) {
-    cy.get('[data-cy="validation-panel"]').should('contain', 'תוכנית תקינה')
-  } else {
-    cy.get('[data-cy="validation-errors"]').should('be.visible')
-    expectedErrors.forEach(error => {
-      cy.get('[data-cy="validation-errors"]').should('contain', error)
-    })
-  }
+Cypress.Commands.add('getFutureDate', (daysFromNow: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + daysFromNow);
+  return cy.wrap(date.toISOString().split('T')[0]); // Returns YYYY-MM-DD format
 })
 
-// Export data
-Cypress.Commands.add('exportData', () => {
-  cy.navigateToTab('plan')
-  cy.get('[data-cy="share-tab"]').click()
+// Navigate to share view
+Cypress.Commands.add('navigateToShareView', () => {
+  cy.get('[data-cy="share-view-button"]').click()
+})
+
+// Test WhatsApp share
+Cypress.Commands.add('testWhatsAppShare', () => {
+  cy.get('[data-cy="whatsapp-share-button"]').click()
+})
+
+// Test JSON export
+Cypress.Commands.add('testJSONExport', () => {
   cy.get('[data-cy="export-json-button"]').click()
 })
 
-// Import data
-Cypress.Commands.add('importData', (filePath: string) => {
-  cy.navigateToTab('plan')
-  cy.get('[data-cy="share-tab"]').click()
-  cy.get('[data-cy="import-json-input"]').selectFile(filePath)
-  cy.get('[data-cy="confirm-import-button"]').click()
+// Verify plan board structure
+Cypress.Commands.add('verifyPlanBoardStructure', () => {
+  cy.get('[data-cy="plan-board"]').should('be.visible')
+  cy.get('[data-cy="round-board"]').should('have.length.at.least', 1)
+  cy.get('[data-cy="group-card"]').should('have.length.at.least', 1)
+})
+
+// Verify groups have students
+Cypress.Commands.add('verifyGroupsHaveStudents', () => {
+  cy.get('[data-cy="group-card"]').each(($group) => {
+    cy.wrap($group).find('[data-cy="student-chip"]').should('have.length.at.least', 2)
+  })
+})
+
+// Verify empty classes state
+Cypress.Commands.add('verifyEmptyClassesState', () => {
+  // Check for empty state by looking for the title text
+  cy.contains('אין כיתות עדיין').should('be.visible')
+  cy.get('[data-cy="add-class-button"]').should('be.visible')
+})
+
+// Verify header shows class name
+Cypress.Commands.add('verifyHeaderShowsClass', (className: string) => {
+  // Wait a bit for the header to update
+  cy.wait(500)
+  cy.get('[data-cy="app-header"]').should('contain', className)
 })
 
 declare global {
   namespace Cypress {
     interface Chainable {
-      getBySel(selector: string, ...args: any[]): Chainable<JQuery<HTMLElement>>
-      login(user?: string): Chainable<void>
-      seedTestData(): Chainable<void>
       clearAppData(): Chainable<void>
       waitForAppReady(): Chainable<void>
-      tab(): Chainable<JQuery<HTMLElement>>
       navigateToTab(tabName: string): Chainable<void>
-      createTestClass(className: string, year?: string): Chainable<void>
-      addTestStudents(studentNames: string[]): Chainable<void>
-      createTestRounds(roundNames: string[]): Chainable<void>
-      generatePlan(): Chainable<void>
-      checkValidationErrors(expectedErrors?: string[]): Chainable<void>
-      exportData(): Chainable<void>
-      importData(filePath: string): Chainable<void>
+      createClass(name: string, year?: string): Chainable<void>
+      addStudentsViaPaste(names: string[]): Chainable<void>
+      addRound(date: string): Chainable<void>
+      verifyPlanGenerated(): Chainable<void>
+      getFutureDate(daysFromNow: number): Chainable<string>
+      navigateToShareView(): Chainable<void>
+      testWhatsAppShare(): Chainable<void>
+      testJSONExport(): Chainable<void>
+      verifyPlanBoardStructure(): Chainable<void>
+      verifyGroupsHaveStudents(): Chainable<void>
+      verifyEmptyClassesState(): Chainable<void>
+      verifyHeaderShowsClass(className: string): Chainable<void>
     }
   }
 }
+
+// Export to make this file a module
+export {}
 

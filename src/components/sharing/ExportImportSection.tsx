@@ -104,6 +104,7 @@ export function ExportImportSection({
             size="sm" 
             onClick={handleExportJSON}
             disabled={!hasData}
+            data-cy="export-json-button"
           >
             <Download className="h-4 w-4 ml-2 padding-left-default" />
             ייצא נתונים
@@ -113,6 +114,7 @@ export function ExportImportSection({
             size="sm" 
             disabled={!onImportData || isImporting}
             onClick={() => document.getElementById('import-file-input')?.click()}
+            data-cy="import-json-button"
           >
             <Upload className="h-4 w-4 ml-2 padding-left-default" />
             {isImporting ? 'מייבא...' : 'ייבא נתונים'}
