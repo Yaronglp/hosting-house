@@ -18,6 +18,7 @@ export function EmptyPlanState({
         icon={<Sparkles className="h-6 w-6" />}
         title="מוכן להתחיל?"
         description="כדי ליצור תוכנית בית מארח, תחילה הוסף תלמידים וצור תאריכי מפגש. אחר כך תוכל ליצור תוכנית אוטומטית עם כל ההעדפות והמגבלות."
+        testId="empty-plan-state-no-students-and-rounds"
       />
     )
   }
@@ -28,6 +29,7 @@ export function EmptyPlanState({
         icon={<Users className="h-6 w-6" />}
         title="חסרים תלמידים"
         description="הוסף תלמידים לכיתה כדי ליצור תוכנית אירוח. לפחות תלמיד אחד נדרש כדי להתחיל."
+        testId="empty-plan-state-no-students"
       />
     )
   }
@@ -38,6 +40,7 @@ export function EmptyPlanState({
         icon={<Clock className="h-6 w-6" />}
         title="חסרים תאריכי מפגש"
         description="צור לפחות תאריך מפגש אחד כדי ליצור תוכנית. כל תאריך מפגש מייצג מועד שבו תלמיד יארח את הכיתה."
+        testId="empty-plan-state-no-rounds"
       />
     )
   }

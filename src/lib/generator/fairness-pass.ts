@@ -45,12 +45,16 @@ export function canSwapStudents(
   roundId2: string, student2: string,
   studentsById: Map<string, Student>
 ): boolean {
-  // Cannot swap hosts
   const assignment1 = assignments.find(a => a.roundId === roundId1)!
   const assignment2 = assignments.find(a => a.roundId === roundId2)!
-  const group1 = assignment1.groups[0]
-  const group2 = assignment2.groups[0]
   
+  // Find the groups containing the students
+  const group1 = assignment1.groups.find(g => g.memberIds.includes(student1))
+  const group2 = assignment2.groups.find(g => g.memberIds.includes(student2))
+  
+  if (!group1 || !group2) return false
+  
+  // Cannot swap hosts
   if (group1.hostId === student1 || group2.hostId === student2) return false
   
   // Check if swap would violate avoid constraints
@@ -159,7 +163,7 @@ export function performFairnessPass(
     }
   }
   
-  // Final validation to ensure no host-guest conflicts
+  // Final validation to ensure no host-guest conflicts and no duplicates
   for (const assignment of bestResult) {
     for (const group of assignment.groups) {
       if (group.memberIds.includes(group.hostId)) {
@@ -170,6 +174,18 @@ export function performFairnessPass(
           memberIds: group.memberIds
         })
         // Return original assignments if conflicts detected
+        return assignments
+      }
+      
+      // Check for duplicate members within the same group
+      const uniqueMembers = new Set(group.memberIds)
+      if (uniqueMembers.size !== group.memberIds.length) {
+        console.error('Duplicate members detected in group after fairness pass:', {
+          roundId: assignment.roundId,
+          groupId: group.id,
+          memberIds: group.memberIds
+        })
+        // Return original assignments if duplicates detected
         return assignments
       }
     }

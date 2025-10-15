@@ -1,16 +1,42 @@
 import { Student } from '../types'
 
 /**
- * Pick unique hosts for a round
+ * Pick unique hosts for a round, considering avoid preferences
  */
 export function pickUniqueHosts(students: Student[], numGroups: number, rng: () => number): string[] {
   const hostEligible = students.filter(s => s.canHost)
   if (hostEligible.length < numGroups) {
     throw new Error('insufficient-hosts')
   }
+  
+  const studentsById = new Map(students.map(s => [s.id, s]))
+  const selectedHosts: string[] = []
   const pool = [...hostEligible]
   shuffleInPlace(pool, rng)
-  return pool.slice(0, numGroups).map(host => host.id)
+  
+  // Try to select hosts that don't avoid each other
+  for (const candidate of pool) {
+    if (selectedHosts.length >= numGroups) break
+    
+    // Check if this candidate conflicts with already selected hosts
+    const hasConflict = selectedHosts.some(selectedId => {
+      const selected = studentsById.get(selectedId)!
+      return candidate.avoid.includes(selectedId) || selected.avoid.includes(candidate.id)
+    })
+    
+    if (!hasConflict) {
+      selectedHosts.push(candidate.id)
+    }
+  }
+  
+  // If we couldn't find enough non-conflicting hosts, fill with remaining hosts
+  if (selectedHosts.length < numGroups) {
+    const remaining = pool.filter(host => !selectedHosts.includes(host.id))
+    const needed = numGroups - selectedHosts.length
+    selectedHosts.push(...remaining.slice(0, needed).map(host => host.id))
+  }
+  
+  return selectedHosts
 }
 
 

@@ -60,6 +60,12 @@ export function usePlanGeneration(classId: string) {
       
       if (e?.message === 'insufficient-hosts') {
         errorMessage = 'אין מספיק מארחים עבור מספר תאריכי המפגש. עדכן יכולת אירוח או הפחת תאריכי מפגש.'
+      } else if (e?.message === 'avoid-preferences-conflict') {
+        errorMessage = 'העדפות ההימנעות של התלמידים מונעות יצירת תוכנית אפשרית. עדכן העדפות או הפחת תאריכי מפגש.'
+      } else if (e?.message === 'missing-students') {
+        errorMessage = 'לא ניתן להקצות את כל התלמידים. בדוק את ההגדרות ונסה שוב.'
+      } else if (e?.message === 'duplicate-students') {
+        errorMessage = 'נמצאו שמות תלמידים כפולים בתוכנית. שגיאה פנימית, נסה שוב.'
       }
       
       setError(errorMessage)
