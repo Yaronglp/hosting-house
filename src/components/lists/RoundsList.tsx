@@ -48,7 +48,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
 
   if (rounds.length === 0) {
     return (
-      <Card>
+      <Card data-cy="empty-rounds-state">
         <CardContent className="flex flex-col items-center justify-center py-12">
           <p className="text-muted-foreground mb-4">אין תאריכי מפגש בכיתה</p>
           <Button onClick={onRoundAdd} data-cy="add-round-button">הוסף תאריך מפגש</Button>

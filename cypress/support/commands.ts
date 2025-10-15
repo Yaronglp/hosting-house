@@ -209,6 +209,28 @@ Cypress.Commands.add('testPasteModal', (names: string[], expectedCount?: number)
   }
 })
 
+// Custom command for native validation testing
+Cypress.Commands.add('checkNativeValidation', (selector: string, expectedValid: boolean = false, expectedMessage?: string) => {
+  cy.get(selector).then($input => {
+    const input = $input[0] as HTMLInputElement
+    const isValid = input.checkValidity()
+    
+    // Check if validation state matches expectation
+    expect(isValid).to.equal(expectedValid)
+    
+    if (!expectedValid) {
+      // Log the validation message for debugging
+      const message = input.validationMessage
+      cy.log(`Validation message: ${message}`)
+      
+      // Check specific validation message if provided
+      if (expectedMessage) {
+        expect(message).to.contain(expectedMessage)
+      }      
+    }
+  })
+})
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -234,6 +256,7 @@ declare global {
       verifyStudentsExist(names: string[]): Chainable<void>
       verifyEmptyStudentsState(): Chainable<void>
       testPasteModal(names: string[], expectedCount?: number): Chainable<void>
+      checkNativeValidation(selector: string, expectedValid?: boolean, expectedMessage?: string): Chainable<void>
     }
   }
 }

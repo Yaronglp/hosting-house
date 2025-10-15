@@ -36,18 +36,12 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!formData.date) {
-      error('אנא הזן תאריך המפגש')
+    const form = e.currentTarget as HTMLFormElement
+    if (!form.checkValidity()) {
       return
     }
-
-    // Check if date is in the past
-    const selectedDate = new Date(formData.date)
-    const today = new Date()
-    today.setHours(0, 0, 0, 0) // Reset time to start of day for accurate comparison
     
-    if (selectedDate < today) {
-      error('לא ניתן לבחור תאריך בעבר')
+    if (!formData.date) {
       return
     }
 
