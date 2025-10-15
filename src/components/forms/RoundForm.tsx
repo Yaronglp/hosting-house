@@ -73,8 +73,7 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
                 ...r, 
                 name: new Date(formData.date).toLocaleDateString('he-IL'),
                 dateWindow: {
-                  start: new Date(formData.date),
-                  end: new Date(formData.date)
+                  start: new Date(formData.date)
                 }
               }
             : r
@@ -89,10 +88,9 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
           classId,
           name: new Date(formData.date).toLocaleDateString('he-IL'),
           dateWindow: {
-            start: new Date(formData.date),
-            end: new Date(formData.date)
+            start: new Date(formData.date)
           },
-          order: rounds.length // Add to end
+          order: rounds.length
         }
         
         const updatedRounds = [...rounds, newRound]
