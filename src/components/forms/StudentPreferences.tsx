@@ -42,7 +42,7 @@ export function StudentPreferences({
               className="rounded"
               data-cy="avoid-student-checkbox"
             />
-            <span>{student.name}</span>
+            <span className='padding-horizontal-default'>{student.name}</span>
           </label>
         ))}
       </div>
