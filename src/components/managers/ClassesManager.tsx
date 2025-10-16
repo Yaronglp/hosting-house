@@ -80,6 +80,7 @@ export function ClassesManager({ currentClassId, onClassSelect }: ClassesManager
             onClassSelect={onClassSelect}
             onClassEdit={handleClassEdit}
             onClassAdd={handleClassAdd}
+            onClassSettings={handleSettingsOpen}
           />
         )
     }

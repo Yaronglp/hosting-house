@@ -1,4 +1,3 @@
-import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
 
 interface EmptyViewProps {
@@ -9,14 +8,9 @@ export function EmptyView({
   activeTab
 }: EmptyViewProps) {
   return (
-    <>
-      <ActionsSidebar
-        activeTab={activeTab}
-      />
-      <MainContent
-        activeTab={activeTab}
-        currentClass={null}
-      />
-    </>
+    <MainContent
+      activeTab={activeTab}
+      currentClass={null}
+    />
   )
 } 

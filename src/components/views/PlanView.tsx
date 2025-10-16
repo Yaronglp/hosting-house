@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import { PlanManager } from '@/components/managers/PlanManager'
-import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
 import { ClassInfo } from '@/types/common'
 
@@ -14,15 +13,10 @@ export function PlanView({
   classInfo
 }: PlanViewProps) {
   return (
-    <>
-      <ActionsSidebar
-        activeTab="plan"
-      />
-      <MainContent
-        activeTab="plan"
-        currentClass={classInfo}
-        planContent={<MemoizedPlanManager classId={classInfo.id} />}
-      />
-    </>
+    <MainContent
+      activeTab="plan"
+      currentClass={classInfo}
+      planContent={<MemoizedPlanManager classId={classInfo.id} />}
+    />
   )
 } 

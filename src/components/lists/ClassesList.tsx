@@ -14,9 +14,10 @@ interface ClassesListProps {
   onClassSelect: (classId: string | null) => void
   onClassEdit: (classId: string) => void
   onClassAdd: () => void
+  onClassSettings?: (classId: string) => void
 }
 
-export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClassAdd }: ClassesListProps) {
+export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClassAdd, onClassSettings }: ClassesListProps) {
   const [classes, setClasses] = useClasses()
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
@@ -119,6 +120,22 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
               </div>
               
               <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+                {onClassSettings && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onClassSettings(cls.id)
+                    }}
+                    aria-label={`הגדרות כיתה ${cls.name}`}
+                    className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
+                    data-cy="settings-button"
+                  >
+                    ⚙️
+                  </Button>
+                )}
+                
                 <Button
                   variant="ghost"
                   size="sm"
@@ -172,6 +189,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
             <Button 
               onClick={onClassAdd}
               aria-label="הוסף כיתה חדשה"
+              data-cy="add-class-button"
             >
               + הוסף כיתה חדשה
             </Button>

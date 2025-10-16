@@ -1,5 +1,4 @@
 import { StudentsManager } from '@/components/managers/StudentsManager'
-import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
 import { ClassInfo } from '@/types/common'
 
@@ -19,19 +18,10 @@ export function StudentsManagerView({
   })
   
   return (
-    <>
-      <ActionsSidebar
-        activeTab="students"
-        studentsActions={{
-          addStudent: manager.actions.addStudent,
-          pasteNames: onPasteModalOpen || manager.actions.pasteNames
-        }}
-      />
-      <MainContent
-        activeTab="students"
-        currentClass={classInfo}
-        studentsContent={manager.content}
-      />
-    </>
+    <MainContent
+      activeTab="students"
+      currentClass={classInfo}
+      studentsContent={manager.content}
+    />
   )
 } 

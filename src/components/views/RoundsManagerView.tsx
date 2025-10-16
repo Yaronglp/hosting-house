@@ -1,5 +1,4 @@
 import { RoundsManager } from '@/components/managers/RoundsManager'
-import { ActionsSidebar } from '@/components/common/ActionsSidebar'
 import { MainContent } from '@/components/layout/MainContent'
 import { ClassInfo } from '@/types/common'
 
@@ -16,18 +15,10 @@ export function RoundsManagerView({
   })
   
   return (
-    <>
-      <ActionsSidebar
-        activeTab="rounds"
-        roundsActions={{
-          addRound: manager.actions.addRound
-        }}
-      />
-      <MainContent
-        activeTab="rounds"
-        currentClass={classInfo}
-        roundsContent={manager.content}
-      />
-    </>
+    <MainContent
+      activeTab="rounds"
+      currentClass={classInfo}
+      roundsContent={manager.content}
+    />
   )
 } 
