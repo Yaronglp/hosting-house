@@ -46,7 +46,7 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
               🏠 בית מארח
             </h1>
             {currentClassName && (
-              <h3 className="neon-text-green text-lg min-[700px]:text-lg hologram padding-horizontal-default mt-0 mb-4">
+              <h3 className="neon-text-green text-lg min-[700px]:text-lg hologram padding-horizontal-default m-2 mb-4 mt-0">
                 נבחר: {currentClassName}
               </h3>
             )}
