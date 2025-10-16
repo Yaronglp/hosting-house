@@ -13,6 +13,7 @@ export function EmptyClassesState({ onAddClass }: EmptyClassesStateProps) {
       description="התחל על ידי יצירת הכיתה הראשונה שלך. כל כיתה תוכל לנהל תלמידים, סבבי אירוח והגדרות נפרדות."
       action={{
         label: "צור כיתה ראשונה",
+        testId: "add-class-button",
         onClick: onAddClass
       }}
     />

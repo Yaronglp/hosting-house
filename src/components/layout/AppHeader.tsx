@@ -45,11 +45,9 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
             >
               🏠 בית מארח
             </h1>
-            {currentClassName && (
-              <h3 className="neon-text-green text-lg min-[700px]:text-lg hologram padding-horizontal-default m-2 mb-4 mt-0">
-                נבחר: {currentClassName}
-              </h3>
-            )}
+            <h3 className="neon-text-green text-lg min-[700px]:text-lg hologram padding-horizontal-default m-2 mb-4 mt-0">
+              {currentClassName ? `נבחרה: ${currentClassName}` : 'לא נבחרה כיתה כרגע'}
+            </h3>
           </div>
           <NavigationMenu className="w-full min-[700px]:w-auto min-[700px]:flex-1 justify-center min-[700px]:justify-start min-[700px]:ml-[1em] navigation-container">
             <NavigationMenuList className="gap-2 min-[700px]:gap-6 justify-between min-[700px]:justify-end navigation-container-list">

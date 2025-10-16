@@ -7,6 +7,7 @@ interface EmptyStateProps {
   description: string
   action?: {
     label: string
+    testId?: string
     onClick: () => void
   }
   variant?: 'default' | 'error'
@@ -51,6 +52,7 @@ export function EmptyState({
               onClick={action.onClick}
               variant={variant === 'error' ? 'destructive' : 'default'}
               className="mt-4"
+              data-cy={action.testId}
             >
               {action.label}
             </Button>

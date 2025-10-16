@@ -93,15 +93,15 @@ describe('Class Management - CRUD Operations', () => {
     
     // Create and select first class
     cy.createClass('כיתה ראשונה', 'תשפ״ה')
-    cy.get('[data-cy="app-header"]').should('contain', '• כיתה ראשונה')
+    cy.get('[data-cy="app-header"]').should('contain', 'כיתה ראשונה')
     
     // Create second class (should be auto-selected)
     cy.createClass('כיתה שניה', 'תשפ״ו')
-    cy.get('[data-cy="app-header"]').should('contain', '• כיתה שניה')
+    cy.get('[data-cy="app-header"]').should('contain', 'כיתה שניה')
     
     // Switch back to first class
     cy.get('[data-cy="class-item"]').first().click()
-    cy.get('[data-cy="app-header"]').should('contain', '• כיתה ראשונה')
+    cy.get('[data-cy="app-header"]').should('contain', 'כיתה ראשונה')
   })
 
   it('should handle class form validation', () => {

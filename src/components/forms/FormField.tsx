@@ -10,7 +10,7 @@ interface FormFieldProps {
 export function FormField({ label, required, children, className = '' }: FormFieldProps) {
   return (
     <div className={`mb-4 ${className} padding-vertical-default`}>
-      <label className="block text-base font-medium mb-2">
+      <label className="block text-lg font-medium mb-2">
         {label} {required && '*'}
       </label>
       {children}
