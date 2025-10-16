@@ -114,7 +114,7 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="names" className="block text-sm font-medium mb-2 padding-bottom-default">
+                <label htmlFor="names" className="block text-base font-medium mb-2 padding-bottom-default">
                   שמות התלמידים (שורה אחת לכל תלמיד)
                 </label>
                 <textarea
@@ -128,7 +128,7 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
                   required
                   data-cy="names-textarea"
                 />
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-base text-muted-foreground mt-1">
                   כל שם בשורה נפרדת. שמות כפולים יוסרו אוטומטית.
                 </p>
               </div>

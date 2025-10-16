@@ -33,13 +33,13 @@ const ValidationItem = memo(({
       <div className="flex items-center mb-1 padding-right-default padding-top-default">
         <span className={`font-medium ${textColor}`}>{message}</span>
         {count && (
-          <span className={`text-sm ${textColor} px-2 py-1 rounded padding-right-default`} data-cy="item-count">
+          <span className={`text-base ${textColor} px-2 py-1 rounded padding-right-default`} data-cy="item-count">
             ({count})
           </span>
         )}
       </div>
       {details && details.length > 0 && (
-        <div className={`text-sm ${detailColor}`}>
+        <div className={`text-base ${detailColor}`}>
           <ul className="list-disc pr-5 mt-1">
             {details.slice(0, maxDetails).map((detail, i) => (
               <li key={i}>{detail}</li>
@@ -126,7 +126,7 @@ const SuccessState = memo(() => (
       <CheckCircle className="h-4 w-4 padding-left-default validation-success-icon" data-cy="success-icon"/>
       <span>התוכנית עומדת בכל הדרישות!</span>
     </div>
-    <div className="text-sm validation-success-detail mt-1 padding-vertical-default">
+    <div className="text-base validation-success-detail mt-1 padding-vertical-default">
       כל התלמידים קיבלו שיבוץ<br />
       אין תלמידים שלא שובצו
     </div>

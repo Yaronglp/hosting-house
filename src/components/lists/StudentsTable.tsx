@@ -72,7 +72,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-lg font-semibold margin-top-default">תלמידי הכיתה</h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             {students.length} תלמידים <br /> {students.filter(s => s.canHost).length} יכולים לארח
           </p>
         </div>
@@ -86,7 +86,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
         </div>
       </div>
 
-      <div className="text-xs text-muted-foreground padding-vertical-default">
+      <div className="text-base text-muted-foreground padding-vertical-default">
         💡 <strong>טיפ:</strong> לחץ על "יכול לארח" כדי לשנות במהירות את יכולת התלמיד לארח
       </div>
       
@@ -104,7 +104,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
               <tr key={student.id} className="border-b hover:bg-muted/50" data-cy="student-item">
                 <td className="p-3">
                   <div className="font-medium">{student.name}</div>
-                  <div className="text-xs text-muted-foreground text-small">
+                  <div className="text-base text-muted-foreground padding-default">
                     {student.avoid.length > 0 && `כמות תלמידים שהתלמיד מעדיף לא להיות איתם: ${student.avoid.length}`}
                   </div>
                 </td>
@@ -114,7 +114,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                     size="sm"
                     variant={student.canHost ? "default" : "ghost"}
                     style={{ width: '64px', minWidth: '64px', maxWidth: '64px' }}
-                    className={`px-2 py-1 text-xs font-medium ${
+                    className={`px-2 py-1 text-base font-medium ${
                       student.canHost 
                         ? 'bg-green-100 text-green-800 hover:bg-green-200' 
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

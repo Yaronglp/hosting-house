@@ -57,7 +57,7 @@ export function SharingPanel({
 
         {/* Info */}
         {!hasData && (
-          <div className="text-sm text-muted-foreground bg-gray-50 p-3 rounded-md">
+          <div className="text-base text-muted-foreground bg-gray-50 p-3 rounded-md">
             צור תוכנית תחילה כדי לאפשר שיתוף והדפסה
           </div>
         )}

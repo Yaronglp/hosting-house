@@ -24,7 +24,7 @@ export function SetupRequired({
         <div className="space-y-3">
           {steps.map((step, index) => (
             <div key={index} className="flex items-center gap-3">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-base font-medium ${
                 index < currentStep 
                   ? 'bg-[var(--validation-success-icon)] text-white' 
                   : index === currentStep
@@ -33,7 +33,7 @@ export function SetupRequired({
               }`}>
                 {index < currentStep ? '✓' : index + 1}
               </div>
-              <span className={`text-sm ${
+              <span className={`text-base ${
                 index < currentStep 
                   ? 'text-[var(--validation-success-text)] line-through' 
                   : index === currentStep

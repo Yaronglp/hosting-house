@@ -21,7 +21,7 @@ export function createAccessibleTooltip(
       tooltip.id = tooltipId
       tooltip.textContent = content
       tooltip.setAttribute('role', 'tooltip')
-      tooltip.className = `absolute z-50 px-2 py-1 text-sm bg-gray-900 text-white rounded shadow-lg ${
+      tooltip.className = `absolute z-50 px-2 py-1 text-base bg-gray-900 text-white rounded shadow-lg ${
         position === 'top' ? 'bottom-full mb-1' :
         position === 'bottom' ? 'top-full mt-1' :
         position === 'left' ? 'right-full mr-1' :

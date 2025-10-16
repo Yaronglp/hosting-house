@@ -50,7 +50,7 @@ export function MainContent({
             {activeTab === 'students' && !currentClass && (
               <NoClassMessage>
                 <p>🏫 בחר כיתה תחילה כדי לנהל תלמידים</p>
-                <p className="text-sm mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
+                <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}
             
@@ -58,7 +58,7 @@ export function MainContent({
             {activeTab === 'rounds' && !currentClass && (
               <NoClassMessage>
                 <p>🏫 בחר כיתה תחילה כדי לנהל תאריכי מפגש</p>
-                <p className="text-sm mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
+                <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}
             
@@ -66,12 +66,12 @@ export function MainContent({
             {activeTab === 'plan' && !currentClass && (
               <NoClassMessage>
                 <p>🏫 בחר כיתה תחילה כדי ליצור תכנון</p>
-                <p className="text-sm mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
+                <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}
             
             {!['classes', 'students', 'rounds', 'plan'].includes(activeTab) && (
-              <div className="text-sm neon-text-green opacity-70">
+              <div className="text-base neon-text-green opacity-70">
                 🚀 ממשק התחלתי — נבנה בהמשך לפי האפיקים.
               </div>
             )}

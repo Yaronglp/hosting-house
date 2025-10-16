@@ -19,7 +19,7 @@ export function SWUpdateBanner() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 mx-auto mb-4 w-fit rounded-md border bg-card p-3 shadow">
       <div className="flex items-center gap-3">
-        <span className="text-sm">גרסה חדשה זמינה — רענן</span>
+        <span className="text-base">גרסה חדשה זמינה — רענן</span>
         <Button
           size="sm"
           onClick={() => updateServiceWorker(true).then(() => setNeedRefresh(false))}

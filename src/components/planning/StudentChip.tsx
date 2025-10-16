@@ -12,7 +12,7 @@ export const StudentChip = memo(({ student, isSelected, onClick }: StudentChipPr
   <Button
     variant={isSelected ? "default" : "ghost"}
     size="sm"
-    className={`px-2 py-1 text-xs ${
+    className={`px-2 py-1 text-base ${
       isSelected
         ? 'bg-blue-600 text-white hover:bg-blue-700'
         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'

@@ -110,11 +110,11 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
                 {cls.year && (
                   <CardDescription>שנת לימודים {cls.year}</CardDescription>
                 )}
-                <CardDescription className="flex items-center gap-1 text-sm mt-1">
+                <CardDescription className="flex items-center gap-1 text-base mt-1">
                   <Users className="h-3.5 w-3.5" />
                   {studentCounts[cls.id] !== undefined ? studentCounts[cls.id] : '...'} תלמידים
                 </CardDescription>
-                <CardDescription className="text-xs text-muted-foreground mt-1">
+                <CardDescription className="text-base text-muted-foreground mt-1">
                   נוצר: {new Date(cls.createdAt).toLocaleDateString('he-IL')}
                 </CardDescription>
               </div>
@@ -173,7 +173,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
           </CardHeader>
           
           <CardContent className="pt-0 pb-6">
-            <div className={`flex items-center gap-2 text-sm rounded-md px-3 py-2 ${
+            <div className={`flex items-center gap-2 text-base rounded-md px-3 py-2 ${
               currentClassId !== cls.id && 'text-transparent bg-transparent pointer-events-none select-none'
             }`}>
               <Users className="h-4 w-4" />

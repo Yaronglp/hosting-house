@@ -60,13 +60,13 @@ export function PlanGeneratorView({
             </div>
           </div>
           {error && (
-            <div className="text-sm text-red-600 mt-2" role="alert" aria-live="assertive">
+            <div className="text-base text-red-600 mt-2" role="alert" aria-live="assertive">
               {error}
             </div>
           )}
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-base text-muted-foreground">
             תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
           </div>
         </CardContent>

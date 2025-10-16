@@ -40,7 +40,7 @@ export function EmptyState({
             }`}>
               {title}
             </h3>
-            <p className={`text-sm max-w-md mx-auto ${
+            <p className={`text-base max-w-md mx-auto ${
               variant === 'error' ? 'text-[var(--validation-error-text)]' : 'text-muted-foreground'
             }`}>
               {description}

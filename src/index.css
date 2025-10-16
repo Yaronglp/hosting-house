@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Bungee&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -177,7 +176,6 @@ html {
       var(--bg-gradient-1);
     background-attachment: fixed;
     color: var(--foreground);
-    font-family: 'Orbitron', monospace;
     overflow-x: hidden;
     min-height: 100vh;
     margin: 0;
@@ -260,7 +258,6 @@ html {
   border: 2px solid var(--neon-cyan);
   color: var(--white);
   text-transform: uppercase;
-  font-family: 'Bungee', cursive;
   font-weight: bold;
   letter-spacing: 2px;
   position: relative;
@@ -270,6 +267,8 @@ html {
   box-shadow: 
     0 0 20px var(--shadow-neon-pink-30),
     inset 0 0 20px var(--overlay-neon-cyan-10);
+  /* Allow Tailwind text size classes to work */
+  font-size: inherit;
 }
 
 .retro-button::before {
@@ -323,13 +322,13 @@ html {
 
 /* Retro Header Text */
 .header-title {
-  font-family: 'Bungee', cursive;
   background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan), var(--neon-green));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-transform: uppercase;
   letter-spacing: 3px;
+  /* Remove hardcoded font-size to allow Tailwind classes to work */
 }
 
 @media (max-width: 699px) {
@@ -406,10 +405,42 @@ button, [role="button"] {
   margin-inline-end: 0.75rem;
 }
 
-/* Force cursor pointer on all buttons */
-button {
-  cursor: pointer !important;
-}
+.text-base { font-size: 1rem !important; }
+.text-lg { font-size: 1.25rem !important; }
+.text-xl { font-size: 1.5rem !important; }
+.text-2xl { font-size: 2rem !important; }
+.text-3xl { font-size: 2.5rem !important; }
+.text-4xl { font-size: 3rem !important; }
+
+/* Ensure Tailwind margin classes work */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.25rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 0.75rem !important; }
+.m-4 { margin: 1rem !important; }
+.m-5 { margin: 1.25rem !important; }
+.m-6 { margin: 1.5rem !important; }
+.m-8 { margin: 2rem !important; }
+
+/* Ensure Tailwind margin-bottom classes work */
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 0.75rem !important; }
+.mb-4 { margin-bottom: 1rem !important; }
+.mb-5 { margin-bottom: 1.25rem !important; }
+.mb-6 { margin-bottom: 1.5rem !important; }
+.mb-8 { margin-bottom: 2rem !important; }
+
+/* Ensure Tailwind margin-top classes work */
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 0.75rem !important; }
+.mt-4 { margin-top: 1rem !important; }
+.mt-5 { margin-top: 1.25rem !important; }
+.mt-6 { margin-top: 1.5rem !important; }
+.mt-8 { margin-top: 2rem !important; }
 
 /* Force spacing on navigation menu items */
 .retro-nav ul {
@@ -480,7 +511,11 @@ select {
   border-radius: 8px;
   padding: 8px 12px;
   transition: all 0.3s ease;
-  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+}
+
+checkbox {
+  margin: 0.5rem;
 }
 
 input:focus,
@@ -495,7 +530,7 @@ select:focus {
 input::placeholder,
 textarea::placeholder {
   color: var(--placeholder-cyan); /* Brighter cyan for better visibility */
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 /* Retro Grid Background */
@@ -609,6 +644,10 @@ textarea::placeholder {
   padding: 0.5rem 0;
 }
 
+.padding-horizontal-default {
+  padding: 0 0.5rem;
+}
+
 .padding-left-default {
   padding-left: 0.5rem;
 }
@@ -619,10 +658,6 @@ textarea::placeholder {
 
 .margin-top-default {
   margin-top: 0.5rem;
-}
-
-.text-small {
-  font-size: 0.8rem;
 }
 
 /* Add missing retro-pulse class */
@@ -733,15 +768,15 @@ textarea::placeholder {
   }
 }
 
-.header-class-selected {
-  font-size: 1.5rem;
-}
-
 .group-members-list {
   row-gap: 0.5rem;
 }
 
 @media (max-width: 449px) {
+  .navigation-container {
+    margin-bottom: 1.25rem;
+  }
+
   .navigation-container-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

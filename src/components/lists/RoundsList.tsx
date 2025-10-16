@@ -61,7 +61,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
     <div className="space-y-4">
       <div className="flex justify-between items-center padding-bottom-default">
         <div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             {rounds.length} תאריכי מפגשים מוגדרים
           </p>
         </div>
@@ -77,7 +77,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-muted-foreground">
+                    <span className="text-base font-medium text-muted-foreground">
                       #{round.order + 1}
                     </span>
                   </div>

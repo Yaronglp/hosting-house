@@ -50,7 +50,7 @@ export function ToastItem({ toast, onClose }: ToastItemProps) {
       aria-live="polite"
     >
       <Icon className="h-5 w-5 flex-shrink-0 padding-left-default" />
-      <p className="flex-1 text-sm font-medium" dir="rtl">
+      <p className="flex-1 text-base font-medium" dir="rtl">
         {toast.message}
       </p>
       <Button
