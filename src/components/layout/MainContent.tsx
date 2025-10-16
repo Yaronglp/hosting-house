@@ -1,6 +1,16 @@
 import { ReactNode } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 
+const getTabTitle = (activeTab: string) => {
+  switch (activeTab) {
+    case 'classes': return '🏫 כיתות'
+    case 'students': return '👥 תלמידים'
+    case 'rounds': return '🔄 תאריכי מפגשים'
+    case 'plan': return '📋 תכנון'
+    default: return ''
+  }
+}
+
 interface MainContentProps {
   activeTab: string
   currentClass: { id: string; name: string } | null
@@ -18,16 +28,6 @@ export function MainContent({
   roundsContent,
   planContent
 }: MainContentProps) {
-  const getTabTitle = () => {
-    switch (activeTab) {
-      case 'classes': return '🏫 כיתות'
-      case 'students': return '👥 תלמידים'
-      case 'rounds': return '🔄 תאריכי מפגשים'
-      case 'plan': return '📋 תכנון'
-      default: return ''
-    }
-  }
-
   const NoClassMessage = ({ children }: { children: ReactNode }) => (
     <div className="text-center neon-text-green opacity-70 py-8">
       {children}
@@ -40,12 +40,11 @@ export function MainContent({
         <Card className="hologram vhs-static w-full">
           <CardHeader>
             <CardTitle className="neon-text text-xl">
-              {getTabTitle()}
+              {getTabTitle(activeTab)}
             </CardTitle>
           </CardHeader>
           <CardContent className="w-full">
             {activeTab === 'classes' && classesContent}
-            
             {activeTab === 'students' && studentsContent}
             {activeTab === 'students' && !currentClass && (
               <NoClassMessage>

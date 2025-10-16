@@ -772,11 +772,11 @@ textarea::placeholder {
   row-gap: 0.5rem;
 }
 
-@media (max-width: 449px) {
-  .navigation-container {
-    margin-bottom: 1.25rem;
-  }
+.navigation-container {
+  margin-bottom: 1.25rem;
+}
 
+@media (max-width: 449px) {
   .navigation-container-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
