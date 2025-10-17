@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
 import { Student, Round } from '@/lib/types'
 import { EmptyPlanState } from '@/components/common/EmptyPlanState'
 import { PlanGenerationError } from '@/components/common/PlanGenerationError'
@@ -65,11 +65,9 @@ export function PlanGeneratorView({
             </div>
           )}
         </CardHeader>
-        <CardContent>
-          <div className="text-lg text-muted-foreground">
-            תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
-          </div>
-        </CardContent>
+        <CardFooter className="text-lg">
+          תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
+        </CardFooter>
       </Card>
 
       {error && canGenerate && (

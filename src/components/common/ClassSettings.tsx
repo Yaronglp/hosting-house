@@ -107,7 +107,7 @@ export function ClassSettings({ classId, className, onClose }: ClassSettingsProp
           <div className="bg-muted/50 p-4 rounded-lg padding-default">
             <h4 className="font-medium mb-2">השפעה על הגדרות אחרות:</h4>
             <ul className="text-base text-muted-foreground space-y-1">
-              <li>• מספר הקבוצות יחושב אוטומטית לפי מספר התלמידים</li>
+              <li>מספר הקבוצות יחושב אוטומטית לפי מספר התלמידים</li>
             </ul>
           </div>
 
