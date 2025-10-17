@@ -10,9 +10,11 @@ interface StudentsManagerProps {
   classId: string
   className: string
   onPasteNames?: () => void
+  onStudentAdded?: () => void
+  onStudentUpdated?: () => void
 }
 
-export function StudentsManager({ classId, className, onPasteNames }: StudentsManagerProps) {
+export function StudentsManager({ classId, className, onPasteNames, onStudentAdded, onStudentUpdated }: StudentsManagerProps) {
   const [settings] = useKV(KV_KEYS.settings(classId), DEFAULT_SETTINGS)
   const [viewMode, setViewMode] = useState<ViewMode>('table')
   const [editingStudentId, setEditingStudentId] = useState<string | undefined>()
@@ -59,6 +61,8 @@ export function StudentsManager({ classId, className, onPasteNames }: StudentsMa
             studentId={editingStudentId}
             onSave={handleFormSave}
             onCancel={handleFormCancel}
+            onStudentAdded={onStudentAdded}
+            onStudentUpdated={onStudentUpdated}
           />
         )
       default:

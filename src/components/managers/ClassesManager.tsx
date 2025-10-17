@@ -9,9 +9,11 @@ type ViewMode = 'list' | 'form' | 'settings'
 interface ClassesManagerProps {
   currentClassId: string | null
   onClassSelect: (classId: string | null) => void
+  onClassAdded?: () => void
+  onClassUpdated?: () => void
 }
 
-export function ClassesManager({ currentClassId, onClassSelect }: ClassesManagerProps) {
+export function ClassesManager({ currentClassId, onClassSelect, onClassAdded, onClassUpdated }: ClassesManagerProps) {
   const [classes] = useClasses()
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [editingClassId, setEditingClassId] = useState<string | undefined>()
@@ -63,6 +65,8 @@ export function ClassesManager({ currentClassId, onClassSelect }: ClassesManager
             classId={editingClassId}
             onSave={handleFormSave}
             onCancel={handleFormCancel}
+            onClassAdded={onClassAdded}
+            onClassUpdated={onClassUpdated}
           />
         )
       case 'settings':

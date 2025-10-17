@@ -1,5 +1,6 @@
 import { ClassesManager } from '@/components/managers/ClassesManager'
 import { MainContent } from '@/components/layout/MainContent'
+import { useToast } from '@/hooks/useToast'
 
 interface ClassesManagerViewProps {
   currentClassId: string | null
@@ -10,7 +11,22 @@ export function ClassesManagerView({
   currentClassId, 
   onClassSelect
 }: ClassesManagerViewProps) {
-  const manager = ClassesManager({ currentClassId, onClassSelect })
+  const { success } = useToast()
+
+  const handleClassAdded = () => {
+    success(`✅ נוספה כיתה בהצלחה!`)
+  }
+
+  const handleClassUpdated = () => {
+    success(`✅ עודכנה כיתה בהצלחה!`)
+  }
+
+  const manager = ClassesManager({ 
+    currentClassId, 
+    onClassSelect,
+    onClassAdded: handleClassAdded,
+    onClassUpdated: handleClassUpdated
+  })
   
   return (
     <MainContent

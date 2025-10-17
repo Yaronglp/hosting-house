@@ -31,10 +31,20 @@ export function StudentsManagerView({
     success(`✅ נוספו ${count} תלמידים בהצלחה!`)
   }
 
+  const handleStudentAdded = () => {
+    success(`✅ נוסף תלמיד בהצלחה!`)
+  }
+
+  const handleStudentUpdated = () => {
+    success(`✅ עודכן תלמיד בהצלחה!`)
+  }
+
   const manager = StudentsManager({ 
     classId: classInfo.id, 
     className: classInfo.name,
-    onPasteNames: handlePasteModalOpen
+    onPasteNames: handlePasteModalOpen,
+    onStudentAdded: handleStudentAdded,
+    onStudentUpdated: handleStudentUpdated
   })
   
   return (

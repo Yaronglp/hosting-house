@@ -15,9 +15,11 @@ interface StudentFormProps {
   studentId?: string // undefined for new student
   onSave: (studentId: string) => void
   onCancel: () => void
+  onStudentAdded?: () => void
+  onStudentUpdated?: () => void
 }
 
-export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFormProps) {
+export function StudentForm({ classId, studentId, onSave, onCancel, onStudentAdded, onStudentUpdated }: StudentFormProps) {
   const [students, setStudents] = useStudents(classId)
   const [settings] = useKV(KV_KEYS.settings(classId), DEFAULT_SETTINGS)
   const [formData, setFormData] = useState({
@@ -55,6 +57,7 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
             : s
         )
         await setStudents(updatedStudents)
+        onStudentUpdated?.()
         onSave(studentId)
       } else {
         // Create new student
@@ -69,6 +72,7 @@ export function StudentForm({ classId, studentId, onSave, onCancel }: StudentFor
         
         const updatedStudents = [...students, newStudent]
         await setStudents(updatedStudents)
+        onStudentAdded?.()
         onSave(newStudentId)
       }
     },

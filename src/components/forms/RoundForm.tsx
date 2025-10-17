@@ -10,9 +10,11 @@ interface RoundFormProps {
   roundId?: string // undefined for new round
   onSave: (roundId: string) => void
   onCancel: () => void
+  onRoundAdded?: () => void
+  onRoundUpdated?: () => void
 }
 
-export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps) {
+export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, onRoundUpdated }: RoundFormProps) {
   const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
   const { error } = useToast()
   const [formData, setFormData] = useState({
@@ -73,6 +75,7 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
             : r
         )
         await setRounds(updatedRounds)
+        onRoundUpdated?.()
         onSave(roundId)
       } else {
         // Create new round
@@ -89,6 +92,7 @@ export function RoundForm({ classId, roundId, onSave, onCancel }: RoundFormProps
         
         const updatedRounds = [...rounds, newRound]
         await setRounds(updatedRounds)
+        onRoundAdded?.()
         onSave(newRoundId)
       }
     } catch (err) {

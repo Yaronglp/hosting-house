@@ -7,9 +7,11 @@ type ViewMode = 'list' | 'form'
 interface RoundsManagerProps {
   classId: string
   className: string
+  onRoundAdded?: () => void
+  onRoundUpdated?: () => void
 }
 
-export function RoundsManager({ classId, className }: RoundsManagerProps) {
+export function RoundsManager({ classId, className, onRoundAdded, onRoundUpdated }: RoundsManagerProps) {
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [editingRoundId, setEditingRoundId] = useState<string | undefined>()
 
@@ -46,6 +48,8 @@ export function RoundsManager({ classId, className }: RoundsManagerProps) {
             roundId={editingRoundId}
             onSave={handleFormSave}
             onCancel={handleFormCancel}
+            onRoundAdded={onRoundAdded}
+            onRoundUpdated={onRoundUpdated}
           />
         )
       default:

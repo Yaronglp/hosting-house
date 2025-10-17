@@ -11,9 +11,11 @@ interface ClassFormProps {
   classId?: string // undefined for new class
   onSave: (classId: string) => void
   onCancel: () => void
+  onClassAdded?: () => void
+  onClassUpdated?: () => void
 }
 
-export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
+export function ClassForm({ classId, onSave, onCancel, onClassAdded, onClassUpdated }: ClassFormProps) {
   const [classes, setClasses] = useClasses()
   const [formData, setFormData] = useState({
     name: '',
@@ -50,6 +52,7 @@ export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
             : c
         )
         await setClasses(updatedClasses)
+        onClassUpdated?.()
         onSave(classId)
       } else {
         // Create new class
@@ -64,6 +67,7 @@ export function ClassForm({ classId, onSave, onCancel }: ClassFormProps) {
         
         const updatedClasses = [...classes, newClass]
         await setClasses(updatedClasses)
+        onClassAdded?.()
         onSave(newClassId)
       }
     },
