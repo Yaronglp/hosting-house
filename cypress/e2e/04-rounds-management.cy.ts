@@ -33,7 +33,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
         // Edit the round
         cy.get('[data-cy="edit-round-button"]').first().click()
         cy.get('[data-cy="round-date-input"]').clear().type(newDate)
-        cy.get('[data-cy="save-round-button"]').click()
+        cy.get('[data-cy="save-button"]').click()
         
         // Verify round was updated
         cy.get('[data-cy="round-item"]').should('be.visible')
@@ -72,7 +72,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
       // Try to create round with same date
       cy.get('[data-cy="add-round-button"]').click()
       cy.get('[data-cy="round-date-input"]').type(futureDate)
-      cy.get('[data-cy="save-round-button"]').click()
+      cy.get('[data-cy="save-button"]').click()
       
       // Should show error message in toast
       cy.get('[role="alert"]', { timeout: 10000 }).should('contain', 'תאריך זה כבר קיים במערכת')
@@ -102,7 +102,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
     // Try to create round without date
     cy.navigateToTab('rounds')
     cy.get('[data-cy="add-round-button"]').click()
-    cy.get('[data-cy="save-round-button"]').click()
+    cy.get('[data-cy="save-button"]').click()
     
     // Should show error message in toast
     cy.checkNativeValidation('[data-cy="round-date-input"]', false, `Please fill out this field.`)
@@ -110,7 +110,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
     // Add round with valid date
     cy.getFutureDate(7).then(date => {
       cy.get('[data-cy="round-date-input"]').type(date)
-      cy.get('[data-cy="save-round-button"]').click()
+      cy.get('[data-cy="save-button"]').click()
       cy.get('[data-cy="round-item"]').should('be.visible')
     })
   })
@@ -125,7 +125,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
     // Try to select today's date (should be allowed)
     const today = new Date().toISOString().split('T')[0]
     cy.get('[data-cy="round-date-input"]').type(today)
-    cy.get('[data-cy="save-round-button"]').click()
+    cy.get('[data-cy="save-button"]').click()
     
     // Should create round successfully
     cy.get('[data-cy="round-item"]').should('be.visible')
@@ -140,7 +140,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
         // Edit to a different valid date
         cy.get('[data-cy="edit-round-button"]').first().click()
         cy.get('[data-cy="round-date-input"]').clear().type(newDate)
-        cy.get('[data-cy="save-round-button"]').click()
+        cy.get('[data-cy="save-button"]').click()
         
         // Should update successfully
         cy.get('[data-cy="round-item"]').should('be.visible')
@@ -151,7 +151,7 @@ describe('Rounds Management - Meeting Dates Operations', () => {
         yesterday.setDate(yesterday.getDate() - 1)
         const pastDate = yesterday.toISOString().split('T')[0]
         cy.get('[data-cy="round-date-input"]').clear().type(pastDate)
-        cy.get('[data-cy="save-round-button"]').click()
+        cy.get('[data-cy="save-button"]').click()
         
         // Should show native error in tooltip
         cy.checkNativeValidation('[data-cy="round-date-input"]', false, `Value must be ${new Date().toLocaleString('en-GB').split(',')[0]} or later`)

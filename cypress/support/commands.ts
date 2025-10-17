@@ -84,7 +84,7 @@ Cypress.Commands.add('addRound', (date: string) => {
   cy.navigateToTab('rounds')
   cy.get('[data-cy="add-round-button"]').click()
   cy.get('[data-cy="round-date-input"]').type(date)
-  cy.get('[data-cy="save-round-button"]').click()
+  cy.get('[data-cy="save-button"]').click()
   cy.get('[data-cy="round-item"]').should('be.visible')
 })
 

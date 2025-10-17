@@ -52,7 +52,7 @@ export function PlanGeneratorView({
               <Button 
                 onClick={onGenerate} 
                 disabled={!canGenerate || isGenerating}
-                aria-label="צור תוכנית חדשה - מקש קיצור Ctrl+G"
+                aria-label="צור תוכנית חדשה"
                 data-cy="generate-plan-button"
               >
                 {isGenerating ? 'מחשב...' : 'צור תוכנית'}
@@ -66,7 +66,7 @@ export function PlanGeneratorView({
           )}
         </CardHeader>
         <CardContent>
-          <div className="text-base text-muted-foreground">
+          <div className="text-lg text-muted-foreground">
             תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
           </div>
         </CardContent>

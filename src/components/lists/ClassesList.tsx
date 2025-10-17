@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
 import { useClasses } from '@/hooks/useClasses'
 import { Student, KV_KEYS } from '@/lib/types'
 import { kvGet } from '@/lib/db'
 import { EmptyClassesState } from '@/components/common/EmptyClassesState'
 import { useAnnouncer } from '@/hooks/useAccessibility'
-import { Trash2, Edit, Users } from 'lucide-react'
+import { Trash2, Edit, Users, Award } from 'lucide-react'
 import { ConfirmDialog } from '@/components/ui/Dialog'
 
 interface ClassesListProps {
@@ -103,83 +103,81 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
             }
           }}
         >
-          <CardHeader className="pb-3">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <CardTitle className="text-lg">{cls.name}</CardTitle>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <CardHeader>
+              <CardTitle>{cls.name}</CardTitle>
                 {cls.year && (
                   <CardDescription>שנת לימודים {cls.year}</CardDescription>
                 )}
-                <CardDescription className="flex items-center gap-1 text-base mt-1">
-                  <Users className="h-3.5 w-3.5" />
-                  {studentCounts[cls.id] !== undefined ? studentCounts[cls.id] : '...'} תלמידים
-                </CardDescription>
-                <CardDescription className="text-base text-muted-foreground mt-1">
-                  נוצר: {new Date(cls.createdAt).toLocaleDateString('he-IL')}
-                </CardDescription>
-              </div>
-              
-              <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-                {onClassSettings && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      onClassSettings(cls.id)
-                    }}
-                    aria-label={`הגדרות כיתה ${cls.name}`}
-                    className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
-                    data-cy="settings-button"
-                  >
-                    ⚙️
-                  </Button>
-                )}
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onClassEdit(cls.id)
-                  }}
-                  aria-label={`ערוך כיתה ${cls.name}`}
-                  className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
-                  data-cy="edit-class-button"
-                >
-                  <Edit className="h-4 w-4" />
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleDeleteClick(cls.id)
-                  }}
-                  disabled={isDeleting === cls.id}
-                  aria-label={`מחק כיתה ${cls.name}`}
-                  className="h-8 w-8 p-0 hover:bg-[var(--validation-error-bg)] focus:ring-2 focus:ring-[var(--validation-error-border)] disabled:opacity-50"
-                  data-cy="delete-class-button"
-                >
-                  {isDeleting === cls.id ? (
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--validation-error-icon)] border-t-transparent" />
-                  ) : (
-                    <Trash2 className="h-4 w-4 text-[var(--validation-error-icon)]" />
-                  )}
-                </Button>
-              </div>
+              </CardHeader>
+              <CardContent>
+              <p className="flex items-center gap-1 mt-0">
+                <Users className="h-3.5 w-3.5" />
+                <span className="padding-right-default">{studentCounts[cls.id] !== undefined ? studentCounts[cls.id] : '...'} תלמידים</span>
+              </p>
+              <p className="mb-0">נוצר: {new Date(cls.createdAt).toLocaleDateString('he-IL')}</p>
+              </CardContent>
             </div>
-          </CardHeader>
+            
+            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+              {onClassSettings && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onClassSettings(cls.id)
+                  }}
+                  aria-label={`הגדרות כיתה ${cls.name}`}
+                  className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
+                  data-cy="settings-button"
+                >
+                  ⚙️
+                </Button>
+              )}
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onClassEdit(cls.id)
+                }}
+                aria-label={`ערוך כיתה ${cls.name}`}
+                className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
+                data-cy="edit-class-button"
+              >
+                <Edit className="h-4 w-4" />
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleDeleteClick(cls.id)
+                }}
+                disabled={isDeleting === cls.id}
+                aria-label={`מחק כיתה ${cls.name}`}
+                className="h-8 w-8 p-0 hover:bg-[var(--validation-error-bg)] focus:ring-2 focus:ring-[var(--validation-error-border)] disabled:opacity-50"
+                data-cy="delete-class-button"
+              >
+                {isDeleting === cls.id ? (
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--validation-error-icon)] border-t-transparent" />
+                ) : (
+                  <Trash2 className="h-4 w-4 text-[var(--validation-error-icon)]" />
+                )}
+              </Button>
+            </div>
+          </div>
           
-          <CardContent className="pt-0 pb-6">
-            <div className={`flex items-center gap-2 text-base rounded-md px-3 py-2 ${
+          <CardFooter className={`text-[var(--selection-info-text)] ${
               currentClassId !== cls.id && 'text-transparent bg-transparent pointer-events-none select-none'
             }`}>
-              <Users className="h-4 w-4" />
-              <span>כיתה פעילה</span>
-            </div>
-          </CardContent>
+            <Award className="h-4 w-4" />
+            <span className="padding-right-default">כיתה פעילה</span>
+          </CardFooter>
         </Card>
       ))}
       

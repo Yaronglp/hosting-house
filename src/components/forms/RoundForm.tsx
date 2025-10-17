@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/Button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { useKV } from '@/hooks/useKV'
 import { Round, KV_KEYS } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
+import { FormCard } from './FormCard'
+import { FormField } from './FormField'
+import { FormInput } from './FormInput'
+import { FormActions } from './FormActions'
+import { useFormSubmit } from './useFormSubmit'
 
 interface RoundFormProps {
   classId: string
@@ -16,11 +19,9 @@ interface RoundFormProps {
 
 export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, onRoundUpdated }: RoundFormProps) {
   const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
-  const { error } = useToast()
   const [formData, setFormData] = useState({
     date: ''
   })
-  const [isLoading, setIsLoading] = useState(false)
 
   // Load existing round data if editing
   useEffect(() => {
@@ -35,41 +36,28 @@ export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, on
     }
   }, [roundId, rounds])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    const form = e.currentTarget as HTMLFormElement
-    if (!form.checkValidity()) {
-      return
-    }
-    
-    if (!formData.date) {
-      return
-    }
+  const { handleSubmit, isLoading } = useFormSubmit({
+    onSubmit: async (data) => {
+      // Check for duplicate dates
+      const selectedDateString = new Date(data.date).toDateString()
+      const existingDate = rounds.find(r => {
+        if (!r.dateWindow) return false
+        return new Date(r.dateWindow.start).toDateString() === selectedDateString
+      })
 
-    // Check for duplicate dates
-    const selectedDateString = new Date(formData.date).toDateString()
-    const existingDate = rounds.find(r => {
-      if (!r.dateWindow) return false
-      return new Date(r.dateWindow.start).toDateString() === selectedDateString
-    })
+      if (existingDate && (!roundId || existingDate.id !== roundId)) {
+        throw new Error('תאריך זה כבר קיים במערכת')
+      }
 
-    if (existingDate && (!roundId || existingDate.id !== roundId)) {
-      error('תאריך זה כבר קיים במערכת')
-      return
-    }
-
-    setIsLoading(true)
-    try {
       if (roundId) {
         // Edit existing round
         const updatedRounds = rounds.map(r => 
           r.id === roundId 
             ? { 
                 ...r, 
-                name: new Date(formData.date).toLocaleDateString('he-IL'),
+                name: new Date(data.date).toLocaleDateString('he-IL'),
                 dateWindow: {
-                  start: new Date(formData.date)
+                  start: new Date(data.date)
                 }
               }
             : r
@@ -83,9 +71,9 @@ export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, on
         const newRound: Round = {
           id: newRoundId,
           classId,
-          name: new Date(formData.date).toLocaleDateString('he-IL'),
+          name: new Date(data.date).toLocaleDateString('he-IL'),
           dateWindow: {
-            start: new Date(formData.date)
+            start: new Date(data.date)
           },
           order: rounds.length
         }
@@ -95,47 +83,32 @@ export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, on
         onRoundAdded?.()
         onSave(newRoundId)
       }
-    } catch (err) {
-      console.error('Failed to save round:', err)
-      error('שגיאה בשמירת תאריך המפגש')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    },
+    onSuccess: () => {},
+    validate: (data) => !data.date ? 'תאריך המפגש הוא שדה חובה' : null
+  })
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{roundId ? 'ערוך תאריך מפגש' : 'הוסף תאריך מפגש'}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} data-cy="round-form">
-          <div className="p-4 bg-muted/50 rounded-lg max-w-md">
-            <label htmlFor="date" className="block text-base font-medium mb-2 padding-bottom-default">
-              תאריך המפגש *
-            </label>
-            <input
-              id="date"
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData(prev => ({ ...prev, date: e.target.value }))}
-              min={new Date().toISOString().split('T')[0]}
-              className="w-44 px-4 py-2.5 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring padding-default"
-              required
-              data-cy="round-date-input"
-            />
-          </div>
+    <FormCard title={roundId ? 'ערוך תאריך מפגש' : 'הוסף תאריך מפגש'}>
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(formData) }} data-cy="round-form">
+        <FormField label="תאריך המפגש" required>
+          <FormInput
+            id="date"
+            type="date"
+            value={formData.date}
+            onChange={(value) => setFormData(prev => ({ ...prev, date: value }))}
+            min={new Date().toISOString().split('T')[0]}
+            required
+            testId="round-date-input"
+          />
+        </FormField>
 
-          <div className="flex gap-3 justify-end margin-top-default">
-            <Button type="button" variant="outline" onClick={onCancel} data-cy="cancel-round-button">
-              ביטול
-            </Button>
-            <Button type="submit" disabled={isLoading} data-cy="save-round-button">
-              {isLoading ? 'שומר...' : 'שמור'}
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+        <FormActions
+          onCancel={onCancel}
+          onSubmit={() => handleSubmit(formData)}
+          isLoading={isLoading}
+        />
+      </form>
+    </FormCard>
   )
 }
