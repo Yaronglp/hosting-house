@@ -18,7 +18,7 @@ export function FormCheckbox({ id, checked, onChange, label, className = '', tes
         className="rounded"
         data-cy={testId}
       />
-      <label htmlFor={id} className="text-base font-medium">
+      <label htmlFor={id} className="text-lg padding-horizontal-default">
         {label}
       </label>
     </div>

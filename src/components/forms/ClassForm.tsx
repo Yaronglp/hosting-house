@@ -22,7 +22,6 @@ export function ClassForm({ classId, onSave, onCancel, onClassAdded, onClassUpda
     year: '',
   })
 
-  // Load existing class data if editing
   useEffect(() => {
     if (classId) {
       const existingClass = classes.find(c => c.id === classId)

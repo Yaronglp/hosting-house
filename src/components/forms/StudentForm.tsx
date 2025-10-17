@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useStudents } from '@/hooks/useStudents'
-import { useKV } from '@/hooks/useKV'
-import { Student, KV_KEYS, DEFAULT_SETTINGS } from '@/lib/types'
+import { Student } from '@/lib/types'
 import { FormCard } from './FormCard'
 import { FormField } from './FormField'
 import { FormInput } from './FormInput'
@@ -21,7 +20,6 @@ interface StudentFormProps {
 
 export function StudentForm({ classId, studentId, onSave, onCancel, onStudentAdded, onStudentUpdated }: StudentFormProps) {
   const [students, setStudents] = useStudents(classId)
-  const [settings] = useKV(KV_KEYS.settings(classId), DEFAULT_SETTINGS)
   const [formData, setFormData] = useState({
     name: '',
     canHost: true,
@@ -46,15 +44,15 @@ export function StudentForm({ classId, studentId, onSave, onCancel, onStudentAdd
     onSubmit: async (data) => {
       if (studentId) {
         // Edit existing student
-        const updatedStudents = students.map(s => 
-          s.id === studentId 
+        const updatedStudents = students.map(student => 
+          student.id === studentId 
             ? { 
-                ...s, 
+                ...student, 
                 name: data.name.trim(),
                 canHost: data.canHost,
                 avoid: data.avoid
               }
-            : s
+            : student
         )
         await setStudents(updatedStudents)
         onStudentUpdated?.()
@@ -93,7 +91,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel, onStudentAdd
             testId="student-name-input"
           />
         </FormField>
-
         <FormCheckbox
           id="canHost"
           checked={formData.canHost}
@@ -101,7 +98,6 @@ export function StudentForm({ classId, studentId, onSave, onCancel, onStudentAdd
           label="יכול לארח"
           testId="student-can-host-checkbox"
         />
-
 
         <StudentPreferences
           students={students}

@@ -1,4 +1,5 @@
 import { Student } from '@/lib/types'
+import { FormCheckbox } from './FormCheckbox'
 
 interface StudentPreferencesProps {
   students: Student[]
@@ -13,7 +14,7 @@ export function StudentPreferences({
   avoid,
   onAvoidChange
 }: StudentPreferencesProps) {
-  const otherStudents = students.filter(s => s.id !== currentStudentId)
+  const otherStudents = students.filter(student => student.id !== currentStudentId)
 
   if (otherStudents.length === 0) {
     return null
@@ -28,22 +29,21 @@ export function StudentPreferences({
   }
 
   return (
-    <div className="mb-4 padding-bottom-default">
-      <label className="block text-base font-medium mb-2 padding-vertical-default">
+    <div className="mb-4">
+      <label className="block text-lg font-medium mb-2 mt-2 padding-vertical-default">
         תלמידים שהתלמיד מעדיף לא להיות איתם
       </label>
       <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-input rounded-md p-2 padding-default">
         {otherStudents.map(student => (
-          <label key={student.id} className="flex items-center gap-2 text-base padding-default">
-            <input
-              type="checkbox"
-              checked={avoid.includes(student.id)}
-              onChange={(e) => handleAvoidToggle(student.id, e.target.checked)}
-              className="rounded"
-              data-cy="avoid-student-checkbox"
-            />
-            <span className='padding-horizontal-default'>{student.name}</span>
-          </label>
+          <FormCheckbox
+            key={student.id}
+            id={`avoid-${student.id}`}
+            checked={avoid.includes(student.id)}
+            onChange={(checked) => handleAvoidToggle(student.id, checked)}
+            label={student.name}
+            testId="avoid-student-checkbox"
+            className="padding-default"
+          />
         ))}
       </div>
     </div>
