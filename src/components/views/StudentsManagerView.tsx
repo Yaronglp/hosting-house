@@ -41,7 +41,6 @@ export function StudentsManagerView({
 
   const manager = StudentsManager({ 
     classId: classInfo.id, 
-    className: classInfo.name,
     onPasteNames: handlePasteModalOpen,
     onStudentAdded: handleStudentAdded,
     onStudentUpdated: handleStudentUpdated

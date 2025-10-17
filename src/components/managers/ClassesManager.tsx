@@ -50,13 +50,6 @@ export function ClassesManager({ currentClassId, onClassSelect, onClassAdded, on
     setViewMode('list')
   }
 
-  // Expose these functions for external use (like from App sidebar)
-  const actions = {
-    openSettings: handleSettingsOpen,
-    addClass: handleClassAdd,
-    canOpenSettings: !!currentClass
-  }
-
   const renderContent = () => {
     switch (viewMode) {
       case 'form':
@@ -92,8 +85,6 @@ export function ClassesManager({ currentClassId, onClassSelect, onClassAdded, on
 
   return {
     content: renderContent(),
-    actions,
-    viewMode,
     currentClass
   }
 }

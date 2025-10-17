@@ -4,17 +4,17 @@ import { Eye, Table, Share } from 'lucide-react'
 
 type ViewMode = 'generator' | 'board' | 'table' | 'share'
 
-interface ViewModeNavigationProps {
+interface ViewPlanModeNavigationProps {
   viewMode: ViewMode
   onViewModeChange: (mode: ViewMode) => void
   hasAssignments: boolean
 }
 
-export function ViewModeNavigation({ 
+export function ViewPlanModeNavigation({ 
   viewMode, 
   onViewModeChange, 
   hasAssignments 
-}: ViewModeNavigationProps) {
+}: ViewPlanModeNavigationProps) {
   if (!hasAssignments) return null
 
   return (

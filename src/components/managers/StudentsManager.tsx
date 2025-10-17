@@ -8,13 +8,12 @@ type ViewMode = 'table' | 'form' | 'paste'
 
 interface StudentsManagerProps {
   classId: string
-  className: string
   onPasteNames?: () => void
   onStudentAdded?: () => void
   onStudentUpdated?: () => void
 }
 
-export function StudentsManager({ classId, className, onPasteNames, onStudentAdded, onStudentUpdated }: StudentsManagerProps) {
+export function StudentsManager({ classId, onPasteNames, onStudentAdded, onStudentUpdated }: StudentsManagerProps) {
   const [settings] = useKV(KV_KEYS.settings(classId), DEFAULT_SETTINGS)
   const [viewMode, setViewMode] = useState<ViewMode>('table')
   const [editingStudentId, setEditingStudentId] = useState<string | undefined>()
@@ -45,12 +44,6 @@ export function StudentsManager({ classId, className, onPasteNames, onStudentAdd
     }
   }
 
-  // Expose actions for external use
-  const actions = {
-    addStudent: handleStudentAdd,
-    pasteNames: handlePasteNames,
-    canAddStudents: true
-  }
 
   const renderContent = () => {
     switch (viewMode) {
@@ -78,8 +71,6 @@ export function StudentsManager({ classId, className, onPasteNames, onStudentAdd
   }
 
   return {
-    content: renderContent(),
-    actions,
-    viewMode
+    content: renderContent()
   }
 }

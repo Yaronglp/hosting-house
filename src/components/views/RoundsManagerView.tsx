@@ -22,7 +22,6 @@ export function RoundsManagerView({
 
   const manager = RoundsManager({ 
     classId: classInfo.id, 
-    className: classInfo.name,
     onRoundAdded: handleRoundAdded,
     onRoundUpdated: handleRoundUpdated
   })

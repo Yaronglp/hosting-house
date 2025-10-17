@@ -34,8 +34,7 @@ export function Dialog({
     if (isOpen) {
       // Save current focus
       previousActiveElement.current = document.activeElement as HTMLElement
-      
-      // Prevent scrolling
+
       document.body.style.overflow = 'hidden'
       
       if (dialogRef.current) {
@@ -52,12 +51,10 @@ export function Dialog({
     }
 
     return () => {
-      // Cleanup on unmount
       document.body.style.overflow = ''
     }
   }, [isOpen])
 
-  // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -132,7 +129,6 @@ export function Dialog({
   return createPortal(dialogContent, document.body)
 }
 
-// Confirmation dialog variant
 export interface ConfirmDialogProps {
   isOpen: boolean
   onClose: () => void
