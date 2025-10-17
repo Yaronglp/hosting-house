@@ -85,6 +85,15 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
 
   return (
     <div className="space-y-4 w-full">
+      <div className="flex justify-between items-center padding-bottom-default">    
+        <p className="text-lg text-muted-foreground">
+          {classes.length} כיתות מוגדרות
+        </p>
+        <Button onClick={onClassAdd} data-cy="add-class-button">
+          הוסף כיתה חדשה
+        </Button>
+      </div>
+      
       {classes.map((cls) => (
         <Card 
           key={cls.id} 
@@ -180,20 +189,6 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
           </CardFooter>
         </Card>
       ))}
-      
-      <Card className="w-full border-dashed border-2 border-muted hover:border-neon-cyan transition-colors">
-        <CardContent className="py-8">
-          <div className="text-center">
-            <Button 
-              onClick={onClassAdd}
-              aria-label="הוסף כיתה חדשה"
-              data-cy="add-class-button"
-            >
-              + הוסף כיתה חדשה
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
       
       <ConfirmDialog
         isOpen={!!deleteConfirm}
