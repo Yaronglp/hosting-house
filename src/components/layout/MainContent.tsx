@@ -68,12 +68,6 @@ export function MainContent({
                 <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}
-            
-            {!['classes', 'students', 'rounds', 'plan'].includes(activeTab) && (
-              <div className="text-base neon-text-green opacity-70">
-                🚀 ממשק התחלתי — נבנה בהמשך לפי האפיקים.
-              </div>
-            )}
           </CardContent>
         </Card>
       </main>
