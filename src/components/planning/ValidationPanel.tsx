@@ -10,7 +10,6 @@ interface ValidationPanelProps {
   isRetrying?: boolean
 }
 
-// Extract validation item component for better composition
 const ValidationItem = memo(({ 
   message, 
   count, 
@@ -58,7 +57,6 @@ const ValidationItem = memo(({
 
 ValidationItem.displayName = 'ValidationItem'
 
-// Extract validation section component
 const ValidationSection = memo(({ 
   items, 
   type, 
@@ -97,7 +95,6 @@ const ValidationSection = memo(({
 
 ValidationSection.displayName = 'ValidationSection'
 
-// Extract retry button component
 const RetryButton = memo(({ onRetry, isRetrying }: { onRetry: () => void; isRetrying: boolean }) => (
   <Button 
     variant="outline" 
@@ -119,14 +116,13 @@ const RetryButton = memo(({ onRetry, isRetrying }: { onRetry: () => void; isRetr
 
 RetryButton.displayName = 'RetryButton'
 
-// Extract success state component
 const SuccessState = memo(() => (
   <div className="validation-success-bg rounded-md padding-default">
     <div className="flex items-center gap-2 validation-success-text">
       <CheckCircle className="h-4 w-4 padding-left-default validation-success-icon" data-cy="success-icon"/>
       <span>התוכנית עומדת בכל הדרישות!</span>
     </div>
-    <div className="text-base validation-success-detail mt-1 padding-vertical-default">
+    <div className="text-lg validation-success-detail mt-1 padding-vertical-default">
       כל התלמידים קיבלו שיבוץ<br />
       אין תלמידים שלא שובצו
     </div>

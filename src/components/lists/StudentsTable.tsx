@@ -41,10 +41,10 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
 
   const toggleCanHost = async (studentId: string) => {
     try {
-      const updatedStudents = students.map(s => 
-        s.id === studentId 
-          ? { ...s, canHost: !s.canHost }
-          : s
+      const updatedStudents = students.map(student => 
+        student.id === studentId 
+          ? { ...student, canHost: !student.canHost }
+          : student
       )
       await setStudents(updatedStudents)
     } catch (err) {
@@ -57,7 +57,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
     return (
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-12">
-          <p className="text-muted-foreground mb-4">אין תלמידים בכיתה</p>
+          <p className="mb-4 text-xl">אין תלמידים בכיתה</p>
           <div className="flex gap-2">
             <Button onClick={onStudentAdd} data-cy="add-student-button">הוסף תלמיד</Button>
             <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button">הזן רשימת שמות תלמידים</Button>
@@ -71,49 +71,50 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-lg font-semibold margin-top-default">תלמידי הכיתה</h2>
-          <p className="text-base text-muted-foreground">
+          <h2 className="text-xl font-semibold margin-top-default">תלמידי הכיתה</h2>
+          <p className="text-xl">
             {students.length} תלמידים <br /> {students.filter(s => s.canHost).length} יכולים לארח
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button">
+        <div className="students-actions-buttons">
+          <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button" className="students-actions-button">
           הזן רשימת שמות תלמידים
           </Button>
-          <Button onClick={onStudentAdd} data-cy="add-student-button">
+          <Button onClick={onStudentAdd} data-cy="add-student-button" className="students-actions-button">
             הוסף תלמיד
           </Button>
         </div>
       </div>
 
-      <div className="text-base text-muted-foreground padding-vertical-default">
-        💡 <strong>טיפ:</strong> לחץ על "יכול לארח" כדי לשנות במהירות את יכולת התלמיד לארח
+      <div className="text-lg padding-vertical-default flex">
+        <span>💡</span>
+        <strong className="padding-left-default">טיפ:</strong> לחץ על "יכול לארח" כדי לשנות במהירות את יכולת התלמיד לארח.
       </div>
       
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b">
-              <th className="text-right p-3 font-medium">שם</th>
-              <th className="text-center p-3 font-medium">יכול לארח</th>
-              <th className="text-center p-3 font-medium">פעולות</th>
+              <th className="text-right p-3 font-medium text-xl">שם</th>
+              <th className="text-center p-3 font-medium text-xl">יכול לארח</th>
+              <th className="text-center p-3 font-medium text-xl">פעולות</th>
             </tr>
           </thead>
           <tbody>
             {students.map((student) => (
               <tr key={student.id} className="border-b hover:bg-muted/50" data-cy="student-item">
-                <td className="p-3">
-                  <div className="font-medium">{student.name}</div>
-                  <div className="text-base text-muted-foreground padding-default">
+                <td className="p-3 padding-vertical-default">
+                  <div className="font-medium text-xl">{student.name}</div>
+                  <div className="text-lg padding-top-default">
                     {student.avoid.length > 0 && `כמות תלמידים שהתלמיד מעדיף לא להיות איתם: ${student.avoid.length}`}
                   </div>
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center padding-vertical-default">
                   <Button
                     onClick={() => toggleCanHost(student.id)}
                     size="sm"
                     variant={student.canHost ? "default" : "ghost"}
-                    style={{ width: '64px', minWidth: '64px', maxWidth: '64px' }}
+                    style={{ width: '40px' }}
                     className={`px-2 py-1 text-base font-medium ${
                       student.canHost 
                         ? 'bg-green-100 text-green-800 hover:bg-green-200' 
@@ -124,7 +125,7 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                     {student.canHost ? 'כן' : 'לא'}
                   </Button>
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center padding-vertical-default">
                   <div className="flex gap-1 justify-center">
                     <Button
                       variant="outline"

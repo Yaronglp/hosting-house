@@ -16,7 +16,7 @@ export const BoardControls = memo(({
   onCancelSelection 
 }: BoardControlsProps) => (
   <div className="flex items-center justify-between">
-    <div className="text-base text-muted-foreground padding-bottom-default">
+    <div className="text-lg text-muted-foreground padding-bottom-default">
       לחץ על תלמיד כדי לבחור, ואז על קבוצה כדי להעביר
     </div>
     <div className="flex gap-2">

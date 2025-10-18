@@ -29,6 +29,31 @@ export function usePlanGeneration(classId: string) {
   const currentClass = classes.find(c => c.id === classId)
   const canGenerate = students.length > 0 && sortedRounds.length > 0
 
+  // Clear assignments when students or rounds change to prevent stale data
+  useEffect(() => {
+    if (assignments.length > 0) {
+      // Check if any assignments reference non-existent students or rounds
+      const studentIds = new Set(students.map(s => s.id))
+      const roundIds = new Set(sortedRounds.map(r => r.id))
+      
+      const hasInvalidReferences = assignments.some(assignment => {
+        // Check if round exists
+        if (!roundIds.has(assignment.roundId)) return true
+        
+        // Check if all students in groups exist
+        return assignment.groups.some(group => {
+          if (!studentIds.has(group.hostId)) return true
+          return group.memberIds.some(memberId => !studentIds.has(memberId))
+        })
+      })
+      
+      if (hasInvalidReferences) {
+        console.log('Clearing assignments due to invalid references')
+        setAssignments([])
+      }
+    }
+  }, [students, sortedRounds, assignments, setAssignments])
+
   // Validate assignments whenever they change
   useEffect(() => {
     if (assignments.length > 0 && students.length > 0 && sortedRounds.length > 0) {
@@ -59,7 +84,7 @@ export function usePlanGeneration(classId: string) {
       let errorMessage = 'יצירת התוכנית נכשלה'
       
       if (e?.message === 'insufficient-hosts') {
-        errorMessage = 'אין מספיק מארחים עבור מספר תאריכי המפגש. עדכן יכולת אירוח או הפחת תאריכי מפגש.'
+        errorMessage = 'אין מספיק מארחים עבור מספר תאריכי המפגש. עדכן יכולת אירוח של תלמידים או הפחת תאריכי מפגש.'
       } else if (e?.message === 'avoid-preferences-conflict') {
         errorMessage = 'העדפות ההימנעות של התלמידים מונעות יצירת תוכנית אפשרית. עדכן העדפות או הפחת תאריכי מפגש.'
       } else if (e?.message === 'missing-students') {

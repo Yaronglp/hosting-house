@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { useKV } from '@/hooks/useKV'
-import { Round, KV_KEYS } from '@/lib/types'
+import { Round, Assignment, KV_KEYS } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
 import { ConfirmDialog } from '@/components/ui/Dialog'
 
@@ -14,6 +14,7 @@ interface RoundsListProps {
 
 export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps) {
   const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
+  const [assignments, setAssignments] = useKV<Assignment[]>(KV_KEYS.assignments(classId), [])
   const { error } = useToast()
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
@@ -34,6 +35,8 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
         .filter(r => r.id !== deleteConfirm.id)
         .map((r, index) => ({ ...r, order: index }))
       
+      // Clear assignments when rounds are modified to prevent stale data
+      await setAssignments([])
       await setRounds(updatedRounds)
     } catch (err) {
       console.error('Failed to delete round:', err)
@@ -50,7 +53,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
     return (
       <Card data-cy="empty-rounds-state">
         <CardContent className="flex flex-col items-center justify-center py-12">
-          <p className="text-muted-foreground mb-4">אין תאריכי מפגש בכיתה</p>
+          <p className="mb-4 text-xl">אין תאריכי מפגשים בכיתה</p>
           <Button onClick={onRoundAdd} data-cy="add-round-button">הוסף תאריך מפגש</Button>
         </CardContent>
       </Card>

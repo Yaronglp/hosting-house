@@ -22,21 +22,21 @@ export function PlanTableView({
           {sortedRounds.map((round) => {
             const assignment = assignments.find(a => a.roundId === round.id)
             if (!assignment) return (
-              <div key={round.id} className="text-base">אין נתונים עבור {round.name}</div>
+              <div key={round.id} className="text-lg">אין נתונים עבור {round.name}</div>
             )
             return (
               <div key={round.id} className="border rounded-lg p-3 padding-default">
                 <div className="font-medium mb-2">{round.name}</div>
                 {assignment.groups.map(group => (
-                  <div key={group.id} className="text-base">
+                  <div key={group.id} className="text-lg">
                     <div className="mb-1 plan-host-name">
                       מארח: {students.find(s => s.id === group.hostId)?.name || group.hostId}
                     </div>
                     <div className="pl-3">
                       אורחים:
                       <ul className="list-disc pr-5">
-                        {group.memberIds.map(mid => (
-                          <li key={mid}>{students.find(s => s.id === mid)?.name || mid}</li>
+                        {group.memberIds.map(memberId => (
+                          <li key={memberId}>{students.find(student => student.id === memberId)?.name || memberId}</li>
                         ))}
                       </ul>
                     </div>

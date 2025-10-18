@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useKV } from '@/hooks/useKV'
-import { Round, KV_KEYS } from '@/lib/types'
+import { Round, Assignment, KV_KEYS } from '@/lib/types'
 import { useToast } from '@/hooks/useToast'
 import { FormCard } from './FormCard'
 import { FormField } from './FormField'
@@ -19,6 +19,7 @@ interface RoundFormProps {
 
 export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, onRoundUpdated }: RoundFormProps) {
   const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
+  const [assignments, setAssignments] = useKV<Assignment[]>(KV_KEYS.assignments(classId), [])
   const [formData, setFormData] = useState({
     date: ''
   })
@@ -62,6 +63,8 @@ export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, on
               }
             : r
         )
+        // Clear assignments when rounds are modified to prevent stale data
+        await setAssignments([])
         await setRounds(updatedRounds)
         onRoundUpdated?.()
         onSave(roundId)
@@ -79,6 +82,8 @@ export function RoundForm({ classId, roundId, onSave, onCancel, onRoundAdded, on
         }
         
         const updatedRounds = [...rounds, newRound]
+        // Clear assignments when rounds are modified to prevent stale data
+        await setAssignments([])
         await setRounds(updatedRounds)
         onRoundAdded?.()
         onSave(newRoundId)

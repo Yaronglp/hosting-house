@@ -38,17 +38,16 @@ export const GroupCard = memo(({
     {/* Host */}
     <div className="flex items-center gap-2 mb-2">
       <Crown className="h-4 w-4 text-neon-orange padding-left-default" />
-      <span className="font-medium padding-left-default" data-cy="host-student">{host.name}</span>
-      <span className="text-base text-muted-foreground">
-        ({group.memberIds.length} אורחים)
+      <span className="text-xl" data-cy="host-student">
+       {host.name} ({group.memberIds.length} אורחים)
       </span>
     </div>
 
     {/* Members */}
     {members.length > 0 ? (
       <div className="space-y-1">
-        <div className="text-base text-muted-foreground">אורחים:</div>
-        <div className="flex flex-wrap gap-1 group-members-list" data-cy="group-members">
+        <div className="text-lg">אורחים:</div>
+        <div className="flex flex-wrap gap-1 group-members-list padding-vertical-default" data-cy="group-members">
           {members.map(member => (
             <StudentChip
               key={member.id}
@@ -60,7 +59,7 @@ export const GroupCard = memo(({
         </div>
       </div>
     ) : (
-      <div className="text-base text-muted-foreground italic">
+      <div className="text-lg italic">
         אין אורחים
       </div>
     )}

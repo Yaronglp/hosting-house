@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
 import { Student, Round } from '@/lib/types'
 import { EmptyPlanState } from '@/components/common/EmptyPlanState'
 import { PlanGenerationError } from '@/components/common/PlanGenerationError'
@@ -46,7 +46,7 @@ export function PlanGeneratorView({
           <div className="flex items-start justify-between">
             <div>
               <CardTitle>יוצר קבוצות מפגש</CardTitle>
-              <CardDescription>כל מארח יכול לארח פעם אחת + שיבוץ אורחים על סמך העדפות שנבחרו</CardDescription>
+              <CardDescription className="padding-left-default">כל מארח יכול לארח פעם אחת + שיבוץ אורחים על סמך העדפות שנבחרו</CardDescription>
             </div>
             <div className="flex gap-2">
               <Button 
@@ -59,13 +59,8 @@ export function PlanGeneratorView({
               </Button>
             </div>
           </div>
-          {error && (
-            <div className="text-base text-red-600 mt-2" role="alert" aria-live="assertive">
-              {error}
-            </div>
-          )}
         </CardHeader>
-        <CardFooter className="text-lg">
+        <CardFooter className="text-xl">
           תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
         </CardFooter>
       </Card>
