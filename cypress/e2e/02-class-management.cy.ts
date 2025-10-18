@@ -81,7 +81,7 @@ describe('Class Management - CRUD Operations', () => {
     
     // Change group size
     cy.get('[data-cy="group-size-input"]').clear().type('8')
-    cy.get('[data-cy="save-settings-button"]').click()
+    cy.get('[data-cy="save-button"]').click()
     
     // Verify settings were saved
     cy.get('[data-cy="class-settings"]').should('not.exist')
