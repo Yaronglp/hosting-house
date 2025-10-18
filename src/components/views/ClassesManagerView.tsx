@@ -14,11 +14,11 @@ export function ClassesManagerView({
   const { success } = useToast()
 
   const handleClassAdded = () => {
-    success(`✅ נוספה כיתה בהצלחה!`)
+    success(`נוספה כיתה בהצלחה!`)
   }
 
   const handleClassUpdated = () => {
-    success(`✅ עודכנה כיתה בהצלחה!`)
+    success(`עודכנה כיתה בהצלחה!`)
   }
 
   const manager = ClassesManager({ 

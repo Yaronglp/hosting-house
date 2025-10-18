@@ -15,8 +15,6 @@ const buttonVariants = cva(
           "retro-button bg-[var(--button-destructive-bg)] border-[var(--button-destructive-border)] text-white hover:bg-[var(--button-destructive-hover)]",
         outline:
           "border-2 border-[var(--button-outline-border)] bg-transparent text-[var(--button-outline-text)] hover:bg-[var(--button-outline-hover-bg)] hover:text-[var(--button-outline-hover-text)] hover:shadow-[var(--button-outline-hover-shadow)] transition-all duration-300",
-        secondary:
-          "retro-button bg-[var(--button-secondary-bg)] border-[var(--button-secondary-border)]",
         ghost: "bg-transparent text-[var(--button-ghost-text)] hover:bg-[var(--button-ghost-hover-bg)] hover:text-[var(--button-ghost-hover-text)] border border-transparent hover:border-[var(--button-ghost-hover-border)]",
         link: "text-[var(--button-link-text)] underline-offset-4 hover:underline hover:text-[var(--button-link-hover-text)] transition-colors",
       },

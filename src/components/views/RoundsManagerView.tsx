@@ -13,11 +13,11 @@ export function RoundsManagerView({
   const { success } = useToast()
 
   const handleRoundAdded = () => {
-    success(`✅ נוסף תאריך מפגש בהצלחה!`)
+    success(`נוסף תאריך מפגש בהצלחה!`)
   }
 
   const handleRoundUpdated = () => {
-    success(`✅ עודכן תאריך מפגש בהצלחה!`)
+    success(`עודכן תאריך מפגש בהצלחה!`)
   }
 
   const manager = RoundsManager({ 

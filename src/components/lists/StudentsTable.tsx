@@ -14,7 +14,7 @@ interface StudentsTableProps {
 
 export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNames }: StudentsTableProps) {
   const [students, setStudents] = useStudents(classId)
-  const { error } = useToast()
+  const { error, success } = useToast()
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
 
@@ -27,10 +27,12 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
   const handleDeleteConfirm = async () => {
     if (!deleteConfirm) return
     
+    const studentToDelete = students.find(s => s.id === deleteConfirm.id)
     setIsDeleting(deleteConfirm.id)
     try {
       const updatedStudents = students.filter(s => s.id !== deleteConfirm.id)
       await setStudents(updatedStudents)
+      success(`נמחק תלמיד "${studentToDelete?.name}" בהצלחה!`)
     } catch (err) {
       console.error('Failed to delete student:', err)
       error('שגיאה במחיקת התלמיד')

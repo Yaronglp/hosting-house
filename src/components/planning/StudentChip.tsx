@@ -10,7 +10,7 @@ interface StudentChipProps {
 
 export const StudentChip = memo(({ student, isSelected, onClick }: StudentChipProps) => (
   <Button
-    variant={isSelected ? "default" : "ghost"}
+    variant={isSelected ? "default" : "outline"}
     size="sm"
     className={`px-2 py-1 text-lg ${
       isSelected

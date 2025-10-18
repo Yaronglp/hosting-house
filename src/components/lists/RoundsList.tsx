@@ -15,7 +15,7 @@ interface RoundsListProps {
 export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps) {
   const [rounds, setRounds] = useKV<Round[]>(KV_KEYS.rounds(classId), [])
   const [assignments, setAssignments] = useKV<Assignment[]>(KV_KEYS.assignments(classId), [])
-  const { error } = useToast()
+  const { error, success } = useToast()
   const [isDeleting, setIsDeleting] = useState<string | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
 
@@ -28,6 +28,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
   const handleDeleteConfirm = async () => {
     if (!deleteConfirm) return
     
+    const roundToDelete = rounds.find(r => r.id === deleteConfirm.id)
     setIsDeleting(deleteConfirm.id)
     try {
       // Remove the round and reorder remaining rounds
@@ -38,6 +39,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
       // Clear assignments when rounds are modified to prevent stale data
       await setAssignments([])
       await setRounds(updatedRounds)
+      success(`נמחק תאריך מפגש "${roundToDelete?.name}" בהצלחה!`)
     } catch (err) {
       console.error('Failed to delete round:', err)
       error('שגיאה במחיקת תאריך המפגש')

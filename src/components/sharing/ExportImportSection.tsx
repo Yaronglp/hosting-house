@@ -97,7 +97,7 @@ export function ExportImportSection({
   return (
     <>
       <div className="space-y-2">
-        <h4 className="font-medium">גיבוי והעברה</h4>
+        <h4 className="font-medium mb-2">גיבוי והעברה</h4>
         <div className="flex gap-2">
           <Button 
             variant="outline" 

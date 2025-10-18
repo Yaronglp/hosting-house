@@ -54,7 +54,7 @@ export function ViewPlanModeNavigation({
             data-cy="table-view-button"
           >
             <Table className="h-4 w-4 ml-2 padding-left-default" />
-            תצוגה בטבלה
+            תצוגה ברשימה
           </Button>
           <Button
             variant={viewMode === 'share' ? 'default' : 'outline'}

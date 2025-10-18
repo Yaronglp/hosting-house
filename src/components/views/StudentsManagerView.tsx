@@ -28,15 +28,15 @@ export function StudentsManagerView({
   }
 
   const handleStudentsAdded = (count: number) => {
-    success(`✅ נוספו ${count} תלמידים בהצלחה!`)
+    success(`נוספו ${count} תלמידים בהצלחה!`)
   }
 
   const handleStudentAdded = () => {
-    success(`✅ נוסף תלמיד בהצלחה!`)
+    success(`נוסף תלמיד בהצלחה!`)
   }
 
   const handleStudentUpdated = () => {
-    success(`✅ עודכן תלמיד בהצלחה!`)
+    success(`עודכן תלמיד בהצלחה!`)
   }
 
   const manager = StudentsManager({ 

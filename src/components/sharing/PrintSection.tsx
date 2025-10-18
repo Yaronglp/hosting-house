@@ -38,7 +38,7 @@ export function PrintSection({
 
   return (
     <div className="space-y-2">
-      <h4 className="font-medium">הדפסה</h4>
+      <h4 className="font-medium mb-2">הדפסה</h4>
       <Button 
         variant="outline" 
         size="sm" 

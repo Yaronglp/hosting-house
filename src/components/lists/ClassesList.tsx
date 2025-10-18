@@ -6,6 +6,7 @@ import { Student, KV_KEYS } from '@/lib/types'
 import { kvGet } from '@/lib/db'
 import { EmptyClassesState } from '@/components/common/EmptyClassesState'
 import { useAnnouncer } from '@/hooks/useAccessibility'
+import { useToast } from '@/hooks/useToast'
 import { Trash2, Edit, Users, Award } from 'lucide-react'
 import { ConfirmDialog } from '@/components/ui/Dialog'
 
@@ -23,6 +24,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
   const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; name: string } | null>(null)
   const [studentCounts, setStudentCounts] = useState<Record<string, number>>({})
   const announce = useAnnouncer()
+  const { success } = useToast()
 
   // Load student counts for all classes
   useEffect(() => {
@@ -64,6 +66,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
       }
       
       announce(`כיתה "${classToDelete?.name}" נמחקה בהצלחה`)
+      success(`נמחקה כיתה "${classToDelete?.name}" בהצלחה!`)
     } catch (error) {
       console.error('Failed to delete class:', error)
       announce('שגיאה במחיקת הכיתה', 'assertive')
