@@ -1,4 +1,4 @@
-import { Sparkles, Users, Clock } from 'lucide-react'
+import { Home, Users, Clock, ClipboardList } from 'lucide-react'
 import { EmptyState } from './EmptyState'
 
 interface EmptyPlanStateProps {
@@ -15,7 +15,7 @@ export function EmptyPlanState({
   if (!hasStudents && !hasRounds) {
     return (
       <EmptyState
-        icon={<Sparkles className="h-6 w-6" />}
+        icon={<Home className="h-6 w-6" />}
         title="מוכן להתחיל?"
         description="כדי ליצור תוכנית בית מארח, תחילה הוסף תלמידים וצור תאריכי מפגש. אחר כך תוכל ליצור תוכנית אוטומטית עם כל ההעדפות והמגבלות."
         testId="empty-plan-state-no-students-and-rounds"
@@ -47,7 +47,7 @@ export function EmptyPlanState({
 
   return (
     <EmptyState
-      icon={<Sparkles className="h-6 w-6" />}
+      icon={<ClipboardList className="h-6 w-6" />}
       title="מוכן ליצור תוכנית!"
       description="יש לך תלמידים ותאריכי מפגש. לחץ על 'צור תוכנית' כדי ליצור שיבוץ אוטומטי שמתחשב בכל ההעדפות והמגבלות שהגדרת."
       action={{

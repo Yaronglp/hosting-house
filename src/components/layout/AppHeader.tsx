@@ -37,17 +37,20 @@ const navigationItems = [
 export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeaderProps) {
   return (
     <header className="app-header flex-shrink-0 w-full rounded-b-2xl mb-4" data-cy="app-header" role="banner">
-      <div className="flex flex-col min-[700px]:flex-row min-[700px]:items-center min-[700px]:justify-between gap-3 min-[700px]:gap-8 px-2 py-4 min-[700px]:px-6">
-        <div className="flex flex-col items-center min-[700px]:items-start flex-shrink-0 justify-center min-[700px]:justify-start">
+      <div className="flex flex-col gap-3 px-2 py-4 min-[700px]:grid min-[700px]:grid-cols-[minmax(0,32%)_minmax(0,1fr)] min-[700px]:items-center min-[700px]:gap-8 min-[700px]:px-6">
+        <div className="flex min-w-0 flex-col items-center min-[700px]:items-start justify-center min-[700px]:justify-start overflow-hidden">
           <h1 className="text-3xl min-[700px]:text-4xl app-title m-2">
             בית מארח
           </h1>
-          <p className="app-subtitle text-base min-[700px]:text-lg padding-horizontal-default m-2 mb-4 mt-0">
+          <p
+            className="app-subtitle text-base min-[700px]:text-lg padding-horizontal-default m-2 mb-4 mt-0 max-w-full truncate"
+            title={currentClassName ? `נבחרה: ${currentClassName}` : undefined}
+          >
             {currentClassName ? `נבחרה: ${currentClassName}` : 'לא נבחרה כיתה כרגע'}
           </p>
         </div>
         <nav
-          className="w-full min-[700px]:flex-1 min-[700px]:ml-[1em] navigation-container app-header"
+          className="w-full min-w-0 navigation-container app-header"
           aria-label="ניווט ראשי"
         >
           <ul className="navigation-container-list w-full min-w-0 list-none p-0 m-0 min-[700px]:flex min-[700px]:flex-row min-[700px]:gap-3">

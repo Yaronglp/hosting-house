@@ -31,7 +31,7 @@ export function EmptyState({
             <div className={`p-3 rounded-full ${
               variant === 'error' 
                 ? 'bg-[var(--validation-error-bg)] text-[var(--validation-error-icon)]' 
-                : 'bg-[var(--validation-info-bg)] text-[var(--validation-info-text)]'
+                : 'bg-[var(--overlay-accent-8)] text-[var(--brand-title)]'
             }`}>
               {icon}
             </div>
