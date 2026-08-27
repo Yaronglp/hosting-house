@@ -5,23 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/components/ui/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-button)] border border-solid text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer appearance-none bg-clip-padding",
   {
     variants: {
       variant: {
         default:
-          "retro-button padding-default",
+          "border-primary bg-primary text-primary-foreground hover:bg-primary/90 hover:border-primary/90 padding-default",
         destructive:
-          "retro-button bg-[var(--button-destructive-bg)] border-[var(--button-destructive-border)] text-white hover:bg-[var(--button-destructive-hover)]",
+          "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:border-destructive/90 padding-default",
         outline:
-          "border-2 border-[var(--button-outline-border)] bg-transparent text-[var(--button-outline-text)] hover:bg-[var(--button-outline-hover-bg)] hover:text-[var(--button-outline-hover-text)] hover:shadow-[var(--button-outline-hover-shadow)] transition-all duration-300",
-        ghost: "bg-transparent text-[var(--button-ghost-text)] hover:bg-[var(--button-ghost-hover-bg)] hover:text-[var(--button-ghost-hover-text)] border border-transparent hover:border-[var(--button-ghost-hover-border)]",
-        link: "text-[var(--button-link-text)] underline-offset-4 hover:underline hover:text-[var(--button-link-hover-text)] transition-colors",
+          "border-border bg-background text-foreground hover:bg-accent/10 hover:text-accent-foreground padding-default",
+        secondary:
+          "border-secondary bg-secondary text-secondary-foreground hover:bg-secondary/80 padding-default",
+        ghost:
+          "border-transparent bg-transparent text-foreground hover:bg-accent/10 hover:border-transparent padding-default",
+        link: "border-transparent bg-transparent text-primary underline-offset-4 hover:underline padding-default",
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-base",
-        lg: "h-12 rounded-md px-8 text-base",
+        sm: "h-8 px-3 text-sm",
+        lg: "h-12 px-8 text-base",
         icon: "h-10 w-10",
       },
     },

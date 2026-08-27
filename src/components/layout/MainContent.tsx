@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 
 const getTabTitle = (activeTab: string) => {
   switch (activeTab) {
-    case 'classes': return '🏫 כיתות'
-    case 'students': return '👥 תלמידים'
-    case 'rounds': return '🔄 תאריכי מפגשים'
-    case 'plan': return '📋 תכנון'
+    case 'classes': return 'כיתות'
+    case 'students': return 'תלמידים'
+    case 'rounds': return 'תאריכי מפגשים'
+    case 'plan': return 'תכנון'
     default: return ''
   }
 }
@@ -29,7 +29,7 @@ export function MainContent({
   planContent
 }: MainContentProps) {
   const NoClassMessage = ({ children }: { children: ReactNode }) => (
-    <div className="text-center neon-text-green opacity-70 py-8">
+    <div className="text-center empty-state py-8">
       {children}
     </div>
   )
@@ -37,7 +37,7 @@ export function MainContent({
   return (
     <>
       <main className="flex-1 min-w-0 w-full">
-        <Card className="hologram vhs-static w-full">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>
               {getTabTitle(activeTab)}
@@ -48,7 +48,7 @@ export function MainContent({
             {activeTab === 'students' && studentsContent}
             {activeTab === 'students' && !currentClass && (
               <NoClassMessage>
-                <p>🏫 בחר כיתה תחילה כדי לנהל תלמידים</p>
+                <p>בחר כיתה תחילה כדי לנהל תלמידים</p>
                 <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}
@@ -56,7 +56,7 @@ export function MainContent({
             {activeTab === 'rounds' && roundsContent}
             {activeTab === 'rounds' && !currentClass && (
               <NoClassMessage>
-                <p>🏫 בחר כיתה תחילה כדי לנהל תאריכי מפגש</p>
+                <p>בחר כיתה תחילה כדי לנהל תאריכי מפגש</p>
                 <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}
@@ -64,7 +64,7 @@ export function MainContent({
             {activeTab === 'plan' && planContent}
             {activeTab === 'plan' && !currentClass && (
               <NoClassMessage>
-                <p>🏫 בחר כיתה תחילה כדי ליצור תכנון</p>
+                <p>בחר כיתה תחילה כדי ליצור תכנון</p>
                 <p className="text-base mt-2">עבור לכרטיסיית "כיתות" וצור או בחר כיתה</p>
               </NoClassMessage>
             )}

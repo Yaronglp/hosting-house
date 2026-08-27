@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
+import { cn } from '@/components/ui/utils'
 
 interface EmptyStateProps {
   icon?: React.ReactNode
@@ -51,7 +52,7 @@ export function EmptyState({
             <Button 
               onClick={action.onClick}
               variant={variant === 'error' ? 'destructive' : 'default'}
-              className="mt-4"
+              className={cn('mt-4', variant !== 'error' && 'cta-primary')}
               data-cy={action.testId}
             >
               {action.label}

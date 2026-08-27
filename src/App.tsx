@@ -35,7 +35,7 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen retro-grid flex flex-col max-w-full overflow-x-hidden">
+    <div className="min-h-screen app-shell flex flex-col max-w-full overflow-x-hidden">
       <SWUpdateBanner />
       <ToastContainer toasts={toasts} onClose={dismissToast} />
       <AppHeader 

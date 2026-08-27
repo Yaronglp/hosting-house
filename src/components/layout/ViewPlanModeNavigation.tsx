@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
+import { cn } from '@/components/ui/utils'
 import { Eye, Table, Share } from 'lucide-react'
 
 type ViewMode = 'generator' | 'board' | 'table' | 'share'
@@ -9,6 +10,37 @@ interface ViewPlanModeNavigationProps {
   onViewModeChange: (mode: ViewMode) => void
   hasAssignments: boolean
 }
+
+const viewModeItems = [
+  {
+    id: 'generator' as const,
+    label: 'יוצר קבוצות מפגש',
+    ariaLabel: 'יוצר קבוצות מפגש',
+    dataCy: 'generator-view-button',
+    icon: null,
+  },
+  {
+    id: 'board' as const,
+    label: 'לוח מפגשים',
+    ariaLabel: 'לוח מפגשים',
+    dataCy: 'board-view-button',
+    icon: Eye,
+  },
+  {
+    id: 'table' as const,
+    label: 'תצוגה ברשימה',
+    ariaLabel: 'תצוגת טבלה',
+    dataCy: 'table-view-button',
+    icon: Table,
+  },
+  {
+    id: 'share' as const,
+    label: 'שיתוף',
+    ariaLabel: 'שיתוף וגיבוי',
+    dataCy: 'share-view-button',
+    icon: Share,
+  },
+]
 
 export function ViewPlanModeNavigation({ 
   viewMode, 
@@ -20,56 +52,33 @@ export function ViewPlanModeNavigation({
   return (
     <Card>
       <CardContent className="pt-6">
-        <div className="view-mode-responsive gap-2" role="tablist" aria-label="מצבי תצוגה">
-          <Button
-            variant={viewMode === 'generator' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => onViewModeChange('generator')}
-            role="tab"
-            aria-selected={viewMode === 'generator'}
-            aria-label="יוצר קבוצות מפגש"
-            data-cy="generator-view-button"
-          >
-            יוצר קבוצות מפגש
-          </Button>
-          <Button
-            variant={viewMode === 'board' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => onViewModeChange('board')}
-            role="tab"
-            aria-selected={viewMode === 'board'}
-            aria-label="לוח מפגשים"
-            data-cy="board-view-button"
-          >
-            <Eye className="h-4 w-4 ml-2 padding-left-default" />
-            לוח מפגשים
-          </Button>
-          <Button
-            variant={viewMode === 'table' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => onViewModeChange('table')}
-            role="tab"
-            aria-selected={viewMode === 'table'}
-            aria-label="תצוגת טבלה"
-            data-cy="table-view-button"
-          >
-            <Table className="h-4 w-4 ml-2 padding-left-default" />
-            תצוגה ברשימה
-          </Button>
-          <Button
-            variant={viewMode === 'share' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => onViewModeChange('share')}
-            role="tab"
-            aria-selected={viewMode === 'share'}
-            aria-label="שיתוף וגיבוי"
-            data-cy="share-view-button"
-          >
-            <Share className="h-4 w-4 ml-2 padding-left-default" />
-            שיתוף
-          </Button>
+        <div className="view-mode-nav view-mode-responsive" role="tablist" aria-label="מצבי תצוגה">
+          {viewModeItems.map((item) => {
+            const Icon = item.icon
+            const isActive = viewMode === item.id
+
+            return (
+              <Button
+                key={item.id}
+                variant={isActive ? 'default' : 'outline'}
+                size="sm"
+                className={cn(
+                  'view-mode-tab',
+                  isActive ? 'view-mode-tab-active' : 'view-mode-tab-inactive'
+                )}
+                onClick={() => onViewModeChange(item.id)}
+                role="tab"
+                aria-selected={isActive}
+                aria-label={item.ariaLabel}
+                data-cy={item.dataCy}
+              >
+                {Icon && <Icon className="h-4 w-4 ml-2 padding-left-default" />}
+                {item.label}
+              </Button>
+            )
+          })}
         </div>
       </CardContent>
     </Card>
   )
-} 
+}

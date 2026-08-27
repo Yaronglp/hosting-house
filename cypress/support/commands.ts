@@ -56,7 +56,7 @@ Cypress.Commands.add('waitForAppReady', () => {
 // Navigate to specific tab
 Cypress.Commands.add('navigateToTab', (tabName: string) => {
   cy.get(`[data-cy="tab-${tabName}"]`).click()
-  cy.get(`[data-cy="tab-${tabName}"]`).should('have.class', 'neon-text-pink')
+  cy.get(`[data-cy="tab-${tabName}"]`).should('have.attr', 'aria-current', 'page')
 })
 
 

@@ -1,5 +1,5 @@
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/NavigationMenu'
 import { Button } from '@/components/ui/Button'
+import { cn } from '@/components/ui/utils'
 
 interface AppHeaderProps {
   currentClassName?: string
@@ -36,36 +36,42 @@ const navigationItems = [
 
 export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeaderProps) {
   return (
-    <header className="retro-nav border-b-0 vhs-static flex-shrink-0 w-full" data-cy="app-header" role="banner">
-      <div className="flex flex-col min-[700px]:flex-row min-[700px]:items-center min-[700px]:justify-between gap-3 min-[700px]:gap-8">
+    <header className="app-header flex-shrink-0 w-full rounded-b-2xl mb-4" data-cy="app-header" role="banner">
+      <div className="flex flex-col min-[700px]:flex-row min-[700px]:items-center min-[700px]:justify-between gap-3 min-[700px]:gap-8 px-2 py-4 min-[700px]:px-6">
         <div className="flex flex-col items-center min-[700px]:items-start flex-shrink-0 justify-center min-[700px]:justify-start">
-          <h1 
-            className="text-4xl min-[700px]:text-4xl font-bold header-title m-4"
-          >
-            🏠 בית מארח
+          <h1 className="text-3xl min-[700px]:text-4xl app-title m-2">
+            בית מארח
           </h1>
-          <h3 className="neon-text-green text-xl min-[700px]:text-xl hologram padding-horizontal-default m-2 mb-4 mt-0">
+          <p className="app-subtitle text-base min-[700px]:text-lg padding-horizontal-default m-2 mb-4 mt-0">
             {currentClassName ? `נבחרה: ${currentClassName}` : 'לא נבחרה כיתה כרגע'}
-          </h3>
+          </p>
         </div>
-        <NavigationMenu className="w-full min-[700px]:w-auto min-[700px]:flex-1 justify-center min-[700px]:justify-start min-[700px]:ml-[1em] navigation-container">
-          <NavigationMenuList className="gap-2 min-[700px]:gap-6 justify-between min-[700px]:justify-end navigation-container-list">
+        <nav
+          className="w-full min-[700px]:flex-1 min-[700px]:ml-[1em] navigation-container app-header"
+          aria-label="ניווט ראשי"
+        >
+          <ul className="navigation-container-list w-full min-w-0 list-none p-0 m-0 min-[700px]:flex min-[700px]:flex-row min-[700px]:gap-3">
             {navigationItems.map((item) => (
-              <NavigationMenuItem key={item.id} className="flex-1 min-[700px]:flex-initial">
+              <li key={item.id} className="w-full min-w-0 min-[700px]:flex-1">
                 <Button
-                  className={`w-full px-2 min-[700px]:px-6 py-2 min-[700px]:py-3 text-base retro-pulse ${activeTab === item.id ? 'neon-text-pink' : ''}`}
+                  variant={activeTab === item.id ? 'default' : 'outline'}
+                  className={cn(
+                    'w-full min-h-12 px-4 min-[700px]:px-5 py-3 min-[700px]:py-2.5 text-base nav-tab',
+                    activeTab === item.id ? 'nav-tab-active' : 'nav-tab-inactive'
+                  )}
                   onClick={() => onTabChange(item.id)}
                   type="button"
                   aria-label={item.ariaLabel}
+                  aria-current={activeTab === item.id ? 'page' : undefined}
                   data-cy={item.dataCy}
                 >
                   {item.label}
                 </Button>
-              </NavigationMenuItem>
+              </li>
             ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+          </ul>
+        </nav>
       </div>
     </header>
   )
-} 
+}

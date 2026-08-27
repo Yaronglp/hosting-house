@@ -34,7 +34,7 @@ export default defineConfig(({ command, mode }) => {
           start_url: base,
           display: 'standalone',
           background_color: '#ffffff',
-          theme_color: '#111827',
+          theme_color: '#ea580c',
           icons: [
             { src: `${base}icons/house192.png`, sizes: '192x192', type: 'image/png' },
             { src: `${base}icons/house512.png`, sizes: '512x512', type: 'image/png' },

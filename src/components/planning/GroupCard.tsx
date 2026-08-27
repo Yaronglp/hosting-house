@@ -29,7 +29,7 @@ export const GroupCard = memo(({
   <div
     className={`border rounded-lg p-3 padding-default cursor-pointer transition-colors ${
       isTargetable 
-        ? 'border-neon-cyan bg-[var(--overlay-neon-cyan-10)] hover:bg-[var(--overlay-neon-cyan-20)]' 
+        ? 'border-primary selected-surface hover:bg-[var(--overlay-accent-14)]' 
         : 'border-muted hover:border-muted-foreground'
     }`}
     onClick={onGroupClick}
@@ -37,7 +37,7 @@ export const GroupCard = memo(({
   >
     {/* Host */}
     <div className="flex items-center gap-2 mb-2">
-      <Crown className="h-4 w-4 text-neon-orange padding-left-default" />
+      <Crown className="h-4 w-4 host-badge padding-left-default" />
       <span className="text-xl" data-cy="host-student">
        {host.name} ({group.memberIds.length} אורחים)
       </span>

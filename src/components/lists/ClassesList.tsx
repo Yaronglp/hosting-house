@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
+import { cn } from '@/components/ui/utils'
 import { useClasses } from '@/hooks/useClasses'
 import { Student, KV_KEYS } from '@/lib/types'
 import { kvGet } from '@/lib/db'
@@ -9,6 +10,8 @@ import { useAnnouncer } from '@/hooks/useAccessibility'
 import { useToast } from '@/hooks/useToast'
 import { Trash2, Edit, Users, Award } from 'lucide-react'
 import { ConfirmDialog } from '@/components/ui/Dialog'
+
+const ACTIVE_CLASS_INDICATOR: 'badge' | 'footer' | 'footer-all' = 'badge'
 
 interface ClassesListProps {
   currentClassId: string | null
@@ -87,8 +90,8 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
   }
 
   return (
-    <div className="space-y-4 w-full">
-      <div className="flex justify-between items-center padding-bottom-default">    
+    <div className="w-full">
+      <div className="flex justify-between items-center padding-bottom-default mb-2">
         <p className="text-lg text-muted-foreground">
           {classes.length} כיתות מוגדרות
         </p>
@@ -96,12 +99,13 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
           הוסף כיתה חדשה
         </Button>
       </div>
-      
+
+      <div className="classes-list">
       {classes.map((cls) => (
         <Card 
           key={cls.id} 
-          className={`w-full cursor-pointer transition-all hover:shadow-md focus-within:ring-2 focus-within:ring-neon-cyan ${
-            currentClassId === cls.id ? 'ring-2 ring-neon-cyan bg-[var(--overlay-neon-cyan-10)]' : ''
+          className={`w-full cursor-pointer transition-all hover:shadow-md focus-within:ring-2 focus-within:ring-primary ${
+            currentClassId === cls.id ? 'ring-2 ring-primary ring-offset-2 selected-surface' : ''
           }`}
           onClick={() => handleSelectClass(cls.id)}
           role="button"
@@ -118,7 +122,15 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <CardHeader>
-              <CardTitle>{cls.name}</CardTitle>
+                <div className="flex flex-wrap items-center gap-2">
+                  <CardTitle>{cls.name}</CardTitle>
+                  {ACTIVE_CLASS_INDICATOR === 'badge' && currentClassId === cls.id && (
+                    <span className="active-class-badge" data-cy="active-class-badge">
+                      <Award className="h-3.5 w-3.5" aria-hidden="true" />
+                      כיתה פעילה
+                    </span>
+                  )}
+                </div>
                 {cls.year && (
                   <CardDescription>שנת לימודים {cls.year}</CardDescription>
                 )}
@@ -142,7 +154,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
                     onClassSettings(cls.id)
                   }}
                   aria-label={`הגדרות כיתה ${cls.name}`}
-                  className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
+                  className="h-8 w-8 p-0 interactive-surface focus:ring-2 focus:ring-primary"
                   data-cy="settings-button"
                 >
                   ⚙️
@@ -157,7 +169,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
                   onClassEdit(cls.id)
                 }}
                 aria-label={`ערוך כיתה ${cls.name}`}
-                className="h-8 w-8 p-0 hover:bg-[var(--overlay-neon-cyan-10)] focus:ring-2 focus:ring-neon-cyan"
+                className="h-8 w-8 p-0 interactive-surface focus:ring-2 focus:ring-primary"
                 data-cy="edit-class-button"
               >
                 <Edit className="h-4 w-4" />
@@ -184,15 +196,22 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
             </div>
           </div>
           
-          <CardFooter className={`text-[var(--selection-info-text)] ${
-              currentClassId !== cls.id && 'text-transparent bg-transparent pointer-events-none select-none'
-            }`}>
-            <Award className="h-4 w-4" />
-            <span className="padding-right-default">כיתה פעילה</span>
-          </CardFooter>
+          {ACTIVE_CLASS_INDICATOR !== 'badge' &&
+            (ACTIVE_CLASS_INDICATOR === 'footer-all' || currentClassId === cls.id) && (
+            <CardFooter className={cn(
+              'card-footer-meta',
+              currentClassId === cls.id
+                ? 'text-[var(--selection-info-text)]'
+                : 'text-transparent bg-transparent pointer-events-none select-none border-transparent'
+            )}>
+              <Award className="h-4 w-4" />
+              <span className="padding-right-default">כיתה פעילה</span>
+            </CardFooter>
+          )}
         </Card>
       ))}
-      
+      </div>
+
       <ConfirmDialog
         isOpen={!!deleteConfirm}
         onClose={() => setDeleteConfirm(null)}

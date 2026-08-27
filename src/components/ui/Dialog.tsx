@@ -70,20 +70,7 @@ export function Dialog({
 
   const dialogContent = (
     <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 99999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'var(--overlay-dark)',
-        backdropFilter: 'blur(4px)',
-        padding: '1rem'
-      }}
+      className="modal-overlay"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose()
@@ -96,9 +83,9 @@ export function Dialog({
         aria-modal="true"
         aria-labelledby="dialog-title"
         tabIndex={-1}
-        className="w-full max-w-md animate-in zoom-in-95 fade-in duration-200"
+        className="modal-panel animate-in zoom-in-95 duration-200"
       >
-        <Card className="w-full shadow-2xl border-2 bg-card">
+        <Card className="w-full border-0 bg-transparent shadow-none">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle id="dialog-title">{title}</CardTitle>

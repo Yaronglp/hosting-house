@@ -54,13 +54,14 @@ export function PlanGeneratorView({
                 disabled={!canGenerate || isGenerating}
                 aria-label="צור תוכנית חדשה"
                 data-cy="generate-plan-button"
+                className="cta-primary"
               >
                 {isGenerating ? 'מחשב...' : 'צור תוכנית'}
               </Button>
             </div>
           </div>
         </CardHeader>
-        <CardFooter className="text-xl">
+        <CardFooter className="card-footer-meta">
           תלמידים: {students.length} • תאריכי מפגש: {sortedRounds.length}
         </CardFooter>
       </Card>

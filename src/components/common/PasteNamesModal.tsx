@@ -82,21 +82,8 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
   if (!mounted) return null
 
   const modalContent = (
-    <div 
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 99999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'var(--overlay-dark)',
-        backdropFilter: 'blur(4px)',
-        padding: '1rem'
-      }}
+    <div
+      className="modal-overlay"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose()
@@ -106,8 +93,8 @@ export function PasteNamesModal({ classId, groupSize, onClose, onStudentsAdded }
       aria-modal="true"
       data-cy="paste-modal"
     >
-      <div className="w-full max-w-md animate-in zoom-in-95 fade-in duration-200">
-        <Card className="w-full shadow-2xl border-2 bg-card">
+      <div className="modal-panel animate-in zoom-in-95 duration-200">
+        <Card className="w-full border-0 bg-transparent shadow-none">
           <CardHeader>
             <CardTitle>הוסף תלמידים</CardTitle>
           </CardHeader>

@@ -6,9 +6,8 @@ describe('AppHeader Component', () => {
     cy.mount(<AppHeader activeTab="classes" onTabChange={() => {}} />)
     
     cy.get('[data-cy="app-header"]').should('be.visible')
-    cy.get('[data-cy="app-header"]').should('contain', '🏠 בית מארח')
+    cy.get('[data-cy="app-header"]').should('contain', 'בית מארח')
     
-    // Check all navigation tabs are present
     cy.get('[data-cy="tab-classes"]').should('be.visible')
     cy.get('[data-cy="tab-students"]').should('be.visible')
     cy.get('[data-cy="tab-rounds"]').should('be.visible')
@@ -30,10 +29,10 @@ describe('AppHeader Component', () => {
   it('should highlight active tab', () => {
     cy.mount(<AppHeader activeTab="students" onTabChange={() => {}} />)
     
-    cy.get('[data-cy="tab-students"]').should('have.class', 'neon-text-pink')
-    cy.get('[data-cy="tab-classes"]').should('not.have.class', 'neon-text-pink')
-    cy.get('[data-cy="tab-rounds"]').should('not.have.class', 'neon-text-pink')
-    cy.get('[data-cy="tab-plan"]').should('not.have.class', 'neon-text-pink')
+    cy.get('[data-cy="tab-students"]').should('have.attr', 'aria-current', 'page')
+    cy.get('[data-cy="tab-classes"]').should('not.have.attr', 'aria-current')
+    cy.get('[data-cy="tab-rounds"]').should('not.have.attr', 'aria-current')
+    cy.get('[data-cy="tab-plan"]').should('not.have.attr', 'aria-current')
   })
 
   it('should call onTabChange when tab is clicked', () => {
@@ -56,13 +55,11 @@ describe('AppHeader Component', () => {
   it('should be accessible', () => {
     cy.mount(<AppHeader activeTab="classes" onTabChange={() => {}} />)
     
-    // Check ARIA attributes
     cy.get('[data-cy="tab-classes"]').should('have.attr', 'type', 'button')
     cy.get('[data-cy="tab-students"]').should('have.attr', 'type', 'button')
     cy.get('[data-cy="tab-rounds"]').should('have.attr', 'type', 'button')
     cy.get('[data-cy="tab-plan"]').should('have.attr', 'type', 'button')
     
-    // Check keyboard navigation
     cy.get('[data-cy="tab-classes"]').focus()
     cy.get('[data-cy="tab-classes"]').should('be.focused')
   })
@@ -72,11 +69,10 @@ describe('AppHeader Component', () => {
     
     tabs.forEach(tab => {
       cy.mount(<AppHeader activeTab={tab} onTabChange={() => {}} />)
-      cy.get(`[data-cy="tab-${tab}"]`).should('have.class', 'neon-text-pink')
+      cy.get(`[data-cy="tab-${tab}"]`).should('have.attr', 'aria-current', 'page')
       
-      // Other tabs should not be active
       tabs.filter(t => t !== tab).forEach(otherTab => {
-        cy.get(`[data-cy="tab-${otherTab}"]`).should('not.have.class', 'neon-text-pink')
+        cy.get(`[data-cy="tab-${otherTab}"]`).should('not.have.attr', 'aria-current')
       })
     })
   })

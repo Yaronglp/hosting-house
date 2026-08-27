@@ -29,3 +29,9 @@ tsconfig.tsbuildinfo
 cypress/screenshots
 cypress/videos
 cypress/downloads
+
+# AI related files
+.claude/*
+.agents/*
+.cursor/*
+skills-lock.json

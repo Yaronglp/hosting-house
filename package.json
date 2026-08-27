@@ -16,7 +16,6 @@
     "test:all": "cypress run && cypress run --component"
   },
   "dependencies": {
-    "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
