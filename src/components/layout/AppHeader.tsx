@@ -9,16 +9,10 @@ interface AppHeaderProps {
 
 const navigationItems = [
   {
-    id: 'plan',
-    label: 'תכנון',
-    ariaLabel: 'תכנון',
-    dataCy: 'tab-plan'
-  },
-  {
-    id: 'rounds',
-    label: 'תאריכי מפגשים',
-    ariaLabel: 'תאריכי מפגשים',
-    dataCy: 'tab-rounds'
+    id: 'classes',
+    label: 'כיתות',
+    ariaLabel: 'כיתות',
+    dataCy: 'tab-classes'
   },
   {
     id: 'students',
@@ -27,10 +21,16 @@ const navigationItems = [
     dataCy: 'tab-students'
   },
   {
-    id: 'classes',
-    label: 'כיתות',
-    ariaLabel: 'כיתות',
-    dataCy: 'tab-classes'
+    id: 'rounds',
+    label: 'תאריכי מפגשים',
+    ariaLabel: 'תאריכי מפגשים',
+    dataCy: 'tab-rounds'
+  },
+  {
+    id: 'plan',
+    label: 'תכנון',
+    ariaLabel: 'תכנון',
+    dataCy: 'tab-plan'
   }
 ]
 

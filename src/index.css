@@ -535,11 +535,6 @@ textarea::placeholder {
     margin: 0;
   }
 
-  .navigation-container-list > *:nth-child(1) { order: 3; }
-  .navigation-container-list > *:nth-child(2) { order: 4; }
-  .navigation-container-list > *:nth-child(3) { order: 1; }
-  .navigation-container-list > *:nth-child(4) { order: 2; }
-
   .navigation-container-list button {
     display: flex;
     width: 100%;
