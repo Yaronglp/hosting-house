@@ -44,7 +44,7 @@ export function createSkipLink(targetId: string, text: string = 'דלג לתוכ
   const skipLink = document.createElement('a')
   skipLink.href = `#${targetId}`
   skipLink.textContent = text
-  skipLink.className = 'sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50'
+  skipLink.className = 'sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 rounded-[var(--radius-button)] bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-medium'
   
   skipLink.addEventListener('click', (e) => {
     e.preventDefault()

@@ -56,7 +56,7 @@ export function ToastItem({ toast, onClose }: ToastItemProps) {
       <Button
         variant="ghost"
         size="sm"
-        className="h-6 w-6 p-0 hover:bg-black/10"
+        className="h-6 w-6 min-h-0 p-0"
         onClick={() => onClose(toast.id)}
         aria-label="סגור הודעה"
       >
