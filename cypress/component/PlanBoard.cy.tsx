@@ -77,8 +77,8 @@ describe('PlanBoard Component', () => {
     cy.mount(<PlanBoard {...defaultProps} />)
 
     cy.get('[data-cy="student-chip"]').first().click()
-    cy.get('[data-cy="student-chip"]').first().should('have.class', 'bg-blue-600 text-white')
-    cy.get('[data-cy="student-chip"]').eq(2).should('have.class', 'bg-gray-100 text-gray-700 hover:bg-gray-200')
+    cy.get('[data-cy="student-chip"]').first().should('have.class', 'bg-[hsl(var(--primary))]')
+    cy.get('[data-cy="student-chip"]').eq(2).should('have.class', 'bg-[hsl(var(--background))]')
   })
 
   it('should handle student movement between groups', () => {
