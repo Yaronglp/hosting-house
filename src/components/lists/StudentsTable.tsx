@@ -115,13 +115,8 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
                   <Button
                     onClick={() => toggleCanHost(student.id)}
                     size="sm"
-                    variant={student.canHost ? "default" : "ghost"}
-                    style={{ width: '40px' }}
-                    className={`px-2 py-1 text-base font-medium ${
-                      student.canHost 
-                        ? 'bg-green-100 text-green-800 hover:bg-green-200' 
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
+                    variant={student.canHost ? 'default' : 'outline'}
+                    className="min-w-[3rem]"
                     data-cy="student-can-host-toggle"
                   >
                     {student.canHost ? 'כן' : 'לא'}

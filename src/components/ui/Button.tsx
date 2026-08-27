@@ -5,27 +5,27 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/components/ui/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-button)] border border-solid text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer appearance-none bg-clip-padding",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-button)] border border-solid text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer appearance-none bg-clip-padding min-h-12",
   {
     variants: {
       variant: {
         default:
-          "border-primary bg-primary text-primary-foreground hover:bg-primary/90 hover:border-primary/90 padding-default",
+          "border-[hsl(var(--primary))] bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:bg-[hsl(var(--primary)/0.9)] hover:border-[hsl(var(--primary)/0.9)]",
         destructive:
-          "border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:border-destructive/90 padding-default",
+          "border-[hsl(var(--destructive))] bg-[hsl(var(--destructive))] text-[hsl(var(--destructive-foreground))] hover:bg-[hsl(var(--destructive)/0.9)] hover:border-[hsl(var(--destructive)/0.9)]",
         outline:
-          "border-border bg-background text-foreground hover:bg-accent/10 hover:text-accent-foreground padding-default",
+          "border-[hsl(var(--border))] bg-[hsl(var(--background))] text-[hsl(var(--foreground))] hover:bg-[var(--overlay-accent-8)]",
         secondary:
-          "border-secondary bg-secondary text-secondary-foreground hover:bg-secondary/80 padding-default",
+          "border-[hsl(var(--secondary))] bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:bg-[hsl(var(--secondary)/0.8)]",
         ghost:
-          "border-transparent bg-transparent text-foreground hover:bg-accent/10 hover:border-transparent padding-default",
-        link: "border-transparent bg-transparent text-primary underline-offset-4 hover:underline padding-default",
+          "border-transparent bg-transparent text-[hsl(var(--foreground))] hover:bg-[var(--overlay-accent-8)] hover:border-transparent",
+        link: "border-transparent bg-transparent text-[hsl(var(--primary))] underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-8 px-3 text-sm",
-        lg: "h-12 px-8 text-base",
-        icon: "h-10 w-10",
+        default: "h-12 px-5 py-3",
+        sm: "h-10 min-h-10 px-4 py-2 text-base",
+        lg: "h-14 px-8 py-3",
+        icon: "h-12 w-12 min-h-12",
       },
     },
     defaultVariants: {

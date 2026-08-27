@@ -8,7 +8,7 @@ import { kvGet } from '@/lib/db'
 import { EmptyClassesState } from '@/components/common/EmptyClassesState'
 import { useAnnouncer } from '@/hooks/useAccessibility'
 import { useToast } from '@/hooks/useToast'
-import { Trash2, Edit, Users, Award } from 'lucide-react'
+import { Trash2, Edit, Users, Award, Settings } from 'lucide-react'
 import { ConfirmDialog } from '@/components/ui/Dialog'
 
 const ACTIVE_CLASS_INDICATOR: 'badge' | 'footer' | 'footer-all' = 'badge'
@@ -157,7 +157,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
                   className="h-8 w-8 p-0 interactive-surface focus:ring-2 focus:ring-primary"
                   data-cy="settings-button"
                 >
-                  ⚙️
+                  <Settings className="h-4 w-4" aria-hidden="true" />
                 </Button>
               )}
               
