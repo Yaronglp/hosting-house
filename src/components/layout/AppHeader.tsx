@@ -59,7 +59,7 @@ export function AppHeader({ currentClassName, activeTab, onTabChange }: AppHeade
                 <Button
                   variant={activeTab === item.id ? 'default' : 'outline'}
                   className={cn(
-                    'w-full min-h-12 px-4 min-[700px]:px-5 py-3 min-[700px]:py-2.5 nav-tab',
+                    'w-full min-h-14 px-4 min-[700px]:min-h-12 min-[700px]:px-5 py-3 min-[700px]:py-2.5 nav-tab',
                     activeTab === item.id ? 'nav-tab-active' : 'nav-tab-inactive'
                   )}
                   onClick={() => onTabChange(item.id)}

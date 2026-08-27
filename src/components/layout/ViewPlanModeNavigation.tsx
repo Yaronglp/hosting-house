@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
-import { cn } from '@/components/ui/utils'
+import { cn, compactButtonLabelClass } from '@/components/ui/utils'
 import { Eye, Table, Share } from 'lucide-react'
 
 type ViewMode = 'generator' | 'board' | 'table' | 'share'
@@ -61,9 +61,9 @@ export function ViewPlanModeNavigation({
               <Button
                 key={item.id}
                 variant={isActive ? 'default' : 'outline'}
-                size="sm"
                 className={cn(
-                  'view-mode-tab',
+                  'view-mode-tab min-h-14 min-[700px]:min-h-12',
+                  compactButtonLabelClass,
                   isActive ? 'view-mode-tab-active' : 'view-mode-tab-inactive'
                 )}
                 onClick={() => onViewModeChange(item.id)}
@@ -72,7 +72,7 @@ export function ViewPlanModeNavigation({
                 aria-label={item.ariaLabel}
                 data-cy={item.dataCy}
               >
-                {Icon && <Icon className="h-4 w-4 ml-2 padding-left-default" />}
+                {Icon && <Icon className="h-5 w-5 ml-2 padding-left-default" />}
                 {item.label}
               </Button>
             )

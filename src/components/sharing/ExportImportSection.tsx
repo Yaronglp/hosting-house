@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
+import { compactButtonLabelClass } from '@/components/ui/utils'
 import { Assignment, Student, Round, Class } from '@/lib/types'
 import { 
   exportToJSON, 
@@ -98,25 +99,25 @@ export function ExportImportSection({
     <>
       <div className="space-y-2">
         <h4 className="font-medium mb-2">גיבוי והעברה</h4>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-3">
           <Button 
             variant="outline" 
-            size="sm" 
             onClick={handleExportJSON}
             disabled={!hasData}
             data-cy="export-json-button"
+            className={compactButtonLabelClass}
           >
-            <Download className="h-4 w-4 ml-2 padding-left-default" />
+            <Download className="h-5 w-5 ml-2 padding-left-default" />
             ייצא נתונים
           </Button>
           <Button 
             variant="outline" 
-            size="sm" 
             disabled={!onImportData || isImporting}
             onClick={() => document.getElementById('import-file-input')?.click()}
             data-cy="import-json-button"
+            className={compactButtonLabelClass}
           >
-            <Upload className="h-4 w-4 ml-2 padding-left-default" />
+            <Upload className="h-5 w-5 ml-2 padding-left-default" />
             {isImporting ? 'מייבא...' : 'ייבא נתונים'}
           </Button>
           <input

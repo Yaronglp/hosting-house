@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
+import { cn, compactButtonLabelClass } from '@/components/ui/utils'
 import { Card, CardContent } from '@/components/ui/Card'
 import { useStudents } from '@/hooks/useStudents'
 import { useToast } from '@/hooks/useToast'
@@ -61,8 +62,8 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
         <CardContent className="flex flex-col items-center justify-center py-12">
           <p className="mb-4 text-xl">אין תלמידים בכיתה</p>
           <div className="flex gap-2">
-            <Button onClick={onStudentAdd} data-cy="add-student-button">הוסף תלמיד</Button>
-            <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button">הזן רשימת שמות תלמידים</Button>
+            <Button onClick={onStudentAdd} data-cy="add-student-button" className={compactButtonLabelClass}>הוסף תלמיד</Button>
+            <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button" className={compactButtonLabelClass}>הזן רשימת שמות תלמידים</Button>
           </div>
         </CardContent>
       </Card>
@@ -79,10 +80,10 @@ export function StudentsTable({ classId, onStudentEdit, onStudentAdd, onPasteNam
           </p>
         </div>
         <div className="students-actions-buttons">
-          <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button" className="students-actions-button">
+          <Button variant="outline" onClick={onPasteNames} data-cy="paste-names-button" className={cn('students-actions-button', compactButtonLabelClass)}>
           הזן רשימת שמות תלמידים
           </Button>
-          <Button onClick={onStudentAdd} data-cy="add-student-button" className="students-actions-button">
+          <Button onClick={onStudentAdd} data-cy="add-student-button" className={cn('students-actions-button', compactButtonLabelClass)}>
             הוסף תלמיד
           </Button>
         </div>

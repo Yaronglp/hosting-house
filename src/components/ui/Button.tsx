@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/components/ui/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-button)] border border-solid text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer appearance-none bg-clip-padding min-h-12",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-button)] border border-solid text-[1.25rem] leading-normal min-[700px]:text-[1.0625rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer appearance-none bg-clip-padding min-h-12",
   {
     variants: {
       variant: {
@@ -23,7 +23,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-12 px-5 py-3",
-        sm: "h-10 min-h-10 px-4 py-2 text-base",
+        sm: "h-10 min-h-10 px-4 py-2 text-[1.0625rem] min-[700px]:text-base",
         lg: "h-14 px-8 py-3",
         icon: "h-12 w-12 min-h-12",
       },

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
+import { compactButtonLabelClass } from '@/components/ui/utils'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card'
 import { useKV } from '@/hooks/useKV'
 import { Round, Assignment, KV_KEYS } from '@/lib/types'
@@ -56,7 +57,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
       <Card data-cy="empty-rounds-state">
         <CardContent className="flex flex-col items-center justify-center py-12">
           <p className="mb-4 text-xl">אין תאריכי מפגשים בכיתה</p>
-          <Button onClick={onRoundAdd} data-cy="add-round-button">הוסף תאריך מפגש</Button>
+          <Button onClick={onRoundAdd} data-cy="add-round-button" className={compactButtonLabelClass}>הוסף תאריך מפגש</Button>
         </CardContent>
       </Card>
     )
@@ -70,7 +71,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
             {rounds.length} תאריכי מפגשים מוגדרים
           </p>
         </div>
-        <Button onClick={onRoundAdd} data-cy="add-round-button">
+        <Button onClick={onRoundAdd} data-cy="add-round-button" className={compactButtonLabelClass}>
           הוסף תאריך מפגש
         </Button>
       </div>
@@ -97,6 +98,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
                     size="sm"
                     onClick={() => onRoundEdit(round.id)}
                     data-cy="edit-round-button"
+                    className={compactButtonLabelClass}
                   >
                     ערוך
                   </Button>
@@ -106,6 +108,7 @@ export function RoundsList({ classId, onRoundEdit, onRoundAdd }: RoundsListProps
                     disabled={isDeleting === round.id}
                     onClick={() => handleDeleteClick(round.id)}
                     data-cy="delete-round-button"
+                    className={compactButtonLabelClass}
                   >
                     {isDeleting === round.id ? 'מוחק...' : 'מחק'}
                   </Button>

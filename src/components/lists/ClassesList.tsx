@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
-import { cn } from '@/components/ui/utils'
+import { cn, compactButtonLabelClass } from '@/components/ui/utils'
 import { useClasses } from '@/hooks/useClasses'
 import { Student, KV_KEYS } from '@/lib/types'
 import { kvGet } from '@/lib/db'
@@ -95,7 +95,7 @@ export function ClassesList({ currentClassId, onClassSelect, onClassEdit, onClas
         <p className="text-lg text-muted-foreground">
           {classes.length} כיתות מוגדרות
         </p>
-        <Button onClick={onClassAdd} data-cy="add-class-button">
+        <Button onClick={onClassAdd} data-cy="add-class-button" className={compactButtonLabelClass}>
           הוסף כיתה חדשה
         </Button>
       </div>

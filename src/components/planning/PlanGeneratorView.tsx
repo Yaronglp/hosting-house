@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button'
+import { cn, compactButtonLabelClass } from '@/components/ui/utils'
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/Card'
 import { Student, Round } from '@/lib/types'
 import { EmptyPlanState } from '@/components/common/EmptyPlanState'
@@ -54,7 +55,7 @@ export function PlanGeneratorView({
                 disabled={!canGenerate || isGenerating}
                 aria-label="צור תוכנית חדשה"
                 data-cy="generate-plan-button"
-                className="cta-primary"
+                className={cn('cta-primary', compactButtonLabelClass)}
               >
                 {isGenerating ? 'מחשב...' : 'צור תוכנית'}
               </Button>

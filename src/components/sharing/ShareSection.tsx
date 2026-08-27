@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button'
+import { compactButtonLabelClass } from '@/components/ui/utils'
 import { Assignment, Student, Round, Class } from '@/lib/types'
 import { 
   generateHebrewSummary, 
@@ -73,25 +74,25 @@ export function ShareSection({
   return (
     <div className="space-y-2">
       <h4 className="font-medium mb-2">שיתוף הודעה</h4>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-3">
         <Button 
           variant="outline" 
-          size="sm" 
           onClick={handleGenerateSummary}
           disabled={!hasData}
           data-cy="whatsapp-share-button"
+          className={compactButtonLabelClass}
         >
-          <MessageCircle className="h-4 w-4 ml-2 padding-left-default" />
+          <MessageCircle className="h-5 w-5 ml-2 padding-left-default" />
           שתף ב-WhatsApp
         </Button>
         <Button 
           variant="outline" 
-          size="sm" 
           onClick={handleCopyToClipboard}
           disabled={!hasData}
           data-cy="copy-to-clipboard-button"
+          className={compactButtonLabelClass}
         >
-          <Copy className="h-4 w-4 ml-2 padding-left-default" />
+          <Copy className="h-5 w-5 ml-2 padding-left-default" />
           העתק ללוח
         </Button>
       </div>
